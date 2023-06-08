@@ -1,6 +1,6 @@
 import { useAppDispatch } from "<@>/store/hooks";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthImage from "./AuthImage";
 import InputField from "./InputField";
 
@@ -16,6 +16,7 @@ const Signin = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [errors, setErrors] = useState<Partial<FormValues>>({});
   const { email, password } = formValue;
+  const [rememberMe, setRememberMe] = useState(false);
   const handleChange = (e: any) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
@@ -40,6 +41,30 @@ const Signin = () => {
       setErrors(validationErrors);
     }
   };
+  useEffect(() => {
+    // Retrieve email and password from local storage
+    const storedEmail = localStorage.getItem("rememberMeEmail");
+    const storedPassword = localStorage.getItem("rememberMePassword");
+
+    if (storedEmail && storedPassword) {
+      setFormValue({
+        ...formValue,
+        email: storedEmail,
+        password: storedPassword,
+      });
+      setRememberMe(true);
+    }
+  }, []);
+  useEffect(() => {
+    // Save email and password to local storage
+    if (rememberMe) {
+      localStorage.setItem("rememberMeEmail", email);
+      localStorage.setItem("rememberMePassword", password);
+    } else {
+      localStorage.removeItem("rememberMeEmail");
+      localStorage.removeItem("rememberMePassword");
+    }
+  }, [email, password, rememberMe]);
   const handleSignup = () => {
     router.push("/auth/signup");
   };

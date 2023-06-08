@@ -1,6 +1,6 @@
 import { useAppDispatch } from "<@>/store/hooks";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthImage from "./AuthImage";
 import InputField from "./InputField";
 
@@ -23,6 +23,7 @@ interface FormValues {
 const Signup = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [errors, setErrors] = useState<Partial<FormValues>>({});
+  const [rememberMe, setRememberMe] = useState(false);
   const { name, phoneNumber, telegramHandle, email, password, password2 } =
     formValue;
   const handleChange = (e: any) => {
@@ -77,6 +78,16 @@ const Signup = () => {
   const handleLogin = () => {
     router.push("/auth/signin");
   };
+  useEffect(() => {
+    // Save email and password to local storage
+    if (rememberMe) {
+      localStorage.setItem("rememberMeEmail", email);
+      localStorage.setItem("rememberMePassword", password);
+    } else {
+      localStorage.removeItem("rememberMeEmail");
+      localStorage.removeItem("rememberMePassword");
+    }
+  }, [email, password, rememberMe]);
 
   return (
     <div className="min-h-screen flex justify-center items-center">
@@ -99,7 +110,7 @@ const Signup = () => {
           </div>
         </h4>
         <form className="flex flex-col space-y-2">
-        <InputField
+          <InputField
             label="Name"
             name="name"
             type="text"
@@ -159,6 +170,8 @@ const Signup = () => {
               className="mt-1 mr-2"
               name="remember"
               id="remember"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
             />
             <label
               htmlFor="remember"
