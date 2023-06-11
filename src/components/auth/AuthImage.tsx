@@ -1,16 +1,16 @@
 import Image from "next/image";
 import React from "react";
-
 const AuthImage = () => {
+  const imageUrl = 'https://github.com/Endalebob/t-web-project/blob/main/public/images/a2Sv.png';
   return (
-    <div className="h-screen w-1/2 bg-cover bg-center relative bg-[url('images/a2Sv.png')] brightness-75">
+<div className="h-screen w-1/2 bg-cover bg-center relative" style={{ backgroundImage: `url(${imageUrl})`, filter: 'brightness(75%)' }}>
       <div className="absolute inset-0 bg-sky-700 opacity-70"></div>
       <div className="absolute inset-0 justify-center">
         <div className="m-5 flex flex-col h-full justify-between">
-          <Image
+          <img
             width={100}
             height={100}
-            src="images/logo.png"
+            src="https://github.com/Endalebob/t-web-project/blob/main/public/images/logo.png"
             alt="logo"
             className="w-40"
           />
@@ -23,8 +23,8 @@ const AuthImage = () => {
               framework.
             </p>
             <div className="flex gap-2 mt-5 items-center">
-              <Image
-                src="images/Group.png"
+              <img
+                src="https://github.com/Endalebob/t-web-project/blob/main/public/images/Group.png"
                 alt="group image"
                 width={192}
                 height={20}
