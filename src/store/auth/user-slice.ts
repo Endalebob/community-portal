@@ -20,7 +20,7 @@ const initialState: User = {
     codeforcesUsername: "",
     hackerrankUsername: "",
     linkedinUrl: "",
-    cv: "",
+    cv: null,
     programmingLanguage: "",
   },
 };

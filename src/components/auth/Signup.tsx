@@ -95,7 +95,7 @@ const Signup = () => {
 
       <div className="flex flex-col w-1/2 justify-center items-center pb-8 rounded-lg">
         <h1 className="mt-8 pb-2 text-center text-3xl font-bold text-primary-text">
-          Log in to your account
+          Sign up to A2SV Community
         </h1>
         <h4 className="pb-4">
           <div className="flex flex-wrap gap-2 text-secondary-text">

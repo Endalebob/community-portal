@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import InputField from "../auth/InputField";
 import User from "<@>/types/user";
 import { africanCountries } from "<@>/constants/african-countries";
+import Image from "next/image";
+import Link from "next/link";
 
 const Edit = () => {
   // const token = JSON.parse(localStorage.getItem("user") || "{}") || {};
@@ -13,7 +15,7 @@ const Edit = () => {
   const { data } = useAppSelector((state) => state.user);
   const [formValue, setFormValue] = useState(data);
   const [errors, setErrors] = useState<Partial<User["data"]>>({});
-
+  const [imagePreview, setImagePreview] = useState("");
   const {
     name,
     email,
@@ -83,6 +85,28 @@ const Edit = () => {
 
   const handleChange = (e: any) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
+  };
+  const handleImageUpload = (e: any) => {
+    setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
+    console.log(e.target.files[0]);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result as string);
+    };
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    } else {
+      setImagePreview("");
+    }
+  };
+  const handlePdfUpload = (e: any) => {
+    setFormValue({ ...formValue, cv: e.target.files[0] });
+  };
+  const openPdfInNewTab = () => {
+    if (formValue.cv) {
+      const url = URL.createObjectURL(formValue.cv);
+      window.open(url, "_blank");
+    }
   };
 
   return (
@@ -177,15 +201,26 @@ const Edit = () => {
               className="border max-w-[390px] rounded-md py-1 px-3 mt-1 border-gray-300 placeholder-white-400"
             />
           </div>
-          {/* <InputField
-            label="Profile Picture"
-            name="profilePicture"
-            type="text"
-            placeholder="Enter your profile picture"
-            value={profilePicture}
-            onChange={handleChange}
-            error={errors.profilePicture}
-          /> */}
+          {/* this field is used to upload profile picture */}
+          <div className="flex flex-col">
+            <p className="text-primary-text text-[14px] font-semibold">
+              Profile Picture
+            </p>
+            <div className="flex flex-row gap-4">
+              <input
+                type="file"
+                name="profilePicture"
+                placeholder=""
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="border max-w-[390px] max-h-8 rounded-md  mt-1 border-gray-300 placeholder-white-400"
+              />
+              {imagePreview && (
+                <Image width={120} height={40} src={imagePreview} alt="" />
+              )}
+            </div>
+          </div>
+
           <div className="flex flex-row gap-4">
             <div className="flex flex-col">
               <InputField
@@ -291,17 +326,26 @@ const Edit = () => {
           </div>
           <div className="flex flex-row gap-4 mb-5">
             <div className="flex flex-col">
-              {" "}
-              <InputField
-                label="CV"
-                name="cv"
-                type="text"
-                placeholder=""
-                value={cv}
-                onChange={handleChange}
-                error={errors.cv}
-                width="min-w-[300px]"
-              />
+              <p className="text-primary-text text-[14px] font-semibold">CV</p>
+              <div className="flex flex-row gap-4 items-end">
+                <input
+                  type="file"
+                  name="cv"
+                  placeholder=""
+                  accept="application/pdf"
+                  onChange={handlePdfUpload}
+                  className="border max-w-[250px] max-h-8 rounded-md  mt-1 border-gray-300 placeholder-white-400"
+                />
+                {formValue.cv && (
+                  <Link
+                    href="#"
+                    className="text-blue-500 underline hover:text-blue-700 mr-5"
+                    onClick={openPdfInNewTab}
+                  >
+                    {formValue.cv.name}
+                  </Link>
+                )}
+              </div>
             </div>
             <div className="flex flex-col">
               <InputField

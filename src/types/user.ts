@@ -17,7 +17,7 @@ export default interface User {
     codeforcesUsername: string;
     hackerrankUsername: string;
     linkedinUrl: string;
-    cv: string;
+    cv: File|null;
     programmingLanguage: string;
   };
 }
