@@ -6,10 +6,10 @@ const initialState: User = {
   data: {
     id: 0,
     name: "",
-    email: "hello@gmail.com",
-    phoneNumber: "jjjj",
+    email: "",
+    phoneNumber: "",
     telegramHandle: "",
-    country: "Ethiopia",
+    country: "",
     shortBio: "",
     profilePicture: "",
     university: "",

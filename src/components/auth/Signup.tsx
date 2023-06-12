@@ -79,7 +79,6 @@ const Signup = () => {
     router.push("/auth/signin");
   };
   useEffect(() => {
-    // Save email and password to local storage
     if (rememberMe) {
       localStorage.setItem("rememberMeEmail", email);
       localStorage.setItem("rememberMePassword", password);
@@ -105,7 +104,7 @@ const Signup = () => {
               style={{ cursor: "pointer" }}
               onClick={handleLogin}
             >
-              login
+              Login
             </p>
           </div>
         </h4>

@@ -79,13 +79,13 @@ const Signin = () => {
         </h1>
         <h4 className="pb-4">
           <div className="flex flex-wrap gap-1 text-secondary-text">
-            don't have an account?
+            Don't have an account?
             <p
               className=" text-primary font-semibold"
               style={{ cursor: "pointer" }}
               onClick={handleSignup}
             >
-              signup
+              Signup
             </p>
           </div>
         </h4>
