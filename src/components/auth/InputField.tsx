@@ -20,7 +20,7 @@ const InputField: React.FC<InputFieldProps> = ({
   value,
   onChange,
   error,
-  width = "min-w-[390px]",
+  width = "max-w-[80%]",
   height = "min-h-[2rem]",
 }) => {
   return (

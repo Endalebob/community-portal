@@ -73,7 +73,7 @@ const Signin = () => {
     <div className="min-h-screen flex justify-center items-center">
       <AuthImage />
 
-      <div className="flex flex-col w-1/2 justify-center items-center pb-8 rounded-lg">
+      <div className="flex flex-col w-full md:w-1/2 justify-center items-center pb-8 rounded-lg">
         <h1 className="mt-8 pb-2 text-center text-3xl font-bold text-primary-text">
           Log in to your account
         </h1>
@@ -89,7 +89,7 @@ const Signin = () => {
             </p>
           </div>
         </h4>
-        <form className="flex flex-col space-y-2">
+        <form className="flex flex-col space-y-2 w-full sm:w-[70%] ml-10">
           <InputField
             label="Email"
             name="email"
@@ -125,7 +125,7 @@ const Signin = () => {
           <button
             type="button"
             onClick={() => handleSignin()}
-            className="text-white bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+            className="text-white max-w-[100px] bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 mb-2"
           >
             Sign in
           </button>
