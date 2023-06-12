@@ -3,7 +3,8 @@ import React from "react";
 
 const AuthImage = () => {
   return (
-    <div className="h-screen w-1/2 bg-cover bg-center relative bg-[url('/images/a2Sv.png')] brightness-75">
+    <div className="hidden md:flex h-screen w-1/2 bg-cover bg-center relative bg-[url('/images/a2Sv.png')] brightness-75"
+>
       <div className="absolute inset-0 bg-sky-700 opacity-70"></div>
       <div className="absolute inset-0 justify-center">
         <div className="m-5 flex flex-col h-full justify-between">
