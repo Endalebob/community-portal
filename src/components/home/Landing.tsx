@@ -1,4 +1,5 @@
 import Image from "next/image";
+import router from "next/router";
 import React from "react";
 import { AiOutlineRight } from "react-icons/ai";
 
@@ -27,7 +28,9 @@ const Landing: React.FC = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row mt-4 mx-auto my-auto">
-            <button className="bg-primary px-16 md:px-28 py-2 rounded-md mr-12 hover:bg-blue-400 font-bold">
+            <button
+            onClick={() => router.push("/auth/signup")}
+             className="bg-primary px-16 md:px-28 py-2 rounded-md mr-12 hover:bg-blue-400 font-bold">
               Join Us
             </button>
             <div className="flex flex-row">
