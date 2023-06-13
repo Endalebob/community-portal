@@ -61,7 +61,7 @@ const NavBar: React.FC = () => {
           <nav
             className={classNames(
               showNav ? "flex" : "hidden",
-              "md:flex absolute right-0 md:ml-0 shadow-xl md:shadow-none p-10 md:p-0 rounded-xl top-8"
+              "md:flex absolute md:static right-0 md:ml-0 shadow-xl md:shadow-none p-10 md:p-0 rounded-xl top-8"
             )}
           >
             <ul className="flex flex-col gap-5  md:m-0 content-between md:flex-row md:w-full justify-between">
