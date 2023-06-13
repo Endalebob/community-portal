@@ -1,27 +1,27 @@
 import User from "<@>/types/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import exp from "constants";
 
 const initialState: User = {
   data: {
-    id: 0,
-    name: "",
-    email: "",
-    phoneNumber: "",
-    telegramHandle: "",
-    country: "",
-    shortBio: "",
-    profilePicture: "",
-    university: "",
-    department: "",
-    yearOfGraduation: "",
-    leetcodeUsername: "",
-    githubUsername: "",
-    codeforcesUsername: "",
-    hackerrankUsername: "",
-    linkedinUrl: "",
-    cv: null,
-    programmingLanguage: "",
+    AppUserId: 0,
+    Email: "",
+    FullName: "",
+    ProfilePicture: "",
+    PhoneNumber: "",
+    TelegramUsername: "",
+    Country: "",
+    ShortBio: "",
+    University: "",
+    Department: "",
+    GraduationYear: "",
+    LeetCode: "",
+    GitHub: "",
+    Codeforces: "",
+    Hackerrank: "",
+    LinkedIn: "",
+    Cv: null,
+    FavoriteLanguage: "",
+    GroupId: 0,
   },
 };
 
