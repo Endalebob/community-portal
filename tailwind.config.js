@@ -28,6 +28,8 @@ module.exports = {
         md: "835px",
         ed: "750px",
       },
+
+   
     },
   },
   plugins: [],
