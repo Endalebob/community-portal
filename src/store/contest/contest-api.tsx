@@ -6,7 +6,7 @@ export const contestsApi = createApi({
   endpoints: (builder) => ({
     createContest: builder.mutation<any, Partial<Contest>>({
       query: (contest) => ({
-        url: "/contests",
+        url: "/create-contest",
         method: "POST",
         body: contest,
       }),

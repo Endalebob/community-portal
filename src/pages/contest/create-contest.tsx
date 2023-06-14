@@ -4,9 +4,10 @@ import { useCreateContestMutation } from "<@>/store/contest/contest-api";
 const ContestForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState<Date>(new Date());
   const [time, setTime] = useState("");
   const [link, setLink] = useState("");
+  const [dateError, setDateError] = useState("");
 
   const [createContest, { isLoading }] = useCreateContestMutation();
 
@@ -16,6 +17,12 @@ const ContestForm = () => {
     if (!title || !description || !date || !time || !link) {
       // Handle form validation error
       alert("Please fill in all fields");
+      return;
+    }
+
+    const isValidDate = !isNaN(Date.parse(date.toDateString()));
+    if (!isValidDate) {
+      setDateError("Please enter a valid date");
       return;
     }
 
@@ -29,11 +36,11 @@ const ContestForm = () => {
       };
 
       await createContest(contest).unwrap();
-
+      console.log(contest);
       // Contest creation successful, reset form fields
       setTitle("");
       setDescription("");
-      setDate("");
+      setDate(new Date());
       setTime("");
       setLink("");
     } catch (error) {
@@ -43,10 +50,7 @@ const ContestForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-1/2 mx-auto mt-8 my-auto xl:h-full h-80"
-    >
+    <form onSubmit={handleSubmit} className="w-1/2 mx-auto mt-8 h-full">
       <div>
         <h1 className="pt-4 pb-8 text-2xl text-secondary-text font-semibold">
           Create Contest
@@ -81,25 +85,26 @@ const ContestForm = () => {
             Date
           </label>
           <input
-            type="text"
+            type="date"
             id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            value={date.toISOString().split("T")[0]}
+            onChange={(e) => setDate(new Date(e.target.value))}
             className="w-full p-2 border rounded focus:outline-none"
             placeholder="6/8/2023"
           />
+          {dateError && <p className="text-red-500">{dateError}</p>}
         </div>
         <div className="mb-8 col-span-1">
           <label htmlFor="time" className="block mb-2 font-semibold">
             Time
           </label>
           <input
-            type="text"
+            type="time"
             id="time"
             value={time}
             onChange={(e) => setTime(e.target.value)}
             className="w-full p-2 border rounded focus:outline-none"
-            placeholder="08:00:00"
+            placeholder="08:00"
           />
         </div>
       </div>
