@@ -2,7 +2,7 @@
 export default interface Contest {
     title: string;
     description: string;
-    date: string;
+    date: Date;
     time: string;
     link: string;
   }
