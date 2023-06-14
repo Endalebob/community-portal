@@ -119,8 +119,8 @@ const Journey: React.FC = () => {
     <div className="grid grid-cols-4 w-full">
       <div
         className={`${
-          selectedContest != null ? `col-span-2` : `col-span-3`
-        } flex flex-col p-2 border-r`}
+          selectedContest != null ? `md:col-span-2` : `md:col-span-3`
+        } col-span-4 flex flex-col p-2 md:border-r`}
       >
         <div className="flex flex-col p-2">
           <Stepper steps={steps} setActiveStep={setActiveStep} />
@@ -152,14 +152,14 @@ const Journey: React.FC = () => {
         </div>
       </div>
 
-      <div className="col-span-1 flex px-3 border-r">
+      <div className="col-span-1 hidden md:flex px-3 border-r">
         <Contests setSelectedContest={setSelectedContest} contests={contests} />
       </div>
 
       <div
         className={`${
           selectedContest != null ? "" : "hidden"
-        } transition- flex flex-col col-span-1`}
+        } flex flex-col col-span-1`}
       >
         <div className="sticky top-0 p-4">
           <div

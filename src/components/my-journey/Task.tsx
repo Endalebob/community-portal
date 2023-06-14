@@ -13,7 +13,7 @@ const Task: React.FC<TaskProps> = ({
   active,
 }) => {
   return (
-    <div className="flex p-2 shadow-lg rounded-md max-w-[44rem]">
+    <div className="flex p-2 shadow-md rounded-md max-w-[44rem]">
       <div className="flex items-start m-4">
         <CheckBox isCompleted={isCompleted} active={active} />
       </div>

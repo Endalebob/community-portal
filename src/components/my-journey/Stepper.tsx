@@ -15,7 +15,7 @@ interface StepperProps {
 const Stepper: React.FC<StepperProps> = ({ steps, setActiveStep }) => {
   return (
     <div
-      className={`justify-items-start flex-grow max-w-[68rem] gap-2`}
+      className={`justify-items-start flex-grow max-w-[68rem] gap-2  text-xs md:text-base`}
       style={{
         display: "grid",
         gridTemplateColumns: `repeat(${steps.length}, 1fr)`,
@@ -39,7 +39,7 @@ const Stepper: React.FC<StepperProps> = ({ steps, setActiveStep }) => {
                 }
               />
             </div>
-            <div className="flex items-start gap-2">
+            <div className="flex flex-col md:flex-row items-start gap-2 hyphens-auto">
               <div className="mt-1">
                 <CheckBox
                   stepper
@@ -51,7 +51,7 @@ const Stepper: React.FC<StepperProps> = ({ steps, setActiveStep }) => {
                 />
               </div>
 
-              <p className="font-semibold">{step.stepName}</p>
+              <p className="font-semibold hyphens-auto">{step.stepName}</p>
             </div>
           </div>
         );

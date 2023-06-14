@@ -18,7 +18,7 @@ const ContestCard: React.FC<ContestCardProps> = ({
   return (
     <div
       onClick={() => onClick(id)}
-      className="flex flex-col cursor-pointer w-full p-4 gap-1 rounded-md shadow-md bg-primarybg"
+      className="flex flex-col cursor-pointer w-full p-4 gap-1 rounded-md shadow-sm bg-primarybg"
     >
       <div>
         <p className="font-semibold">{description}</p>
