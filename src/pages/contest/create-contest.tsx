@@ -43,7 +43,10 @@ const ContestForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-1/2 mx-auto mt-8 my-auto xl:h-full h-80">
+    <form
+      onSubmit={handleSubmit}
+      className="w-1/2 mx-auto mt-8 my-auto xl:h-full h-80"
+    >
       <div>
         <h1 className="pt-4 pb-8 text-2xl text-secondary-text font-semibold">
           Create Contest
@@ -117,9 +120,7 @@ const ContestForm = () => {
       </div>
       <div className="grid justify-items-end">
         <div>
-          <button className="font-semibold mr-4 text-lg py-2 text-lg">
-            Cancel
-          </button>
+          <button className="font-semibold mr-4 py-2 text-lg">Cancel</button>
           <button
             type="submit"
             disabled={isLoading}

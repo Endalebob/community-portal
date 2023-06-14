@@ -1,12 +1,5 @@
+import Contest from "<@>/types/contest";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-interface Contest {
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-  link: string;
-}
 
 export const contestsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
