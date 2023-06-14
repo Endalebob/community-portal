@@ -4,25 +4,42 @@ import { useCreateContestMutation } from "<@>/store/contest/contest-api";
 const ContestForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState<Date>(new Date());
+  const [date, setDate] = useState<Date | null>(new Date());
   const [time, setTime] = useState("");
   const [link, setLink] = useState("");
   const [dateError, setDateError] = useState("");
+  const [titleError, setTitleError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
+  const [timeError, setTimeError] = useState("");
+  const [linkError, setLinkError] = useState("");
 
   const [createContest, { isLoading }] = useCreateContestMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!title || !description || !date || !time || !link) {
-      // Handle form validation error
-      alert("Please fill in all fields");
+    if (!title) {
+      setTitleError("Please enter a title");
       return;
     }
 
-    const isValidDate = !isNaN(Date.parse(date.toDateString()));
-    if (!isValidDate) {
-      setDateError("Please enter a valid date");
+    if (!description) {
+      setDescriptionError("Please enter a description");
+      return;
+    }
+
+    if (!date) {
+      setDateError("Please enter a date");
+      return;
+    }
+
+    if (!time) {
+      setTimeError("Please enter a time");
+      return;
+    }
+
+    if (!link) {
+      setLinkError("Please enter a link");
       return;
     }
 
@@ -34,7 +51,6 @@ const ContestForm = () => {
         time,
         link,
       };
-
       await createContest(contest).unwrap();
       console.log(contest);
       // Contest creation successful, reset form fields
@@ -67,6 +83,7 @@ const ContestForm = () => {
           onChange={(e) => setTitle(e.target.value)}
           className="w-full p-2 border rounded h-8 focus:outline-none"
         />
+        {titleError && <p className="text-red-500">{titleError}</p>}
       </div>
       <div className="mb-8">
         <label htmlFor="description" className="block mb-2 font-semibold">
@@ -78,6 +95,7 @@ const ContestForm = () => {
           onChange={(e) => setDescription(e.target.value)}
           className="w-full p-2 border rounded focus:outline-none"
         ></textarea>
+        {descriptionError && <p className="text-red-500">{descriptionError}</p>}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div className="mb-8 col-span-1">
@@ -87,8 +105,8 @@ const ContestForm = () => {
           <input
             type="date"
             id="date"
-            value={date.toISOString().split("T")[0]}
-            onChange={(e) => setDate(new Date(e.target.value))}
+            value={date instanceof Date ? date.toISOString().split("T")[0] : ""}
+            onChange={(e) => setDate(e.target.valueAsDate)}
             className="w-full p-2 border rounded focus:outline-none"
             placeholder="6/8/2023"
           />
@@ -106,6 +124,7 @@ const ContestForm = () => {
             className="w-full p-2 border rounded focus:outline-none"
             placeholder="08:00"
           />
+          {timeError && <p className="text-red-500">{timeError}</p>}
         </div>
       </div>
       <div className="mb-4">
@@ -119,6 +138,7 @@ const ContestForm = () => {
           onChange={(e) => setLink(e.target.value)}
           className="w-full p-2 border rounded h-8 focus:outline-none"
         />
+        {linkError && <p className="text-red-500">{dateError}</p>}
       </div>
       <div>
         <div className="border h-0 mt-12 mb-4"></div>
