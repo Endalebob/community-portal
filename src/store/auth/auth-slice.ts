@@ -16,10 +16,10 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.role = action.payload.role;
       if (action.payload.token) {
-        localStorage.setItem("token", JSON.stringify(action.payload.token));
+        localStorage.setItem("token", action.payload.token);
       }
       if (action.payload.role) {
-        localStorage.setItem("role", JSON.stringify(action.payload.role));
+        localStorage.setItem("role", action.payload.role);
       }
     },
     clearToken(state) {
