@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AuthImage from "./AuthImage";
 import InputField from "./InputField";
+import { useLoginUserMutation } from "<@>/store/auth/auth-api";
 
 const initialState = {
   email: "",
@@ -21,6 +22,15 @@ const Signin = () => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
   const router = useRouter();
+  const [
+    signInUser,
+    {
+      data: registerData,
+      isError: isRegisterError,
+      isSuccess: isRegisterSuccess,
+      error: registerError,
+    },
+  ] = useLoginUserMutation();
 
   const handleSignin = async () => {
     const validationErrors: Partial<FormValues> = {};
@@ -39,6 +49,11 @@ const Signin = () => {
     }
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+    } else {
+      signInUser({
+        email,
+        password,
+      });
     }
   };
   useEffect(() => {

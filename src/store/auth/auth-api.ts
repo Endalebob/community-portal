@@ -1,27 +1,30 @@
-import SigninType from "<@>/types/signin";
-import SignupType from "<@>/types/signup";
-import User from "<@>/types/user";
+import Login from "<@>/types/auth/signin";
+import Registration from "<@>/types/auth/signup";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-interface Token {
-  token: string;
-}
 
 export const authApiSlice = createApi({
   reducerPath: "login/api",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000",
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as any).auth.token;
+      if (token) {
+        headers.set("authorization", `token ${token}`);
+      }
+      return headers;
+    },
   }),
+
   endpoints(builder) {
     return {
       loginUser: builder.mutation({
-        query: (body: SigninType) => {
+        query: (body: Login) => {
           return { url: "/account/login/", method: "POST", body };
         },
       }),
 
       registerUser: builder.mutation({
-        query: (body: SignupType) => {
+        query: (body: Registration) => {
           return {
             url: "/account/register/",
             method: "POST",
@@ -31,30 +34,21 @@ export const authApiSlice = createApi({
       }),
 
       updateUser: builder.mutation({
-        query: ({ token, ...put }) => ({
-          headers: {
-            authorization: `token ${token.token}` as string,
-          },
+        query: ({ ...put }) => ({
           url: "/account/user-detail/",
           method: "PUT",
-          body: put as User,
+          body: put,
         }),
       }),
 
-      getUserapi: builder.query<User, Token>({
-        query: (token) => ({
-          headers: {
-            authorization: `token ${token.token}` as string,
-          },
+      getUserapi: builder.query({
+        query: () => ({
           url: "/account/user-detail/",
           method: "GET",
         }),
       }),
       deleteUser: builder.mutation({
-        query: (token) => ({
-          headers: {
-            authorization: `token ${token.token}` as string,
-          },
+        query: () => ({
           url: "account/user-detail/",
           method: "DELETE",
         }),
