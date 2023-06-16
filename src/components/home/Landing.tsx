@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { AiOutlineRight } from "react-icons/ai";
 
@@ -27,15 +28,19 @@ const Landing: React.FC = () => {
           </div>
 
           <div className="flex flex-row mt-4 mx-auto my-auto">
-            <button className="ml-4 md:ml-0 bg-primary px-4 md:px-16 lg:px-24 xl:px-28 py-2 rounded-md mr-12 hover:bg-blue-400 font-bold text-white">
-              Join Us
-            </button>
-            <div className="flex flex-row">
-              <button className="text-end font-bold">More Information</button>
-              <div className="p-3">
-                <AiOutlineRight />
+            <Link href={"/auth/signup"}>
+              <button className="ml-4 md:ml-0 bg-primary px-4 md:px-16 lg:px-24 xl:px-28 py-2 rounded-md mr-12 hover:bg-blue-400 font-bold text-white">
+                Join Us
+              </button>
+            </Link>
+            <Link href={"#more"}>
+              <div className="flex flex-row">
+                <button className="text-end font-bold">More Information</button>
+                <div className="p-3">
+                  <AiOutlineRight />
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
