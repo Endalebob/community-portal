@@ -1,7 +1,6 @@
-import Login from "<@>/types/signin";
-import Registration from "<@>/types/signup";
+import Login from "<@>/types/auth/signin";
+import Registration from "<@>/types/auth/signup";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
 
 export const authApiSlice = createApi({
   reducerPath: "login/api",
@@ -13,7 +12,7 @@ export const authApiSlice = createApi({
         headers.set("authorization", `token ${token}`);
       }
       return headers;
-    }
+    },
   }),
 
   endpoints(builder) {
@@ -35,10 +34,10 @@ export const authApiSlice = createApi({
       }),
 
       updateUser: builder.mutation({
-        query: ({  ...patch }) => ({
+        query: ({ ...put }) => ({
           url: "/account/user-detail/",
           method: "PUT",
-          body: patch,
+          body: put,
         }),
       }),
 

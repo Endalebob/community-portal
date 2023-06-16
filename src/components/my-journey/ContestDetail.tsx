@@ -9,7 +9,7 @@ interface ContestDetailProps {
 const ContestDetail: React.FC<ContestDetailProps> = ({ id }) => {
   const contest = {
     title: "Round 3 Community Contest for on-boarding",
-    date: "Jun 14, 2023",
+    date: "Jun 16, 2023",
     description:
       "Welcome to Competitive Programming Contest #2 Div-1! This thrilling event is designed for skilled programmers and will consist of algorithmic problems covering topics such as dynamic programming and graph algorithms. Use your creativity to solve problems and score the most points to win. Good luck and have fun!",
     link: "where should i go",
