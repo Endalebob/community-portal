@@ -15,7 +15,7 @@ interface StepperProps {
 const Stepper: React.FC<StepperProps> = ({ steps, setActiveStep }) => {
   return (
     <div
-      className={`justify-items-start flex-grow max-w-[68rem] gap-2  text-xs md:text-base`}
+      className={`justify-items-start flex-grow max-w-[68rem] gap-2  text-xs md:text-sm lg:text-base`}
       style={{
         display: "grid",
         gridTemplateColumns: `repeat(${steps.length}, 1fr)`,

@@ -4,6 +4,7 @@ import Task from "./Task";
 import Contests from "./Contests";
 import ContestDetail from "./ContestDetail";
 import { AiOutlineClose } from "react-icons/ai";
+import Modal from "../common/Modal";
 
 const Journey: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -116,11 +117,11 @@ const Journey: React.FC = () => {
   ];
 
   return (
-    <div className="grid grid-cols-4 w-full">
+    <div className="grid grid-cols-2 md:grid-cols-4 w-full border-t">
       <div
         className={`${
           selectedContest != null ? `md:col-span-2` : `md:col-span-3`
-        } col-span-4 flex flex-col p-2 md:border-r`}
+        } col-span-4 flex flex-col md:border-r p-4 pt-8`}
       >
         <div className="flex flex-col p-2">
           <Stepper steps={steps} setActiveStep={setActiveStep} />
@@ -152,23 +153,34 @@ const Journey: React.FC = () => {
         </div>
       </div>
 
-      <div className="col-span-1 hidden md:flex px-3 border-r">
+      <div className="col-span-2 md:col-span-1 flex px-3 border-r">
         <Contests setSelectedContest={setSelectedContest} contests={contests} />
       </div>
 
       <div
         className={`${
-          selectedContest != null ? "" : "hidden"
-        } flex flex-col col-span-1`}
+          selectedContest != null ? "flex" : "hidden"
+        } flex-col col-span-1`}
       >
-        <div className="sticky top-0 p-4">
-          <div
-            onClick={() => setSelectedContest(null)}
-            className="flex ml-auto justify-center w-7 h-7 items-center hover:bg-secondary rounded-full border p-1 transition-opacity"
+        <div className="md:hidden">
+          <Modal
+            isOpen={selectedContest != null}
+            onClose={() => setSelectedContest(null)}
           >
-            <AiOutlineClose />
-          </div>
-          {selectedContest && <ContestDetail id={selectedContest} />}
+            <ContestDetail
+              id={selectedContest!}
+              setSelectedContest={setSelectedContest}
+            />
+          </Modal>
+          <div className="bg-primarybg rounded-lg p-4"></div>
+        </div>
+        <div className="hidden  md:flex sticky top-0">
+          {selectedContest && (
+            <ContestDetail
+              id={selectedContest}
+              setSelectedContest={setSelectedContest}
+            />
+          )}
         </div>
       </div>
     </div>
