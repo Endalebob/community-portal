@@ -3,7 +3,10 @@ import React from "react";
 
 const Welcome: React.FC = () => {
   return (
-    <div className="grid grid-cols-1 text-primary-text mt-8 font-poppins lg:grid-cols-2 ml-8 mr-8 md:mr-16 md:ml-16 lg:ml-28 ">
+    <div
+      className="grid grid-cols-1 text-primary-text mt-8 font-poppins lg:grid-cols-2 ml-8 mr-8 md:mr-16 md:ml-16 lg:ml-28 "
+      id="more"
+    >
       <div className="col-span-1 mt-0 md:mt-16">
         <h1 className="text-3xl font-extrabold mt-0 lg:mt-16">
           Welcome to the A2SV Community
