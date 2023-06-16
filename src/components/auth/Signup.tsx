@@ -3,40 +3,58 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AuthImage from "./AuthImage";
 import InputField from "./InputField";
+import { useRegisterUserMutation } from "<@>/store/auth/auth-api";
 
 const initialState = {
-  name: "",
+  fullName: "",
   phoneNumber: "",
-  telegramHandle: "",
+  codeforces: "",
+  telegram: "",
   email: "",
   password: "",
-  password2: "",
+  confirmPassword: "",
 };
 interface FormValues {
-  name: string;
+  fullName: string;
   phoneNumber: string;
-  telegramHandle: string;
+  codeforces: string;
+  telegram: string;
   email: string;
   password: string;
-  password2: string;
+  confirmPassword: string;
 }
 const Signup = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [errors, setErrors] = useState<Partial<FormValues>>({});
   const [rememberMe, setRememberMe] = useState(false);
-  const { name, phoneNumber, telegramHandle, email, password, password2 } =
-    formValue;
+  const {
+    fullName,
+    phoneNumber,
+    codeforces,
+    telegram,
+    email,
+    password,
+    confirmPassword,
+  } = formValue;
   const handleChange = (e: any) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
 
-  const registerUser = async (data: any) => {};
+  const [
+    registerUser,
+    {
+      data: registerData,
+      isError: isRegisterError,
+      isSuccess: isRegisterSuccess,
+      error: registerError,
+    },
+  ] = useRegisterUserMutation();
 
   const handleRegister = async () => {
     const validationErrors: Partial<FormValues> = {};
 
-    if (!name) {
-      validationErrors.name = "Name is required";
+    if (!fullName) {
+      validationErrors.fullName = "Full Name is required";
     } else if (!email) {
       validationErrors.email = "Email is required";
     }
@@ -51,26 +69,29 @@ const Signup = () => {
       validationErrors.phoneNumber = "Phone number is required";
     } else if (!/^(?:\+251|251|0)?[1-59]\d{8}$/.test(phoneNumber)) {
       validationErrors.phoneNumber = "Phone number is invalid";
-    } else if (!telegramHandle) {
-      validationErrors.telegramHandle = "Telegram handle is required";
+    } else if (!codeforces) {
+      validationErrors.codeforces = "Codeforces handle is required";
+    } else if (!telegram) {
+      validationErrors.telegram = "Telegram handle is required";
     } else if (!password) {
       validationErrors.password = "Password is required";
-    } else if (!password2) {
-      validationErrors.password2 = "Confirm Password is required";
-    } else if (password !== password2) {
-      validationErrors.password2 = "Passwords must match";
+    } else if (!confirmPassword) {
+      validationErrors.confirmPassword = "Confirm Password is required";
+    } else if (password !== confirmPassword) {
+      validationErrors.confirmPassword = "Passwords must match";
     }
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
       registerUser({
-        name,
+        fullName,
         phoneNumber,
-        telegramHandle,
+        telegram,
+        codeforces,
         email,
         password,
-        password2,
+        confirmPassword,
       });
     }
   };
@@ -110,13 +131,13 @@ const Signup = () => {
         </h4>
         <form className="flex flex-col space-y-2 w-full sm:w-[70%] ml-5">
           <InputField
-            label="Name"
-            name="name"
+            label="Full Name"
+            name="fullName"
             type="text"
-            placeholder="Enter your name"
-            value={name}
+            placeholder="Enter your full name"
+            value={fullName}
             onChange={handleChange}
-            error={errors.name}
+            error={errors.fullName}
           />
           <InputField
             label="Email"
@@ -136,14 +157,25 @@ const Signup = () => {
             onChange={handleChange}
             error={errors.phoneNumber}
           />
+          {/* codeforces input field */}
+          <InputField
+            label="Codeforces Handle"
+            name="codeforces"
+            type="text"
+            placeholder="Enter your codeforces handle"
+            value={codeforces}
+            onChange={handleChange}
+            error={errors.codeforces}
+          />
+
           <InputField
             label="Telegram Handle"
-            name="telegramHandle"
+            name="telegram"
             type="text"
             placeholder="Enter your handle"
-            value={telegramHandle}
+            value={telegram}
             onChange={handleChange}
-            error={errors.telegramHandle}
+            error={errors.telegram}
           />
           <InputField
             label="Password"
@@ -156,12 +188,12 @@ const Signup = () => {
           />
           <InputField
             label="Confirm Password"
-            name="password2"
+            name="confirmPassword"
             type="password"
             placeholder="********"
-            value={password2}
+            value={confirmPassword}
             onChange={handleChange}
-            error={errors.password2}
+            error={errors.confirmPassword}
           />
           <div className="flex">
             <input

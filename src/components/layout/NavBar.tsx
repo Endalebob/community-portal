@@ -28,7 +28,7 @@ const NavBar: React.FC = () => {
     },
     {
       name: "Your Progress",
-      to: "/your-progress",
+      to: "/journey",
       current: false,
     },
   ];

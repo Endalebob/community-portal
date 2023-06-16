@@ -1,8 +1,19 @@
 import NavBar from "<@>/components/layout/NavBar";
+import { setToken } from "<@>/store/auth/auth-slice";
+import { useAppDispatch, useAppSelector } from "<@>/store/hooks";
 import React from "react";
 import { ReactNode, Suspense } from "react";
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
+  const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  if (typeof window !== "undefined" && !isAuthenticated) {
+    const item = localStorage.getItem("token");
+    if (item) {
+      dispatch(setToken({ token: item, role: "user", isAuthenticated: true }));
+    }
+  }
   return (
     <div>
       <NavBar />
