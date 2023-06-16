@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import AuthImage from "./AuthImage";
 import InputField from "./InputField";
 import { useRegisterUserMutation } from "<@>/store/auth/auth-api";
+import ProgressIndicator from "./ProgressIndicator";
+import { setToken } from "<@>/store/auth/auth-slice";
 
 const initialState = {
   fullName: "",
@@ -24,6 +26,7 @@ interface FormValues {
   confirmPassword: string;
 }
 const Signup = () => {
+  const dispatch = useAppDispatch();
   const [formValue, setFormValue] = useState(initialState);
   const [errors, setErrors] = useState<Partial<FormValues>>({});
   const [rememberMe, setRememberMe] = useState(false);
@@ -47,6 +50,7 @@ const Signup = () => {
       isError: isRegisterError,
       isSuccess: isRegisterSuccess,
       error: registerError,
+      isLoading: isSignupLoading,
     },
   ] = useRegisterUserMutation();
 
@@ -108,6 +112,25 @@ const Signup = () => {
       localStorage.removeItem("rememberMePassword");
     }
   }, [email, password, rememberMe]);
+
+  useEffect(() => {
+    if (isRegisterSuccess) {
+      console.log(registerData.value);
+      dispatch(
+        setToken({
+          token: registerData.value.token,
+          role: registerData.value.user.role,
+          isAuthenticated: true,
+        })
+      );
+      router.push("/journey");
+    }
+    if (isRegisterError) {
+      console.log(registerError)
+      alert(registerError.data.message);
+    }
+  }, [registerData, isRegisterError, isRegisterSuccess]);
+
 
   return (
     <div className="min-h-screen flex justify-center items-center">
@@ -212,11 +235,16 @@ const Signup = () => {
             </label>
           </div>
           <button
-            onClick={() => handleRegister()}
             type="button"
+            onClick={() => handleRegister()}
             className="text-white max-w-[100px] bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 mb-2"
+            disabled={isSignupLoading}
           >
-            Sign up
+            {isSignupLoading ? (
+              <ProgressIndicator size={5} color="white" />
+            ) : (
+              "Sign Up"
+            )}
           </button>
         </form>
       </div>

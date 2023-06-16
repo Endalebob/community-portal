@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import AuthImage from "./AuthImage";
 import InputField from "./InputField";
 import { useLoginUserMutation } from "<@>/store/auth/auth-api";
+import { setToken } from "<@>/store/auth/auth-slice";
+import ProgressIndicator from "./ProgressIndicator";
 
 const initialState = {
   email: "",
@@ -14,6 +16,7 @@ interface FormValues {
   password: string;
 }
 const Signin = () => {
+  const dispatch = useAppDispatch();
   const [formValue, setFormValue] = useState(initialState);
   const [errors, setErrors] = useState<Partial<FormValues>>({});
   const { email, password } = formValue;
@@ -25,10 +28,11 @@ const Signin = () => {
   const [
     signInUser,
     {
-      data: registerData,
-      isError: isRegisterError,
-      isSuccess: isRegisterSuccess,
-      error: registerError,
+      data: signinData,
+      isError: isSigninError,
+      isSuccess: isSigninSucces,
+      error: signInError,
+      isLoading: isSigninLoading,
     },
   ] = useLoginUserMutation();
 
@@ -71,7 +75,6 @@ const Signin = () => {
     }
   }, []);
   useEffect(() => {
-    // Save email and password to local storage
     if (rememberMe) {
       localStorage.setItem("rememberMeEmail", email);
       localStorage.setItem("rememberMePassword", password);
@@ -83,7 +86,22 @@ const Signin = () => {
   const handleSignup = () => {
     router.push("/auth/signup");
   };
-
+  useEffect(() => {
+    if (isSigninSucces) {
+      console.log(signinData.value);
+      dispatch(
+        setToken({
+          token: signinData.value.token,
+          role: signinData.value.user.role,
+          isAuthenticated: true,
+        })
+      );
+      router.push("/journey");
+    }
+    if (isSigninError) {
+      alert("Invalid email or password.");
+    }
+  }, [signinData, isSigninSucces, isSigninError]);
   return (
     <div className="min-h-screen flex justify-center items-center">
       <AuthImage />
@@ -141,8 +159,13 @@ const Signin = () => {
             type="button"
             onClick={() => handleSignin()}
             className="text-white max-w-[100px] bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 mb-2"
+            disabled={isSigninLoading}
           >
-            Sign in
+            {isSigninLoading ? (
+              <ProgressIndicator size={5} color="white" />
+            ) : (
+              "Sign in"
+            )}
           </button>
         </form>
       </div>

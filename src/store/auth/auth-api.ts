@@ -5,7 +5,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authApiSlice = createApi({
   reducerPath: "login/api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000",
+    baseUrl: "https://a2sv-community-portal-api.onrender.com/api",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as any).auth.token;
       if (token) {
@@ -19,14 +19,14 @@ export const authApiSlice = createApi({
     return {
       loginUser: builder.mutation({
         query: (body: Login) => {
-          return { url: "/account/login/", method: "POST", body };
+          return { url: "/Auth/login", method: "POST", body };
         },
       }),
 
       registerUser: builder.mutation({
         query: (body: Registration) => {
           return {
-            url: "/account/register/",
+            url: "/Auth/register",
             method: "POST",
             body,
           };

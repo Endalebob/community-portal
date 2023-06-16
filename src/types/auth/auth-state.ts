@@ -1,4 +1,4 @@
-type UserRole = "admin" | "user";
+type UserRole = "admin" | "Student";
 
 export default interface AuthState {
   token: string | null;
