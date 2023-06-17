@@ -10,8 +10,9 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
 
   if (typeof window !== "undefined" && !isAuthenticated) {
     const item = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
     if (item) {
-      dispatch(setToken({ token: item, role: "user", isAuthenticated: true }));
+      dispatch(setToken({ token: item, role: role, isAuthenticated: true }));
     }
   }
   return (
