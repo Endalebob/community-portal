@@ -1,67 +1,99 @@
 import React, { useState } from "react";
 import { useCreateContestMutation } from "<@>/store/contest/contest-api";
+import { useRouter } from "next/router";
 
-const ContestForm = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState<Date | null>(new Date());
-  const [time, setTime] = useState("");
-  const [link, setLink] = useState("");
-  const [dateError, setDateError] = useState("");
-  const [titleError, setTitleError] = useState("");
-  const [descriptionError, setDescriptionError] = useState("");
-  const [timeError, setTimeError] = useState("");
-  const [linkError, setLinkError] = useState("");
+const initialState = {
+  title: "",
+  description: "",
+  date: "",
+  time: "",
+  link: "",
+};
 
+const ContestForm: React.FC = () => {
+  const [contest, setContest] = useState(initialState);
+  const [errors, setErrors] = useState(initialState);
   const [createContest, { isLoading }] = useCreateContestMutation();
+  const router = useRouter();
+  const handleCancel = () => {
+    // Todo
+    router.push("/");
+  };
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    if (name === "date") {
+      // If the target input is the date input, update the state directly
+      setContest((prevContest) => ({
+        ...prevContest,
+        date: value,
+      }));
+    } else {
+      // For other inputs, update the state as before
+      setContest((prevContest) => ({
+        ...prevContest,
+        [name]: value,
+      }));
+    }
+  };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    const { title, description, date, time, link } = contest;
+
     if (!title) {
-      setTitleError("Please enter a title");
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        title: "title is required",
+      }));
       return;
     }
 
     if (!description) {
-      setDescriptionError("Please enter a description");
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        description: "description is required",
+      }));
       return;
     }
 
     if (!date) {
-      setDateError("Please enter a date");
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        date: "date is required",
+      }));
       return;
     }
 
     if (!time) {
-      setTimeError("Please enter a time");
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        time: "time is required",
+      }));
       return;
     }
 
     if (!link) {
-      setLinkError("Please enter a link");
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        link: "link is required",
+      }));
       return;
     }
-
+    const dateTime = `${date}T${time}:00Z`;
     try {
-      const contest = {
+      await createContest({
         title,
         description,
-        date,
-        time,
+        date: dateTime,
         link,
-      };
-      await createContest(contest).unwrap();
-      console.log(contest);
+      }).unwrap();
       // Contest creation successful, reset form fields
-      setTitle("");
-      setDescription("");
-      setDate(new Date());
-      setTime("");
-      setLink("");
+      setContest(initialState);
+      setErrors(initialState);
     } catch (error) {
       // Handle contest creation error
-      alert("An error occurred while creating the contest");
+      console.error("An error occurred while creating the contest:", error);
     }
   };
 
@@ -79,11 +111,12 @@ const ContestForm = () => {
         <input
           type="text"
           id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          name="title"
+          value={contest.title}
+          onChange={handleChange}
           className="w-full p-2 border rounded h-8 focus:outline-none"
         />
-        {titleError && <p className="text-red-500">{titleError}</p>}
+        {errors.title && <p className="text-red-500">{errors.title}</p>}
       </div>
       <div className="mb-8">
         <label htmlFor="description" className="block mb-2 font-semibold">
@@ -91,11 +124,14 @@ const ContestForm = () => {
         </label>
         <textarea
           id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          name="description"
+          value={contest.description}
+          onChange={handleChange}
           className="w-full p-2 border rounded focus:outline-none"
         ></textarea>
-        {descriptionError && <p className="text-red-500">{descriptionError}</p>}
+        {errors.description && (
+          <p className="text-red-500">{errors.description}</p>
+        )}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div className="mb-8 col-span-1">
@@ -105,12 +141,13 @@ const ContestForm = () => {
           <input
             type="date"
             id="date"
-            value={date instanceof Date ? date.toISOString().split("T")[0] : ""}
-            onChange={(e) => setDate(e.target.valueAsDate)}
+            name="date"
+            value={contest.date}
+            onChange={handleChange}
             className="w-full p-2 border rounded focus:outline-none"
             placeholder="6/8/2023"
           />
-          {dateError && <p className="text-red-500">{dateError}</p>}
+          {errors.date && <p className="text-red-500">{errors.date}</p>}
         </div>
         <div className="mb-8 col-span-1">
           <label htmlFor="time" className="block mb-2 font-semibold">
@@ -119,12 +156,13 @@ const ContestForm = () => {
           <input
             type="time"
             id="time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
+            name="time"
+            value={contest.time}
+            onChange={handleChange}
             className="w-full p-2 border rounded focus:outline-none"
             placeholder="08:00"
           />
-          {timeError && <p className="text-red-500">{timeError}</p>}
+          {errors.time && <p className="text-red-500">{errors.time}</p>}
         </div>
       </div>
       <div className="mb-4">
@@ -134,18 +172,24 @@ const ContestForm = () => {
         <input
           type="text"
           id="link"
-          value={link}
-          onChange={(e) => setLink(e.target.value)}
+          name="link"
+          value={contest.link}
+          onChange={handleChange}
           className="w-full p-2 border rounded h-8 focus:outline-none"
         />
-        {linkError && <p className="text-red-500">{dateError}</p>}
+        {errors.link && <p className="text-red-500">{errors.link}</p>}
       </div>
       <div>
         <div className="border h-0 mt-12 mb-4"></div>
       </div>
       <div className="grid justify-items-end">
         <div>
-          <button className="font-semibold mr-4 py-2 text-lg">Cancel</button>
+          <button
+            className="font-semibold mr-4 py-2 text-lg"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
           <button
             type="submit"
             disabled={isLoading}
