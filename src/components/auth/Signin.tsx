@@ -6,12 +6,14 @@ import InputField from "./InputField";
 import { useLoginUserMutation } from "<@>/store/auth/auth-api";
 import { setToken } from "<@>/store/auth/auth-slice";
 import ProgressIndicator from "./ProgressIndicator";
+import CustomError from "<@>/types/auth/custom-error";
 
 const initialState = {
   email: "",
   password: "",
 };
 interface FormValues {
+  fromBackEnd: string;
   email: string;
   password: string;
 }
@@ -25,7 +27,7 @@ const Signin = () => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
   const router = useRouter();
-  const [
+  let [
     signInUser,
     {
       data: signinData,
@@ -98,8 +100,15 @@ const Signin = () => {
       );
       router.push("/journey");
     }
-    if (isSigninError) {
-      alert("Invalid email or password.");
+    if (isSigninError && signInError) {
+      const customError = signInError as unknown as CustomError;
+      console.log(customError.data);
+      if (customError.data.message) {
+        setErrors({ ...errors, fromBackEnd: customError.data.message });
+      } else if (customError.data.error) {
+        setErrors({ ...errors, fromBackEnd: customError.data.error[0] });
+      }
+      isSigninLoading = false;
     }
   }, [signinData, isSigninSucces, isSigninError]);
   return (
@@ -123,6 +132,10 @@ const Signin = () => {
           </div>
         </h4>
         <form className="flex flex-col space-y-2 w-full sm:w-[70%] ml-10">
+          {errors.fromBackEnd && (
+            <p className="text-red-500 text-[14px]">{errors.fromBackEnd}</p>
+          )}
+
           <InputField
             label="Email"
             name="email"
@@ -147,6 +160,8 @@ const Signin = () => {
               className="mt-1 mr-2"
               name="remember"
               id="remember"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
             />
             <label
               htmlFor="remember"

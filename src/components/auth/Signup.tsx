@@ -6,6 +6,7 @@ import InputField from "./InputField";
 import { useRegisterUserMutation } from "<@>/store/auth/auth-api";
 import ProgressIndicator from "./ProgressIndicator";
 import { setToken } from "<@>/store/auth/auth-slice";
+import CustomError from "<@>/types/auth/custom-error";
 
 const initialState = {
   fullName: "",
@@ -17,6 +18,7 @@ const initialState = {
   confirmPassword: "",
 };
 interface FormValues {
+  fromBackEnd: string;
   fullName: string;
   phoneNumber: string;
   codeforces: string;
@@ -43,7 +45,7 @@ const Signup = () => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
 
-  const [
+  let [
     registerUser,
     {
       data: registerData,
@@ -125,12 +127,17 @@ const Signup = () => {
       );
       router.push("/journey");
     }
-    if (isRegisterError) {
-      console.log(registerError)
-      alert(registerError.data.message);
+    if (isRegisterError && registerError) {
+      const customError = registerError as unknown as CustomError;
+      console.log(customError.data);
+      if (customError.data.message) {
+        setErrors({ ...errors, fromBackEnd: customError.data.message });
+      } else if (customError.data.error) {
+        setErrors({ ...errors, fromBackEnd: customError.data.error[0] });
+      }
+      isSignupLoading = false;
     }
   }, [registerData, isRegisterError, isRegisterSuccess]);
-
 
   return (
     <div className="min-h-screen flex justify-center items-center">
@@ -153,6 +160,9 @@ const Signup = () => {
           </div>
         </h4>
         <form className="flex flex-col space-y-2 w-full sm:w-[70%] ml-5">
+          {errors.fromBackEnd && (
+            <p className="text-red-500 text-[14px]">{errors.fromBackEnd}</p>
+          )}
           <InputField
             label="Full Name"
             name="fullName"
