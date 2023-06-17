@@ -3,10 +3,10 @@ import { useAppSelector } from "<@>/store/hooks";
 import router from "next/router";
 import React, { useEffect, useState } from "react";
 import InputField from "../auth/InputField";
-import User from "<@>/types/user";
 import { africanCountries } from "<@>/constants/african-countries";
 import Image from "next/image";
 import Link from "next/link";
+import User from "<@>/types/auth/user";
 
 const Edit = () => {
   // const token = JSON.parse(localStorage.getItem("user") || "{}") || {};
