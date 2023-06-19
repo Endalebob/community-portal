@@ -1,3 +1,4 @@
+
 import { setToken } from "<@>/store/auth/auth-slice";
 import { useAppDispatch, useAppSelector } from "<@>/store/hooks";
 import React from "react";
@@ -17,6 +18,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div>
       {/* <NavBar /> */}
+
       <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
     </div>
   );

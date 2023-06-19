@@ -26,6 +26,7 @@ const initialState: UserState = {
   cv: null,
   favoriteLanguage: "",
   groupId: 0,
+
   },
 };
 

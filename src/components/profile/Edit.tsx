@@ -53,18 +53,19 @@ const Edit = () => {
       validationErrors.fullName = "Full Name is required";
     } else if (!email) {
       validationErrors.email = "Email is required";
+
     } //check if email is valid
     else if (
       !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        email
+        Email
       )
     ) {
-      validationErrors.email = "Email is invalid";
+      validationErrors.Email = "Email is invalid";
     }
     // check if phone number is valid
-    else if (phoneNumber) {
-      if (!/^(?:\+251|251|0)?[1-59]\d{8}$/.test(phoneNumber)) {
-        validationErrors.phoneNumber = "Phone number is invalid";
+    else if (PhoneNumber) {
+      if (!/^(?:\+251|251|0)?[1-59]\d{8}$/.test(PhoneNumber)) {
+        validationErrors.PhoneNumber = "Phone number is invalid";
       }
     }
     console.log(formValue);
@@ -103,12 +104,12 @@ const Edit = () => {
   };
 
   const handlePdfUpload = (e: any) => {
-    setFormValue({ ...formValue, cv: e.target.files[0] });
+    setFormValue({ ...formValue, Cv: e.target.files[0] });
   };
 
   const openPdfInNewTab = () => {
-    if (formValue.cv) {
-      const url = URL.createObjectURL(formValue.cv);
+    if (formValue.Cv) {
+      const url = URL.createObjectURL(formValue.Cv);
       window.open(url, "_blank");
     }
   };
@@ -131,6 +132,7 @@ const Edit = () => {
               <input
                 type="file"
                 name="profilePicture"
+
                 placeholder=""
                 accept="image/*"
                 onChange={handleImageUpload}
@@ -144,6 +146,7 @@ const Edit = () => {
                   alt=""
                   className="border rounded-md"
                 />
+
               )}
             </div>
           </div>
@@ -157,6 +160,12 @@ const Edit = () => {
                 value={fullName}
                 onChange={handleChange}
                 error={errors.fullName}
+                name="name"
+                type="text"
+                placeholder=""
+                value={FullName}
+                onChange={handleChange}
+                error={errors.FullName}
               />
             </div>
             <div className="flex flex-col flex-grow">
@@ -168,6 +177,7 @@ const Edit = () => {
                 value={telegramUsername}
                 onChange={handleChange}
                 error={errors.telegramUsername}
+
               />
             </div>
           </div>
@@ -179,6 +189,7 @@ const Edit = () => {
             value={email}
             onChange={handleChange}
             error={errors.email}
+
           />
 
           <div className="flex flex-col ed:flex-row ed:max-w-[89%]">
@@ -192,6 +203,7 @@ const Edit = () => {
                 className="border max-w-[80%] rounded-md py-1 px-3 mt-1 border-gray-300"
               >
                 <option value={country}>{country}</option>
+
                 {africanCountries.map((country) => (
                   <option key={country.value} value={country.label}>
                     {country.label}
@@ -208,6 +220,7 @@ const Edit = () => {
                 value={phoneNumber}
                 onChange={handleChange}
                 error={errors.phoneNumber}
+
               />
             </div>
           </div>
@@ -219,6 +232,7 @@ const Edit = () => {
               name="shortBio"
               placeholder=""
               value={shortBio}
+
               onChange={handleChange}
               className="border max-w-[80%] rounded-md py-1 px-3 mt-1 border-gray-300 placeholder-white-400"
             />
@@ -234,6 +248,7 @@ const Edit = () => {
                 value={university}
                 onChange={handleChange}
                 error={errors.university}
+
               />
             </div>
             <div className="flex flex-col flex-grow">
@@ -245,6 +260,7 @@ const Edit = () => {
                 value={department}
                 onChange={handleChange}
                 error={errors.department}
+
               />
             </div>
             <div className="flex flex-col flex-grow">
@@ -256,6 +272,7 @@ const Edit = () => {
                 value={graduationYear}
                 onChange={handleChange}
                 error={errors.graduationYear}
+
               />
             </div>
           </div>
@@ -270,6 +287,7 @@ const Edit = () => {
                 value={leetCode}
                 onChange={handleChange}
                 error={errors.leetCode}
+
               />
             </div>
             <div className="flex flex-col flex-grow">
@@ -281,6 +299,7 @@ const Edit = () => {
                 value={codeforces}
                 onChange={handleChange}
                 error={errors.codeforces}
+
               />
             </div>
             <div className="flex flex-col flex-grow">
@@ -292,6 +311,7 @@ const Edit = () => {
                 value={hackerrank}
                 onChange={handleChange}
                 error={errors.hackerrank}
+
               />
             </div>
           </div>
@@ -305,6 +325,7 @@ const Edit = () => {
                 value={gitHub}
                 onChange={handleChange}
                 error={errors.gitHub}
+
               />
             </div>
             <div className="flex flex-col flex-grow">
@@ -316,6 +337,7 @@ const Edit = () => {
                 value={linkedIn}
                 onChange={handleChange}
                 error={errors.linkedIn}
+
               />
             </div>
           </div>
@@ -326,18 +348,21 @@ const Edit = () => {
                 <input
                   type="file"
                   name="cv"
+
                   placeholder=""
                   accept="application/pdf"
                   onChange={handlePdfUpload}
                   className="border max-h-8 rounded-md mt-1 border-gray-300 placeholder-white-400"
                 />
                 {formValue.cv && (
+
                   <Link
                     href="#"
                     className="text-blue-500 underline hover:text-blue-700 mr-5"
                     onClick={openPdfInNewTab}
                   >
                     {formValue.cv.name}
+
                   </Link>
                 )}
               </div>
@@ -351,6 +376,7 @@ const Edit = () => {
                 value={favoriteLanguage}
                 onChange={handleChange}
                 error={errors.favoriteLanguage}
+
               />
             </div>
           </div>

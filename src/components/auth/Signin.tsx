@@ -10,6 +10,7 @@ import CustomError from "<@>/types/auth/custom-error";
 import CustomSuccess from "<@>/types/auth/custom-success";
 import { setUser } from "<@>/store/auth/user-slice";
 
+
 const initialState = {
   email: "",
   password: "",

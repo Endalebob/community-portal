@@ -10,6 +10,7 @@ export const authApiSlice = createApi({
       const token = (getState() as any).auth.token;
       if (token) {
         headers.set("authorization", `bearer ${token}`);
+
       }
       return headers;
     },
@@ -37,6 +38,7 @@ export const authApiSlice = createApi({
         query: ({ ...put }) => ({
           url: "/Profile/me",
           method: "POST",
+
           body: put,
         }),
       }),
