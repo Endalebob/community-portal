@@ -108,7 +108,7 @@ const NavBar: React.FC = () => {
     };
   }, []);
 
-  console.log(isAuthenticated, user);
+  console.log(isAuthenticated, user, showProfile);
 
   return (
     <>
@@ -117,66 +117,71 @@ const NavBar: React.FC = () => {
           <Image src="/a2sv-logo.png" width={105} height={30} alt="logo" />
         </div>
 
-        <div className="w-full absolute -right-0 flex flex-col gap-y-4 md:flex-row md:static">
+        <div className="w-full absolute -right-0 flex flex-col md:flex-row md:static">
           {/* Navigation Links*/}
-          <nav
-            className={classNames(
-              showNav ? "flex" : "hidden",
-              "md:flex absolute md:static right-0 bg-white md:ml-0 shadow-xl md:shadow-none p-10 md:p-0 rounded-xl top-8"
-            )}
-          >
-            <div
-              ref={showNavRef}
-              className="flex flex-col gap-5 z-20 md:m-0 bg-white content-between md:flex-row md:w-full justify-between"
+
+          {isAuthenticated && (
+            <nav
+              className={classNames(
+                showNav ? "flex" : "hidden",
+                "md:flex absolute md:static right-0 bg-white md:ml-0 shadow-xl md:shadow-none p-10 md:p-0 rounded-xl top-8"
+              )}
             >
-              {navigation.map(({ name, to, current }, index) => (
-                <Link
-                  key={index}
-                  href={to}
-                  className={classNames(
-                    current
-                      ? "text-blue-700 underline underline-offset-8 decoration-4"
-                      : "no-underline text-primary-text",
-                    "text-sm md:text-base"
-                  )}
-                >
-                  {name}
-                </Link>
-              ))}
-            </div>
-          </nav>
+              <div
+                ref={showNavRef}
+                className="flex flex-col gap-5 z-20 md:m-0 bg-white content-between md:flex-row md:w-full justify-between"
+              >
+                {navigation.map(({ name, to, current }, index) => (
+                  <Link
+                    key={index}
+                    href={to}
+                    className={classNames(
+                      current
+                        ? "text-blue-700 underline underline-offset-8 decoration-4"
+                        : "no-underline text-primary-text",
+                      "text-sm md:text-base"
+                    )}
+                  >
+                    {name}
+                  </Link>
+                ))}
+              </div>
+            </nav>
+          )}
 
           {/* Mobile Navigation HumBurger Icon */}
+
           <div className="flex ml-auto justify-end">
-            {showNav ? (
-              <MdOutlineClose
-                className="block w-10 h-10 p-2 md:hidden ml-auto"
-                onClick={() => {
-                  setShowNav(!showNav);
-                  setShowProfile(false);
-                }}
-              />
-            ) : (
-              <MdViewHeadline
-                className="block w-10 h-10 p-2 md:hidden ml-auto"
-                onClick={() => {
-                  setShowNav(!showNav);
-                  setShowProfile(false);
-                }}
-              />
-            )}
+            {isAuthenticated &&
+              (showNav ? (
+                <MdOutlineClose
+                  className="block w-10 h-10 p-2 md:hidden ml-auto"
+                  onClick={() => {
+                    setShowNav(!showNav);
+                    setShowProfile(false);
+                  }}
+                />
+              ) : (
+                <MdViewHeadline
+                  className="block w-10 h-10 p-2 md:hidden ml-auto"
+                  onClick={() => {
+                    setShowNav(!showNav);
+                    setShowProfile(false);
+                  }}
+                />
+              ))}
 
             {/* Logged in user profile icon */}
             {isAuthenticated && (
               <button
                 onClick={() => {
-                  setShowProfile((showProfile) => !showProfile);
+                  setShowProfile(!showProfile);
                   setShowNav(false);
                 }}
               >
                 <Image
                   className="w-10 h-10 rounded-full bg-white hover:ring-2 p-1 hover:ring-gray-300 transition ease-in-out duration-200"
-                  src="/img/profile-picture.jpg"
+                  src="/img/profile-picture.webp"
                   alt="Bordered avatar"
                   width={150}
                   height={150}
@@ -189,7 +194,7 @@ const NavBar: React.FC = () => {
             <>
               {showProfile && (
                 <div
-                  className="absolute right-0 top-16 w-60 border border-r-0 bg-white shadow-2xl text-gray-500"
+                  className="absolute right-0 z-20 top-16 w-60 border border-r-0 bg-white shadow-2xl text-gray-500"
                   ref={showProfileRef}
                 >
                   <div className="text-start p-2">
@@ -203,7 +208,7 @@ const NavBar: React.FC = () => {
                       </button>
                     </Link>
 
-                    <button className="p-2     { && (hover:bg-gray-100 w-full text-start">
+                    <button className="p-2 hover:bg-gray-100 w-full text-start">
                       Account settings
                     </button>
                     <div className="border border-1"></div>
@@ -229,7 +234,7 @@ const NavBar: React.FC = () => {
             <div
               className={classNames(
                 showNav ? "flex" : "hidden",
-                "ml-auto md:flex gap-4 items-center text-sm lg:text-lg"
+                "ml-auto md:flex items-center space-x-2 text-sm lg:text-lg"
               )}
             >
               {/* auth buttons */}
