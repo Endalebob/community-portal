@@ -1,31 +1,34 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import ContestTimer from "./ContestCardTimer";
+import { setSelectedContest } from "<@>/store/journey/contest-slice";
+import { useAppDispatch } from "<@>/store/hooks";
 
 interface ContestCardProps {
-  id: string | number;
+  id: string;
   date: string;
-  description: string;
-  onClick: (id: number | string) => void;
+  title: string;
 }
 
-const ContestCard: React.FC<ContestCardProps> = ({
-  onClick,
-  id,
-  date,
-  description,
-}) => {
+const ContestCard: React.FC<ContestCardProps> = ({ id, date, title }) => {
+  const contestTime = new Date(date);
+  const dispatch = useAppDispatch();
   return (
     <div
-      onClick={() => onClick(id)}
+      onClick={() => dispatch(setSelectedContest({ id: id }))}
       className="flex flex-col cursor-pointer w-full p-4 gap-1 rounded-md shadow-sm bg-primarybg border"
     >
       <div>
-        <p className="font-semibold">{description}</p>
+        <p className="font-semibold">{title}</p>
       </div>
       <div className="flex gap-6 text-sm opacity-30">
-        <p className="">{date}</p>
-        <ContestTimer date={new Date(date)} />
+        <p className="">
+          {contestTime.toLocaleDateString()}{" "}
+          {contestTime.toLocaleTimeString().split(":").slice(0, 2).join(":") +
+            " " +
+            contestTime.toLocaleTimeString().slice(-2)}
+        </p>
+        <ContestTimer date={contestTime} />
       </div>
     </div>
   );
