@@ -1,6 +1,7 @@
+import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
-import { IconType, icons } from "react-icons/lib";
+import { IconType, icons } from "react-icons";
 import {
   TbCircle1Filled,
   TbCircle2Filled,
@@ -34,28 +35,41 @@ const HowToJoin = () => {
   ];
   return (
     <div className="flex flex-col ml-8 md:ml-28 mb-20 mr-8 mt-16">
-      <div className="">
-        <h1 className="text-5xl font-bold">How do I join A2SV?</h1>
-        <p className="text-secondary-text pt-8 text-2xl leading-10">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1, transition: { duration: 1 } }}
+      >
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
+          How do I join A2SV?
+        </h1>
+        <p className="text-secondary-text pt-8 text-lg lg:text-xl xl:text-2xl leading-8 lg:leading-10">
           The way to join A2SV is through A2SV Community Portal. The community
           path is open to everyone who has interest in problem solving and in
           Data Structures and Algorithms.
         </p>
-      </div>
+      </motion.div>
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="col-span-1 pt-12">
           {steps.map((step, index) => (
-            <div className="flex flex-row gap-x-8 pt-8" key={index}>
+            <motion.div
+              className="flex flex-row gap-x-8 pt-8"
+              key={index}
+              initial={{ x: -200 }}
+              whileInView={{ x: 0 }}
+              transition={{ delay: index * 0.2, duration: 1 }}
+            >
               <div className="pt-2">
                 <step.icon color="#3182CE" size={40} />
               </div>
               <div>
-                <h1 className="text-3xl font-semibold">{step.title}</h1>
-                <p className="text-secondary-text pt-2 text-xl">
+                <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold">
+                  {step.title}
+                </h1>
+                <p className="text-secondary-text pt-2 text-lg lg:text-xl xl:text-2xl">
                   {step.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
