@@ -9,7 +9,7 @@ export const authApiSlice = createApi({
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as any).auth.token;
       if (token) {
-        headers.set("authorization", `token ${token}`);
+        headers.set("authorization", `bearer ${token}`);
       }
       return headers;
     },
@@ -35,15 +35,15 @@ export const authApiSlice = createApi({
 
       updateUser: builder.mutation({
         query: ({ ...put }) => ({
-          url: "/account/user-detail/",
-          method: "PUT",
+          url: "/Profile/me",
+          method: "POST",
           body: put,
         }),
       }),
 
       getUserapi: builder.query({
         query: () => ({
-          url: "/account/user-detail/",
+          url: "/Profile/me",
           method: "GET",
         }),
       }),
