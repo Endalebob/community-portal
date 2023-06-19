@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { MdClose } from "react-icons/md";
+import { useWindowWidth } from "./WindowWidth";
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -35,7 +36,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
   return (
     <div
-      className={`fixed inset-0 bg-opacity-50 bg-gray-900 z-50 flex items-center justify-center ${
+      className={`fixed inset-0  bg-opacity-50 bg-gray-900 z-50 flex items-center justify-center ${
         isOpen ? "" : "hidden"
       }`}
     >
@@ -43,7 +44,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         ref={modalRef}
         className="bg-primarybg m-2 p-4 rounded-lg shadow-lg max-h-[80%] overflow-auto"
       >
-        <div className="w-full flex justify-right"> </div>
         {children}
       </div>
     </div>

@@ -15,7 +15,9 @@ function getRemainingTime(targetDate: Date): ITimeLeft {
   }
   const remainingDays = Math.floor(timeDifference / (24 * 60 * 60 * 1000));
 
-  const remainingHours = Math.floor(timeDifference / (60 * 60 * 1000));
+  const remainingHours = Math.floor(
+    (timeDifference % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000)
+  );
   const remainingMinutes = Math.floor(
     (timeDifference % (60 * 60 * 1000)) / (60 * 1000)
   );
@@ -48,7 +50,7 @@ const ContestDetailTimer: React.FC<ContestDetailTimerProps> = ({ date }) => {
     };
   }, [date]);
   return (
-    <div className="grid grid-cols-4 max-w-xs">
+    <div className="grid grid-cols-4 w-64">
       <div className="grid items-start p-2">
         <p className="text-sm">Days</p>
         <p className="text-3xl">{remainingTime?.days}</p>

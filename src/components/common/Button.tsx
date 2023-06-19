@@ -38,7 +38,7 @@ function Button({
         outline
           ? "outline outline-2 outline-primary text-primary  bg-secondary hover:bg-primary hover:text-secondary"
           : "text-secondary bg-primary"
-      } flex justify-center items-center gap-x-3 px-8 py-3 m-2 text-md  rounded-md cursor-pointer ${className}`}
+      } flex justify-center items-center gap-x-3 px-8 py-2 text-md  rounded-md cursor-pointer ${className}`}
     >
       {startIcon && startIcon} {label} {endIcon && endIcon}{" "}
     </button>

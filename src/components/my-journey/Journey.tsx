@@ -1,34 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Stepper from "./Stepper";
 import Task from "./Task";
 import Contests from "./Contests";
-import ContestDetail from "./ContestDetail";
-import { AiOutlineClose } from "react-icons/ai";
+import { useGetContestsQuery } from "<@>/store/journey/contest-api";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "<@>/store";
+import { setSelectedContest } from "<@>/store/journey/contest-slice";
 import Modal from "../common/Modal";
+import ContestDetail from "./ContestDetail";
+import { useWindowWidth } from "../common/WindowWidth";
+import Error from "../common/Error";
 
 const Journey: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
 
-  const [selectedContest, setSelectedContest] = useState<
-    number | string | null
-  >();
-  const contests = [
-    {
-      id: "1",
-      description: "OnBoarding Contest #2 Div-1 ",
-      date: "Jun 14, 2023",
-    },
-    {
-      id: "1",
-      description: "OnBoarding Contest #2 Div-1 ",
-      date: "Jun 17, 2023",
-    },
-    {
-      id: "1",
-      description: "OnBoarding Contest #2 Div-1 ",
-      date: "Jun 13, 2023",
-    },
-  ];
+  const {
+    data: response,
+    isLoading,
+    isError,
+    isSuccess,
+    error,
+  } = useGetContestsQuery({});
+  const dispatch = useDispatch();
+  const contests = response?.value;
+  const selectedContest = useSelector(
+    (state: RootState) => state.selectedContest.id
+  );
+
+  const windowWidth = useWindowWidth();
+  const largeScreen = 1024;
+  const modalOpen = windowWidth < largeScreen && selectedContest !== null;
+
   const steps = [
     {
       isCompleted: true,
@@ -117,11 +119,11 @@ const Journey: React.FC = () => {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 w-full border-t">
+    <div className="grid grid-cols-2 lg:grid-cols-4 w-full border-t">
       <div
         className={`${
-          selectedContest != null ? `md:col-span-2` : `md:col-span-3`
-        } col-span-4 flex flex-col md:border-r p-4 pt-8`}
+          selectedContest != null ? `lg:col-span-2` : `lg:col-span-3`
+        } col-span-4 flex flex-col lg:border-r p-4 pt-8`}
       >
         <div className="flex flex-col p-2">
           <Stepper steps={steps} setActiveStep={setActiveStep} />
@@ -153,8 +155,27 @@ const Journey: React.FC = () => {
         </div>
       </div>
 
-      <div className="col-span-2 md:col-span-1 flex px-3 border-r">
-        <Contests setSelectedContest={setSelectedContest} contests={contests} />
+      <div className="col-span-2 lg:col-span-1 flex px-3 border-r">
+        {isLoading ? (
+          <div className="animate-pulse w-full flex flex-col p-4 gap-2">
+            <div className="w-2/3 rounded-sm h-4 mb-8 bg-slate-200"></div>
+            <div className="w-full rounded-md  h-20 bg-slate-200"></div>
+            <div className="w-full rounded-md  h-20 bg-slate-200"></div>
+            <div className="w-full rounded-md  h-20 bg-slate-200"></div>
+          </div>
+        ) : isSuccess ? (
+          response?.error ? (
+            <div>{response?.error}</div>
+          ) : (
+            <Contests contests={contests} />
+          )
+        ) : isError ? (
+          <div>
+            <Error message={"An error occured while fetching Contests"} />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
 
       <div
@@ -162,10 +183,10 @@ const Journey: React.FC = () => {
           selectedContest != null ? "flex" : "hidden"
         } flex-col col-span-1`}
       >
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <Modal
-            isOpen={selectedContest != null}
-            onClose={() => setSelectedContest(null)}
+            isOpen={modalOpen}
+            onClose={() => dispatch(setSelectedContest({ id: null }))}
           >
             <ContestDetail
               id={selectedContest!}
@@ -174,7 +195,7 @@ const Journey: React.FC = () => {
           </Modal>
           <div className="bg-primarybg rounded-lg p-4"></div>
         </div>
-        <div className="hidden  md:flex sticky top-0">
+        <div className="hidden  lg:flex sticky top-0">
           {selectedContest && (
             <ContestDetail
               id={selectedContest}
