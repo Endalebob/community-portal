@@ -1,4 +1,3 @@
-// import NavBar from "<@>/components/layout/NavBar";
 import { setToken } from "<@>/store/auth/auth-slice";
 import { useAppDispatch, useAppSelector } from "<@>/store/hooks";
 import React from "react";

@@ -103,12 +103,12 @@ const Edit = () => {
   };
 
   const handlePdfUpload = (e: any) => {
-    setFormValue({ ...formValue, Cv: e.target.files[0] });
+    setFormValue({ ...formValue, cv: e.target.files[0] });
   };
 
   const openPdfInNewTab = () => {
-    if (formValue.Cv) {
-      const url = URL.createObjectURL(formValue.Cv);
+    if (formValue.cv) {
+      const url = URL.createObjectURL(formValue.cv);
       window.open(url, "_blank");
     }
   };
