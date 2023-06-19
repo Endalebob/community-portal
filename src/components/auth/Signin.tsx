@@ -3,10 +3,13 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AuthImage from "./AuthImage";
 import InputField from "./InputField";
-import { useLoginUserMutation } from "<@>/store/auth/auth-api";
+import { useGetUserapiQuery, useLoginUserMutation } from "<@>/store/auth/auth-api";
 import { setToken } from "<@>/store/auth/auth-slice";
 import ProgressIndicator from "./ProgressIndicator";
 import CustomError from "<@>/types/auth/custom-error";
+import CustomSuccess from "<@>/types/auth/custom-success";
+import { setUser } from "<@>/store/auth/user-slice";
+
 
 const initialState = {
   email: "",

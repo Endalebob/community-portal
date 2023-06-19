@@ -1,5 +1,8 @@
-import { useUpdateUserMutation } from "<@>/store/auth/auth-api";
-import { useAppSelector } from "<@>/store/hooks";
+import {
+  useGetUserapiQuery,
+  useUpdateUserMutation,
+} from "<@>/store/auth/auth-api";
+import { useAppDispatch, useAppSelector } from "<@>/store/hooks";
 import router from "next/router";
 import React, { useEffect, useState } from "react";
 import InputField from "../auth/InputField";
@@ -9,31 +12,28 @@ import Link from "next/link";
 import User from "<@>/types/auth/user";
 
 const Edit = () => {
-  // const token = JSON.parse(localStorage.getItem("user") || "{}") || {};
-  const token = "";
-
-  const { data } = useAppSelector((state) => state.user);
-  const [formValue, setFormValue] = useState(data);
-  const [errors, setErrors] = useState<Partial<User["data"]>>({});
+  const { user } = useAppSelector((state) => state.user);
+  const [formValue, setFormValue] = useState(user);
+  const [errors, setErrors] = useState<Partial<User>>({});
   const [imagePreview, setImagePreview] = useState("");
   const {
-    FullName,
-    Email,
-    PhoneNumber,
-    TelegramUsername,
-    Country,
-    ShortBio,
-    ProfilePicture,
-    University,
-    Department,
-    GraduationYear,
-    LeetCode,
-    GitHub,
-    Codeforces,
-    Hackerrank,
-    LinkedIn,
-    Cv,
-    FavoriteLanguage,
+    fullName,
+    email,
+    phoneNumber,
+    telegramUsername,
+    country,
+    shortBio,
+    profilePicture,
+    university,
+    department,
+    graduationYear,
+    leetCode,
+    gitHub,
+    codeforces,
+    hackerrank,
+    linkedIn,
+    cv,
+    favoriteLanguage,
   } = formValue;
 
   const [
@@ -48,11 +48,12 @@ const Edit = () => {
 
   const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const validationErrors: Partial<User["data"]> = {};
-    if (!FullName) {
-      validationErrors.FullName = "Full Name is required";
-    } else if (!Email) {
-      validationErrors.Email = "Email is required";
+    const validationErrors: Partial<User> = {};
+    if (!fullName) {
+      validationErrors.fullName = "Full Name is required";
+    } else if (!email) {
+      validationErrors.email = "Email is required";
+
     } //check if email is valid
     else if (
       !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
@@ -67,8 +68,9 @@ const Edit = () => {
         validationErrors.PhoneNumber = "Phone number is invalid";
       }
     }
+    console.log(formValue);
 
-    await updateUser({ ...formValue, token });
+    await updateUser({ ...formValue });
   };
 
   useEffect(() => {
@@ -100,7 +102,7 @@ const Edit = () => {
       setImagePreview("");
     }
   };
-  
+
   const handlePdfUpload = (e: any) => {
     setFormValue({ ...formValue, Cv: e.target.files[0] });
   };
@@ -129,14 +131,22 @@ const Edit = () => {
             <div className="flex flex-row gap-4">
               <input
                 type="file"
-                name="ProfilePicture"
+                name="profilePicture"
+
                 placeholder=""
                 accept="image/*"
                 onChange={handleImageUpload}
                 className="border max-h-8 rounded-md mt-1 border-gray-300 placeholder-white-400"
               />
               {imagePreview && (
-                <Image width={80} height={40} src={imagePreview} alt="" className="border rounded-md" />
+                <Image
+                  width={80}
+                  height={40}
+                  src={imagePreview}
+                  alt=""
+                  className="border rounded-md"
+                />
+
               )}
             </div>
           </div>
@@ -144,6 +154,12 @@ const Edit = () => {
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Full Name"
+                name="fullName"
+                type="text"
+                placeholder=""
+                value={fullName}
+                onChange={handleChange}
+                error={errors.fullName}
                 name="name"
                 type="text"
                 placeholder=""
@@ -155,12 +171,13 @@ const Edit = () => {
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Telegram Username"
-                name="telegramHandle"
+                name="telegramUsername"
                 type="text"
                 placeholder=""
-                value={TelegramUsername}
+                value={telegramUsername}
                 onChange={handleChange}
-                error={errors.TelegramUsername}
+                error={errors.telegramUsername}
+
               />
             </div>
           </div>
@@ -169,9 +186,10 @@ const Edit = () => {
             name="email"
             type="email"
             placeholder=""
-            value={Email}
+            value={email}
             onChange={handleChange}
-            error={errors.Email}
+            error={errors.email}
+
           />
 
           <div className="flex flex-col ed:flex-row ed:max-w-[89%]">
@@ -184,7 +202,8 @@ const Edit = () => {
                 onChange={handleChange}
                 className="border max-w-[80%] rounded-md py-1 px-3 mt-1 border-gray-300"
               >
-                <option value={Country}>{Country}</option>
+                <option value={country}>{country}</option>
+
                 {africanCountries.map((country) => (
                   <option key={country.value} value={country.label}>
                     {country.label}
@@ -198,9 +217,10 @@ const Edit = () => {
                 name="phoneNumber"
                 type="text"
                 placeholder=""
-                value={PhoneNumber}
+                value={phoneNumber}
                 onChange={handleChange}
-                error={errors.PhoneNumber}
+                error={errors.phoneNumber}
+
               />
             </div>
           </div>
@@ -209,9 +229,10 @@ const Edit = () => {
               Short bio
             </p>
             <textarea
-              name="ShortBio"
+              name="shortBio"
               placeholder=""
-              value={ShortBio}
+              value={shortBio}
+
               onChange={handleChange}
               className="border max-w-[80%] rounded-md py-1 px-3 mt-1 border-gray-300 placeholder-white-400"
             />
@@ -221,34 +242,37 @@ const Edit = () => {
             <div className="flex flex-col flex-grow">
               <InputField
                 label="University"
-                name="University"
+                name="university"
                 type="text"
                 placeholder=""
-                value={University}
+                value={university}
                 onChange={handleChange}
-                error={errors.University}
+                error={errors.university}
+
               />
             </div>
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Department"
-                name="Department"
+                name="department"
                 type="text"
                 placeholder=""
-                value={Department}
+                value={department}
                 onChange={handleChange}
-                error={errors.Department}
+                error={errors.department}
+
               />
             </div>
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Year Of Graduation"
-                name="GraduationYear"
+                name="graduationYear"
                 type="text"
                 placeholder=""
-                value={GraduationYear}
+                value={graduationYear}
                 onChange={handleChange}
-                error={errors.GraduationYear}
+                error={errors.graduationYear}
+
               />
             </div>
           </div>
@@ -257,34 +281,37 @@ const Edit = () => {
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Leetcode Username"
-                name="LeetCode"
+                name="leetCode"
                 type="text"
                 placeholder=""
-                value={LeetCode}
+                value={leetCode}
                 onChange={handleChange}
-                error={errors.LeetCode}
+                error={errors.leetCode}
+
               />
             </div>
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Codeforces Username"
-                name="codeforcesUsername"
+                name="codeforces"
                 type="text"
                 placeholder=""
-                value={Codeforces}
+                value={codeforces}
                 onChange={handleChange}
-                error={errors.Codeforces}
+                error={errors.codeforces}
+
               />
             </div>
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Hackerrank Username"
-                name="Hackerrank"
+                name="hackerrank"
                 type="text"
                 placeholder=""
-                value={Hackerrank}
+                value={hackerrank}
                 onChange={handleChange}
-                error={errors.Hackerrank}
+                error={errors.hackerrank}
+
               />
             </div>
           </div>
@@ -292,23 +319,25 @@ const Edit = () => {
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Github Username"
-                name="GitHub"
+                name="gitHub"
                 type="text"
                 placeholder=""
-                value={GitHub}
+                value={gitHub}
                 onChange={handleChange}
-                error={errors.GitHub}
+                error={errors.gitHub}
+
               />
             </div>
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Linkedin Url"
-                name="LinkedIn"
+                name="linkedIn"
                 type="text"
                 placeholder=""
-                value={LinkedIn}
+                value={linkedIn}
                 onChange={handleChange}
-                error={errors.LinkedIn}
+                error={errors.linkedIn}
+
               />
             </div>
           </div>
@@ -318,19 +347,22 @@ const Edit = () => {
               <div className="flex flex-row gap-4 items-end">
                 <input
                   type="file"
-                  name="Cv"
+                  name="cv"
+
                   placeholder=""
                   accept="application/pdf"
                   onChange={handlePdfUpload}
                   className="border max-h-8 rounded-md mt-1 border-gray-300 placeholder-white-400"
                 />
-                {formValue.Cv && (
+                {formValue.cv && (
+
                   <Link
                     href="#"
                     className="text-blue-500 underline hover:text-blue-700 mr-5"
                     onClick={openPdfInNewTab}
                   >
-                    {formValue.Cv.name}
+                    {formValue.cv.name}
+
                   </Link>
                 )}
               </div>
@@ -338,12 +370,13 @@ const Edit = () => {
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Programming Language"
-                name="FavoriteLanguage"
+                name="favoriteLanguage"
                 type="text"
                 placeholder=""
-                value={FavoriteLanguage}
+                value={favoriteLanguage}
                 onChange={handleChange}
-                error={errors.FavoriteLanguage}
+                error={errors.favoriteLanguage}
+
               />
             </div>
           </div>
