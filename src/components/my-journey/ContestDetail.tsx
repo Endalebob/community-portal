@@ -8,7 +8,6 @@ import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { SelectedContest } from "<@>/store/journey/contest-slice";
 import { useAppDispatch } from "<@>/store/hooks";
 import Error from "../common/Error";
-import PopUpError from "../common/PopUpError";
 
 interface ContestDetailProps {
   id: string | number;
