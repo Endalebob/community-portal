@@ -10,6 +10,7 @@ import Modal from "../common/Modal";
 import ContestDetail from "./ContestDetail";
 import { useWindowWidth } from "../common/WindowWidth";
 import Error from "../common/Error";
+import PopUpError from "../common/PopUpError";
 
 const Journey: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -29,7 +30,7 @@ const Journey: React.FC = () => {
 
   const windowWidth = useWindowWidth();
   const largeScreen = 1024;
-  const modalOpen = windowWidth < largeScreen && selectedContest !== null;
+  const modalOpen = windowWidth! < largeScreen && selectedContest !== null;
 
   const steps = [
     {
@@ -155,7 +156,11 @@ const Journey: React.FC = () => {
         </div>
       </div>
 
-      <div className="col-span-2 lg:col-span-1 flex px-3 border-r">
+      <div
+        className={`col-span-2 lg:col-span-1 flex ${
+          modalOpen || selectedContest === null ? "" : "border-r px-3"
+        }`}
+      >
         {isLoading ? (
           <div className="animate-pulse w-full flex flex-col p-4 gap-2">
             <div className="w-2/3 rounded-sm h-4 mb-8 bg-slate-200"></div>
@@ -170,7 +175,7 @@ const Journey: React.FC = () => {
             <Contests contests={contests} />
           )
         ) : isError ? (
-          <div>
+          <div className="flex justify-center h-fit w-full p-4">
             <Error message={"An error occured while fetching Contests"} />
           </div>
         ) : (
