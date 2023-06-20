@@ -49,7 +49,6 @@ const NavBar: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const handleLogout = () => {
-    console.log("here");
     dispatch(clearToken());
     router.push("/auth/signin");
   };
@@ -108,14 +107,14 @@ const NavBar: React.FC = () => {
     };
   }, []);
 
-  console.log(isAuthenticated, user, showProfile);
-
   return (
     <>
       <section className="flex p-4 border-b-2">
-        <div className="w-28 lg:w-52">
-          <Image src="/a2sv-logo.png" width={105} height={30} alt="logo" />
-        </div>
+        <Link href="/">
+          <div className="w-28 lg:w-52">
+            <Image src="/a2sv-logo.png" width={105} height={30} alt="logo" />
+          </div>
+        </Link>
 
         <div className="w-full absolute -right-0 flex flex-col md:flex-row md:static">
           {/* Navigation Links*/}
@@ -179,13 +178,23 @@ const NavBar: React.FC = () => {
                   setShowNav(false);
                 }}
               >
-                <Image
-                  className="w-10 h-10 rounded-full bg-white hover:ring-2 p-1 hover:ring-gray-300 transition ease-in-out duration-200"
-                  src="/img/profile-picture.webp"
-                  alt="Bordered avatar"
-                  width={150}
-                  height={150}
-                />
+                {user.profilePicture != "" ? (
+                  <Image
+                    src={user.profilePicture}
+                    className="w-10 h-10 rounded-full object-cover bg-white hover:ring-2 p-1 hover:ring-gray-300 transition ease-in-out duration-200"
+                    alt="profile picture"
+                    width={150}
+                    height={150}
+                  />
+                ) : (
+                  <Image
+                    className="w-10 h-10 rounded-full object-cover bg-white hover:ring-2 p-1 hover:ring-gray-300 transition ease-in-out duration-200"
+                    src="/img/profile-picture.webp"
+                    alt="Bordered avatar"
+                    width={150}
+                    height={150}
+                  />
+                )}
               </button>
             )}
           </div>
@@ -207,25 +216,12 @@ const NavBar: React.FC = () => {
                         My Profile
                       </button>
                     </Link>
-
-                    <button className="p-2 hover:bg-gray-100 w-full text-start">
-                      Account settings
-                    </button>
-                    <div className="border border-1"></div>
-                    <button className="p-2 hover:bg-gray-100 w-full text-start flex gap-2 items-center">
-                      <MdFavorite />
-                      My likes
-                    </button>
-                    <button className="p-2 hover:bg-gray-100 w-full text-start flex gap-2 items-center">
-                      <BsCollectionFill />
-                      Collections
-                    </button>
                   </div>
                   <button
                     className="p-2 hover:bg-gray-100 w-full text-start"
                     onClick={handleLogout}
                   >
-                    signout
+                    Signout
                   </button>
                 </div>
               )}
