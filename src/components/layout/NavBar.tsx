@@ -178,7 +178,7 @@ const NavBar: React.FC = () => {
                   setShowNav(false);
                 }}
               >
-                {user.profilePicture != "" ? (
+                {user.profilePicture ? (
                   <Image
                     src={user.profilePicture}
                     className="w-10 h-10 rounded-full object-cover bg-white hover:ring-2 p-1 hover:ring-gray-300 transition ease-in-out duration-200"
