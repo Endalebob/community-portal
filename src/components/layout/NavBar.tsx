@@ -233,7 +233,7 @@ const NavBar: React.FC = () => {
           ) : (
             <div
               className={classNames(
-                showNav ? "flex" : "hidden",
+                showNav || !isAuthenticated ? "flex" : "hidden",
                 "ml-auto md:flex items-center space-x-2 text-sm lg:text-lg"
               )}
             >
