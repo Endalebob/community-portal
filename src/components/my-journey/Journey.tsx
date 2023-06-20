@@ -10,7 +10,6 @@ import Modal from "../common/Modal";
 import ContestDetail from "./ContestDetail";
 import { useWindowWidth } from "../common/WindowWidth";
 import Error from "../common/Error";
-import PopUpError from "../common/PopUpError";
 
 const Journey: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
