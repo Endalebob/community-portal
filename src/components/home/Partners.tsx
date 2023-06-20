@@ -4,7 +4,11 @@ import Image from "next/image";
 const Partners: React.FC = () => {
   const images = ["palantir", "meta", "google", "data-bricks", "instadeep"];
   return (
+<<<<<<< HEAD
     <div className="bg-slate-100 h-full mx-auto my-auto  mb-8 w-full">
+=======
+    <div className="bg-slate-100 h-full mx-auto my-auto  mb-8">
+>>>>>>> 7632e57 (implement landing page)
       <p className="text-xl mt-8 ml-8 md:ml-24 text-secondary-text font-semibold">
         These and other companies partnered with us
       </p>
@@ -12,7 +16,11 @@ const Partners: React.FC = () => {
         {images.map((url, index) => (
           <div key={index} className="pt-8 pb-8">
             <Image
+<<<<<<< HEAD
               src={`/images/home/partners/${url}.png`}
+=======
+              src={`/img/home/partners/${url}.png`}
+>>>>>>> 7632e57 (implement landing page)
               alt={`${index}`}
               width={250}
               height={500}
