@@ -7,13 +7,53 @@ import CustomSuccess from "<@>/types/auth/custom-success";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import StudentDetail from "./StudentDetail";
-import Image from "next/image";
 import { useSelector } from "react-redux";
 import { RootState } from "<@>/store";
+import Redirect from "../common/Redirect";
+import ProgrammingHandles from "./ProgrammingHandles";
+import {
+  SiCodeforces,
+  SiGeeksforgeeks,
+  SiGithub,
+  SiLeetcode,
+} from "react-icons/si";
+import { FaHackerrank } from "react-icons/fa";
 
 const Profile = () => {
-  const user = useSelector((state: RootState) => state.user.user);
+  const applicant = useSelector((state: RootState) => state.user.user);
 
+  const programmingSites = [
+    {
+      platform: "LeetCode",
+      handle: applicant?.leetCode,
+      baseUrl: `https://leetcode.com/${applicant?.leetCode}`,
+      icon: SiLeetcode,
+    },
+    {
+      platform: "CodeForces",
+      handle: applicant?.codeforces,
+      baseUrl: `https://codeforces.com/profile/${applicant?.gitHub}`,
+      icon: SiCodeforces,
+    },
+    {
+      platform: "Github",
+      handle: applicant?.gitHub,
+      baseUrl: `https://github.com/${applicant?.gitHub}`,
+      icon: SiGithub,
+    },
+    {
+      platform: "HackerRank",
+      handle: applicant?.hackerrank,
+      baseUrl: `https://www.hackerrank.com/${applicant?.hackerrank}`,
+      icon: FaHackerrank,
+    },
+    {
+      platform: "GeeksForGeeks",
+      handle: applicant?.geeksforgeeks,
+      baseUrl: `https://auth.geeksforgeeks.org/user/${applicant?.geeksforgeeks}`,
+      icon: SiGeeksforgeeks,
+    },
+  ];
   // route protection
   const router = useRouter();
   const isAuthenticated = useSelector(
@@ -22,7 +62,8 @@ const Profile = () => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      router.push("/login"); // Redirect to login page if user is not authenticated
+      setTimeout(() => router.push("/auth/signin"), 2000);
+      // Redirect to login page if user is not authenticated
     }
   }, [isAuthenticated, router]);
 
@@ -44,13 +85,16 @@ const Profile = () => {
     dispatch(setUser(data.value));
   }
 
-  console.log(user);
   return (
     <section>
-      <h1 className="text-xl md:text-lg">Profile</h1>
-      <div className="flex justify-center items-center">
-        <div>{/* <Image src={} /> */}</div>
-        <StudentDetail />
+      <h1 className="ml-16 text-xl md:text-lg">Profile</h1>
+
+      <StudentDetail />
+
+      <div className="space-y-2">
+        {programmingSites.map((item, index) => (
+          <ProgrammingHandles key={index} {...item} />
+        ))}
       </div>
     </section>
   );

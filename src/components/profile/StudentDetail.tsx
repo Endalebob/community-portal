@@ -9,68 +9,47 @@ import { FaHackerrank } from "react-icons/fa";
 import ProgrammingHandles from "./ProgrammingHandles";
 import Image from "next/image";
 import User from "<@>/types/auth/user";
-
-const applicant: User = {
-  appUserId: 123456789,
-  fullName: "John Doe",
-  profilePicture:
-    "https://res.cloudinary.com/djtkzulun/image/upload/v1684307248/Portfolio/dgxjqlgpys1imwnw2bhq.png",
-  telegramUsername: "abelmek",
-  email: "johndoe@gmail.com",
-  country: "United States",
-  phoneNumber: "123-456-7890",
-  university: "Example University",
-  department: "Computer Science",
-  graduationYear: "2023",
-  favoriteLanguage: "JavaScript",
-  cv: "https://example.com/johndoe/cv",
-  shortBio:
-    " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque quisquam reprehenderit perspiciatis ab beatae modi facilis reiciendis pariatur temporibus, molestiae nostrum odit corrupti, expedita non esse distinctio tenetur ipsum architecto! Lorem",
-  leetCode: "johndoe",
-  hackerrank: "johndoe",
-  gitHub: "johndoe",
-  linkedIn: "https://linkedin.com/in/johndoe",
-  groupId: 123,
-  codeforces: "jebessa",
-  geeksforgeeks: "https://geeksforgeeks.com/johndoe",
-};
-
-const programmingSites = [
-  {
-    platform: "LeetCode",
-    handle: applicant?.leetCode,
-    baseUrl: `https://leetcode.com/${applicant?.leetCode}`,
-    icon: SiLeetcode,
-  },
-  {
-    platform: "CodeForces",
-    handle: applicant?.codeforces,
-    baseUrl: `https://codeforces.com/profile/${applicant?.gitHub}`,
-    icon: SiCodeforces,
-  },
-  {
-    platform: "Github",
-    handle: applicant?.gitHub,
-    baseUrl: `https://github.com/${applicant?.gitHub}`,
-    icon: SiGithub,
-  },
-  {
-    platform: "HackerRank",
-    handle: applicant?.hackerrank,
-    baseUrl: `https://www.hackerrank.com/${applicant?.hackerrank}`,
-    icon: FaHackerrank,
-  },
-  {
-    platform: "GeeksForGeeks",
-    handle: applicant?.geeksforgeeks,
-    baseUrl: `https://auth.geeksforgeeks.org/user/${applicant?.geeksforgeeks}`,
-    icon: SiGeeksforgeeks,
-  },
-];
+import { RootState } from "<@>/store";
+import { useSelector } from "react-redux";
 
 const StudentDetail = () => {
+  const applicant = useSelector((state: RootState) => state.user.user);
+
+  const programmingSites = [
+    {
+      platform: "LeetCode",
+      handle: applicant?.leetCode,
+      baseUrl: `https://leetcode.com/${applicant?.leetCode}`,
+      icon: SiLeetcode,
+    },
+    {
+      platform: "CodeForces",
+      handle: applicant?.codeforces,
+      baseUrl: `https://codeforces.com/profile/${applicant?.gitHub}`,
+      icon: SiCodeforces,
+    },
+    {
+      platform: "Github",
+      handle: applicant?.gitHub,
+      baseUrl: `https://github.com/${applicant?.gitHub}`,
+      icon: SiGithub,
+    },
+    {
+      platform: "HackerRank",
+      handle: applicant?.hackerrank,
+      baseUrl: `https://www.hackerrank.com/${applicant?.hackerrank}`,
+      icon: FaHackerrank,
+    },
+    {
+      platform: "GeeksForGeeks",
+      handle: applicant?.geeksforgeeks,
+      baseUrl: `https://auth.geeksforgeeks.org/user/${applicant?.geeksforgeeks}`,
+      icon: SiGeeksforgeeks,
+    },
+  ];
+
   return (
-    <div className="col-span-7 overflow-y-scroll max-h-screen waitlist-card-scroll">
+    <div className="overflow-y-scroll max-h-screen">
       <div className=" px-4 py-6 my-0.5 shadow-sm justify-between  text-gray-500 ">
         <h2 className="font-semibold">Student Detail</h2>
       </div>
@@ -90,7 +69,7 @@ const StudentDetail = () => {
                 <hr />
               </div>
             </div>
-            <p className="text-gray-500">{applicant?.shortBio}</p>
+            <p className="text-gray-500">{applicant?.shortBio || "unknown"}</p>
           </div>
         </div>
         <div className="my-6">
@@ -100,25 +79,21 @@ const StudentDetail = () => {
               <hr />
             </div>
           </div>
-          <div className="space-y-2">
-            {programmingSites.map((item, index) => (
-              <ProgrammingHandles key={index} {...item} />
-            ))}
-          </div>
         </div>
         <div className="my-6">
           <div className="flex w-full font-medium text-gray-700 py-2 items-center space-x-10 justify-between">
-            <h3 className="whitespace-nowrap">Education</h3>
+            <h3 className="whiteore hooks than durinspace-nowrap">Education</h3>
             <div className="w-full">
               <hr />
             </div>
           </div>
           <div className="mt-4">
             <p className="text-gray-500">
-              {applicant?.university} - {applicant?.department}
+              {applicant?.university || "unknown"} -
+              {applicant?.department || "unknown"}
             </p>
             <p className="text-gray-500">
-              Graduation year: {applicant?.graduationYear}
+              Graduation year: {applicant?.graduationYear || "unknown"}
             </p>
           </div>
         </div>
@@ -130,10 +105,14 @@ const StudentDetail = () => {
             </div>
           </div>
           <div className="mt-4">
-            <p className="text-gray-500">Email: {applicant?.email}</p>
-            <p className="text-gray-500">Country: {applicant?.country}</p>
             <p className="text-gray-500">
-              Phone number: {applicant?.phoneNumber}
+              Email: {applicant?.email || "unknown"}
+            </p>
+            <p className="text-gray-500">
+              Country: {applicant?.country || "unknown"}
+            </p>
+            <p className="text-gray-500">
+              Phone number: {applicant?.phoneNumber || "unknown"}
             </p>
             <p className="text-gray-500">
               Telegram:{" "}
@@ -141,7 +120,7 @@ const StudentDetail = () => {
                 href={`https://t.me/${applicant?.telegramUsername}`}
                 className="text-blue-500 hover:underline"
               >
-                {applicant?.telegramUsername}
+                {applicant?.telegramUsername || "unknown"}
               </Link>
             </p>
           </div>

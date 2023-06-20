@@ -1,10 +1,8 @@
-import Profile from '<@>/components/profile/Profile'
-import React from 'react'
+import Profile from "<@>/components/profile/Profile";
+import React from "react";
 
-const EditProfilePage = () => {
-  return (
-    <Profile/>
-  )
-}
+const ProfilePage = () => {
+  return <Profile />;
+};
 
-export default EditProfilePage
+export default ProfilePage;
