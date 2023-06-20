@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ContestDetailTimer from "./contestDetailTimer";
 import Button from "../common/Button";
 import { BiLinkExternal } from "react-icons/bi";
@@ -8,6 +8,7 @@ import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { SelectedContest } from "<@>/store/journey/contest-slice";
 import { useAppDispatch } from "<@>/store/hooks";
 import Error from "../common/Error";
+import PopUpError from "../common/PopUpError";
 
 interface ContestDetailProps {
   id: string | number;
