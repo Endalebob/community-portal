@@ -89,7 +89,9 @@ const Edit = () => {
   };
 
   const handleImageUpload = (e: any) => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
+    const formData = new FormData();
+    formData.append("profilePicture", e.target.files[0]);
+    setFormValue({ ...formValue, [e.target.name]: formData });
     console.log(e.target.files[0]);
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -103,7 +105,9 @@ const Edit = () => {
   };
 
   const handlePdfUpload = (e: any) => {
-    setFormValue({ ...formValue, cv: e.target.files[0] });
+    const formData = new FormData();
+    formData.append("cv", e.target.files[0]);
+    setFormValue({ ...formValue, [e.target.name]: formData });
   };
 
   const openPdfInNewTab = () => {

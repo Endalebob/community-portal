@@ -6,6 +6,14 @@ export const contestApiSlice = createApi({
   reducerPath: "contest",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://a2sv-community-portal-api.onrender.com/api",
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as any).auth.token;
+      if (token) {
+        headers.set("authorization", `bearer ${token}`);
+
+      }
+      return headers;
+    },
   }),
   endpoints(builder) {
     return {
