@@ -3,13 +3,16 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AuthImage from "./AuthImage";
 import InputField from "./InputField";
-import { useGetUserapiQuery, useLoginUserMutation } from "<@>/store/auth/auth-api";
+import {
+  useGetUserapiQuery,
+  useLoginUserMutation,
+} from "<@>/store/auth/auth-api";
 import { setToken } from "<@>/store/auth/auth-slice";
 import ProgressIndicator from "./ProgressIndicator";
 import CustomError from "<@>/types/auth/custom-error";
 import CustomSuccess from "<@>/types/auth/custom-success";
 import { setUser } from "<@>/store/auth/user-slice";
-
+import Link from "next/link";
 
 const initialState = {
   email: "",
@@ -173,18 +176,41 @@ const Signin = () => {
               Remember me
             </label>
           </div>
-          <button
-            type="button"
-            onClick={() => handleSignin()}
-            className="text-white max-w-[100px] bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 mb-2"
-            disabled={isSigninLoading}
-          >
-            {isSigninLoading ? (
-              <ProgressIndicator size={5} color="white" />
-            ) : (
-              "Sign in"
-            )}
-          </button>
+          <div className="flex">
+            <button
+              type="button"
+              onClick={() => handleSignin()}
+              className="text-white max-w-[100px] bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 mb-2"
+              disabled={isSigninLoading}
+            >
+              {isSigninLoading ? (
+                <ProgressIndicator size={5} color="white" />
+              ) : (
+                "Sign in"
+              )}
+            </button>
+
+            <Link href="/">
+              <button className="flex items-center justify-center px-5 py-2 text-sm text-black transition-colors duration-200 bg-white border rounded-lg gap-x-2 hover:bg-gray-100">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-5 h-5 rtl:rotate-180"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+                  />
+                </svg>
+
+                <span>Go back Home</span>
+              </button>
+            </Link>
+          </div>
         </form>
       </div>
     </div>
