@@ -14,8 +14,9 @@ export default interface User {
   gitHub: string;
   codeforces: string;
   hackerrank: string;
+  geeksforgeeks: string;
   linkedIn: string;
-  cv: File|null;
+  cv: File | null;
   favoriteLanguage: string;
   groupId: number;
-  }
+}
