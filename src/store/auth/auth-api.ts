@@ -6,11 +6,10 @@ export const authApiSlice = createApi({
   reducerPath: "login/api",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://a2sv-community-portal-api.onrender.com/api",
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as any).auth.token;
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem("token");
       if (token) {
         headers.set("authorization", `bearer ${token}`);
-
       }
       return headers;
     },
