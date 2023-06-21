@@ -1,6 +1,7 @@
 import { RootState } from "<@>/store";
 import { useSelector } from "react-redux";
 import { CiLocationOn } from "react-icons/ci";
+import Link from "next/link";
 
 const StudentDetail = () => {
   const applicant = useSelector((state: RootState) => state.user.user);
@@ -99,7 +100,13 @@ const StudentDetail = () => {
                 {applicant?.graduationYear || "unknown"}
               </span>
 
-              <span className="block text-gray-500">{"unknown"}</span>
+              <span className="block text-gray-500">
+                {applicant.cv && (
+                  <Link href={applicant.cv!} className="">
+                    Link
+                  </Link>
+                )}
+              </span>
             </div>
           </div>
         </div>

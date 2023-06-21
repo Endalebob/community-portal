@@ -4,7 +4,7 @@ import { IconType } from "react-icons/lib";
 
 interface ProgrammingHandlesProps {
   platform: string;
-  handle: string;
+  handle?: string;
   baseUrl: string;
   icon: IconType;
 }
