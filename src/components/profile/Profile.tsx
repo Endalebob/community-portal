@@ -48,12 +48,6 @@ const Profile = () => {
       baseUrl: `https://www.hackerrank.com/${applicant?.hackerrank}`,
       icon: FaHackerrank,
     },
-    {
-      platform: "GeeksForGeeks",
-      handle: applicant?.geeksforgeeks,
-      baseUrl: `https://auth.geeksforgeeks.org/user/${applicant?.geeksforgeeks}`,
-      icon: SiGeeksforgeeks,
-    },
   ];
   // route protection
   const router = useRouter();
@@ -89,12 +83,12 @@ const Profile = () => {
 
   return (
     <section className="bg-[#F6F6FC]">
-      <h1 className="ml-16 text-xl md:text-lg">Profile</h1>
+      <h1 className="ml-16 text-xl md:text-lg font-bold font-sans">Profile</h1>
 
-      <div className="grid grid-cols-1 2xl:grid-cols-4 md:p-4 lg:p-20 space-y-6 space-x-6">
+      <div className="grid grid-cols-1 2xl:grid-cols-4 md:p-4 lg:p-20 space-y-6 lg:space-x-6 mx-2">
         <div className="flex flex-row flex-wrap gap-5 2xl:flex-col justify-center  md:col-span-2 lg:col-span-1">
           <ProfileCard />
-          <div className="w-96">
+          <div className="w-96 mx-2">
             <h1 className="font-light font-sans uppercase whitespace-nowrap p-6 bg-white">
               Programming site handles
             </h1>
