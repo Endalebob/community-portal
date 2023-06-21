@@ -21,7 +21,25 @@ export const contestsApi = createApi({
         body: contest,
       }),
     }),
+    getContest: builder.query<any, string>({
+      query: (id) => `/Contests/${id}`,
+    }),
+    getContests: builder.query({
+      query: () => "/contests",
+    }),
+    updateContest: builder.mutation<any, Partial<Contest>>({
+      query: (contest) => ({
+        url: `/Contests`,
+        method: "PUT",
+        body: contest,
+      }),
+    }),
   }),
 });
 
-export const { useCreateContestMutation } = contestsApi;
+export const {
+  useCreateContestMutation,
+  useUpdateContestMutation,
+  useGetContestQuery,
+  useGetContestsQuery,
+} = contestsApi;
