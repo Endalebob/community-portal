@@ -18,6 +18,7 @@ import {
   SiLeetcode,
 } from "react-icons/si";
 import { FaHackerrank } from "react-icons/fa";
+import ProfileCard from "./ProfileCard";
 
 const Profile = () => {
   const applicant = useSelector((state: RootState) => state.user.user);
@@ -60,6 +61,13 @@ const Profile = () => {
     (state: RootState) => state.auth.isAuthenticated
   );
 
+  const dispatch = useAppDispatch();
+  const {
+    data = [] as unknown as CustomSuccess,
+    isFetching,
+    isSuccess,
+  } = useGetUserapiQuery("");
+
   useEffect(() => {
     if (!isAuthenticated) {
       setTimeout(() => router.push("/auth/signin"), 2000);
@@ -67,16 +75,6 @@ const Profile = () => {
     }
   }, [isAuthenticated, router]);
 
-  if (!isAuthenticated) {
-    return <Redirect />;
-  }
-
-  const dispatch = useAppDispatch();
-  const {
-    data = [] as unknown as CustomSuccess,
-    isFetching,
-    isSuccess,
-  } = useGetUserapiQuery("");
   if (isFetching) {
     return <div>Loading...</div>;
   }
@@ -85,16 +83,30 @@ const Profile = () => {
     dispatch(setUser(data.value));
   }
 
+  if (!isAuthenticated) {
+    return <Redirect />;
+  }
+
   return (
-    <section>
+    <section className="bg-[#F6F6FC]">
       <h1 className="ml-16 text-xl md:text-lg">Profile</h1>
 
-      <StudentDetail />
+      <div className="grid grid-cols-1 2xl:grid-cols-4 md:p-4 lg:p-20 space-y-6 space-x-6">
+        <div className="flex flex-row flex-wrap gap-5 2xl:flex-col justify-center  md:col-span-2 lg:col-span-1">
+          <ProfileCard />
+          <div className="w-96">
+            <h1 className="font-light font-sans uppercase whitespace-nowrap p-6 bg-white">
+              Programming site handles
+            </h1>
+            <div className="space-y-2 max-w-md rounded overflow-hidden shadow-lg p-10 align-top bg-white">
+              {programmingSites.map((item, index) => (
+                <ProgrammingHandles key={index} {...item} />
+              ))}
+            </div>
+          </div>
+        </div>
 
-      <div className="space-y-2">
-        {programmingSites.map((item, index) => (
-          <ProgrammingHandles key={index} {...item} />
-        ))}
+        <StudentDetail />
       </div>
     </section>
   );
