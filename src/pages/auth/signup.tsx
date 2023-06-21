@@ -1,5 +1,4 @@
 import Signup from '<@>/components/auth/Signup'
-import { withAuth } from '<@>/components/auth/WithAuth'
 import React from 'react'
 
 const SignupPage = () => {
@@ -8,4 +7,4 @@ const SignupPage = () => {
   )
 }
 
-export default withAuth(SignupPage)
+export default SignupPage

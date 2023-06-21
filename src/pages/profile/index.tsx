@@ -1,5 +1,4 @@
 import Profile from '<@>/components/profile/Profile'
-import { withAuth } from '<@>/components/profile/WithAuth'
 import React from 'react'
 
 const EditProfilePage = () => {
@@ -8,4 +7,4 @@ const EditProfilePage = () => {
   )
 }
 
-export default withAuth(EditProfilePage)
+export default EditProfilePage

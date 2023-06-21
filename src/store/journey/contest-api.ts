@@ -1,4 +1,5 @@
 import { Response } from "<@>/types/response";
+import { getCookie } from "<@>/utils/cookie";
 import { buildSelectors } from "@reduxjs/toolkit/dist/query/core/buildSelectors";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
@@ -7,7 +8,7 @@ export const contestApiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://a2sv-community-portal-api.onrender.com/api",
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token");
+      const token = getCookie('token');
       if (token) {
         headers.set("authorization", `bearer ${token}`);
       }

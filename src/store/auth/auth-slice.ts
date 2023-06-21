@@ -1,10 +1,11 @@
 import AuthState from "<@>/types/auth/auth-state";
+import { getCookie, removeCookie, setCookie } from "<@>/utils/cookie";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: AuthState = {
-  token: null,
-  isAuthenticated: false,
-  role: null,
+  token: getCookie('token') || null, 
+  isAuthenticated: Boolean(getCookie('token')),
+  role: getCookie('role') || null,
 };
 
 const authSlice = createSlice({
@@ -16,18 +17,18 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.role = action.payload.role;
       if (action.payload.token) {
-        localStorage.setItem("token", action.payload.token);
+        setCookie('token', action.payload.token, { expires: 1 });
       }
       if (action.payload.role) {
-        localStorage.setItem("role", action.payload.role);
+        setCookie('role', action.payload.role, { expires: 1 }); 
       }
     },
     clearToken(state) {
       state.token = null;
       state.isAuthenticated = false;
       state.role = null; // Clear role
-      localStorage.removeItem("token");
-      localStorage.removeItem("role"); // Remove role from localStorage
+      removeCookie('token');
+      removeCookie('role');
     },
   },
 });

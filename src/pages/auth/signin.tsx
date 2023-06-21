@@ -1,5 +1,4 @@
 import Signin from '<@>/components/auth/Signin'
-import { withAuth } from '<@>/components/auth/WithAuth'
 import React from 'react'
 
 const SigninPage = () => {
@@ -8,4 +7,4 @@ const SigninPage = () => {
   )
 }
 
-export default withAuth(SigninPage)
+export default SigninPage

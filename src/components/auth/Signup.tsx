@@ -7,6 +7,7 @@ import { useRegisterUserMutation } from "<@>/store/auth/auth-api";
 import ProgressIndicator from "./ProgressIndicator";
 import { setToken } from "<@>/store/auth/auth-slice";
 import CustomError from "<@>/types/auth/custom-error";
+import { removeCookie, setCookie } from "<@>/utils/cookie";
 
 const initialState = {
   fullName: "",
@@ -107,11 +108,11 @@ const Signup = () => {
   };
   useEffect(() => {
     if (rememberMe) {
-      localStorage.setItem("rememberMeEmail", email);
-      localStorage.setItem("rememberMePassword", password);
-    } else {
-      localStorage.removeItem("rememberMeEmail");
-      localStorage.removeItem("rememberMePassword");
+      setCookie("rememberMeEmail", email, {expires: 20});
+      setCookie("rememberMePassword", password, {expires: 20});
+        } else {
+      removeCookie("rememberMeEmail");
+      removeCookie("rememberMePassword");
     }
   }, [email, password, rememberMe]);
 
