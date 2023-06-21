@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://t-web-project.vercel.app";
 
 export default function middleware(req: NextRequest){
     let verify = req.cookies.get("token");
