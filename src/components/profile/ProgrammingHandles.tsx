@@ -16,7 +16,7 @@ const ProgrammingHandles: React.FC<ProgrammingHandlesProps> = ({
   icon: Icon,
 }) => {
   return (
-    <div className="flex justify-between items-center w-full">
+    <div className="bg-white flex justify-between items-center w-full">
       <div className="flex justify-center items-center space-x-4">
         <div className="bg-blue-100 p-3 text-blue-500 rounded-full">
           <Icon />
@@ -26,7 +26,7 @@ const ProgrammingHandles: React.FC<ProgrammingHandlesProps> = ({
           <p className="text-xs text-gray-500">{handle}</p>
         </div>
       </div>
-      <Link target="_blank" className="basis-1/2" href={baseUrl}>
+      <Link target="_blank" className="" href={baseUrl}>
         <FiExternalLink className="text-gray-500 hover:text-gray-700" />
       </Link>
     </div>
