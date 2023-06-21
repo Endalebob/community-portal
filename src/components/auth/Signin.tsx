@@ -13,6 +13,7 @@ import CustomError from "<@>/types/auth/custom-error";
 import CustomSuccess from "<@>/types/auth/custom-success";
 import { setUser } from "<@>/store/auth/user-slice";
 import Link from "next/link";
+import { getCookie, removeCookie, setCookie } from "<@>/utils/cookie";
 
 const initialState = {
   email: "",
@@ -70,8 +71,8 @@ const Signin = () => {
   };
   useEffect(() => {
     // Retrieve email and password from local storage
-    const storedEmail = localStorage.getItem("rememberMeEmail");
-    const storedPassword = localStorage.getItem("rememberMePassword");
+    const storedEmail = getCookie("rememberMeEmail");
+    const storedPassword = getCookie("rememberMePassword");
 
     if (storedEmail && storedPassword) {
       setFormValue({
@@ -84,11 +85,11 @@ const Signin = () => {
   }, []);
   useEffect(() => {
     if (rememberMe) {
-      localStorage.setItem("rememberMeEmail", email);
-      localStorage.setItem("rememberMePassword", password);
-    } else {
-      localStorage.removeItem("rememberMeEmail");
-      localStorage.removeItem("rememberMePassword");
+      setCookie("rememberMeEmail", email, {expires: 20});
+      setCookie("rememberMePassword", password, {expires: 20});
+        } else {
+      removeCookie("rememberMeEmail");
+      removeCookie("rememberMePassword");
     }
   }, [email, password, rememberMe]);
   const handleSignup = () => {

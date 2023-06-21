@@ -1,13 +1,14 @@
 import Login from "<@>/types/auth/signin";
 import Registration from "<@>/types/auth/signup";
+import { getCookie } from "<@>/utils/cookie";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const authApiSlice = createApi({
-  reducerPath: "login/api",
+  reducerPath: "auth/api",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://a2sv-community-portal-api.onrender.com/api",
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token");
+      const token = getCookie('token');
       if (token) {
         headers.set("authorization", `bearer ${token}`);
       }
