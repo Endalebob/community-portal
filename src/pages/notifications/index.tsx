@@ -8,7 +8,9 @@ const Notifications = () => {
 
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
-  setNotifications(data!.value);
+  if (data) {
+    setNotifications(data.value);
+  }
 
   if (isLoading) {
     <div className="bg-white rounded-lg shadow-lg p-6 animate-pulse">
