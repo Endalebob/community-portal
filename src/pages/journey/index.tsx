@@ -1,4 +1,3 @@
-import { withStudentAuth } from "<@>/components/auth/withStudentAuth";
 import Contests from "<@>/components/my-journey/Contests";
 import Journey from "<@>/components/my-journey/Journey";
 import Stepper from "<@>/components/my-journey/Stepper";
@@ -12,4 +11,4 @@ const index: React.FC = () => {
   );
 };
 
-export default withStudentAuth(index);
+export default index;
