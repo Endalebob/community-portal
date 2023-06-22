@@ -16,6 +16,7 @@ const Edit = () => {
   const [formValue, setFormValue] = useState(user);
   const [errors, setErrors] = useState<Partial<User>>({});
   const [imagePreview, setImagePreview] = useState("");
+
   const {
     fullName,
     email,
@@ -61,13 +62,11 @@ const Edit = () => {
     ) {
       validationErrors.email = "Email is invalid";
     }
-    // check if phone number is valid
     else if (phoneNumber) {
       if (!/^(?:\+251|251|0)?[1-59]\d{8}$/.test(phoneNumber)) {
         validationErrors.phoneNumber = "Phone number is invalid";
       }
     }
-    console.log(formValue);
 
     await updateUser({ ...formValue });
   };
