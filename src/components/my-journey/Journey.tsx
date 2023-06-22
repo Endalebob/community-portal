@@ -161,12 +161,9 @@ const Journey: React.FC = () => {
           selectedContest != null ? "flex" : "hidden"
         } flex-col col-span-1`}
       >
-        <div className="lg:hidden">
-          {(selectedContest !== null || windowWidth! < largeScreen) && (
-            <Modal
-              isOpen={modalOpen}
-              onClose={() => dispatch(setSelectedContest({ id: null }))}
-            >
+        <div className="">
+          {modalOpen && (
+            <Modal onClose={() => dispatch(setSelectedContest({ id: null }))}>
               <ContestDetail
                 id={selectedContest!}
                 setSelectedContest={setSelectedContest}
