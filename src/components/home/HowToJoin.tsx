@@ -39,10 +39,10 @@ const HowToJoin = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1, transition: { duration: 1 } }}
       >
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold">
           How do I join A2SV?
         </h1>
-        <p className="text-secondary-text pt-8 text-lg lg:text-xl xl:text-2xl leading-8 lg:leading-10">
+        <p className="text-secondary-text pt-8 md:text-lg lg:text-xl leading-8 lg:leading-10">
           The way to join A2SV is through A2SV Community Portal. The community
           path is open to everyone who has interest in problem solving and in
           Data Structures and Algorithms.
@@ -62,10 +62,10 @@ const HowToJoin = () => {
                 <step.icon color="#3182CE" size={40} />
               </div>
               <div>
-                <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold">
+                <h1 className="text-lg md:text-xl lg:text-2xl font-semibold">
                   {step.title}
                 </h1>
-                <p className="text-secondary-text pt-2 text-lg lg:text-xl xl:text-2xl">
+                <p className="text-secondary-text pt-2 md:text-lg lg:text-xl">
                   {step.description}
                 </p>
               </div>

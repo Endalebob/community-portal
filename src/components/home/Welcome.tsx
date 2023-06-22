@@ -5,7 +5,7 @@ import React from "react";
 const Welcome: React.FC = () => {
   return (
     <div
-      className="grid grid-cols-1 text-primary-text mt-8 font-poppins lg:grid-cols-2 ml-8 mr-8 md:mr-16 md:ml-16 lg:ml-28 "
+      className="grid grid-cols-1 text-primary-text mt-8 font-poppins lg:grid-cols-2 ml-8 mr-8 md:mr-16 md:ml-16 lg:ml-28"
       id="more"
     >
       <motion.div
@@ -39,7 +39,7 @@ const Welcome: React.FC = () => {
             alt="welcome first image"
             width={1000}
             height={1000}
-            className="h-96 rounded-lg brightness-75 object-cover w-80 lg:w-auto"
+            className="h-96 rounded-lg brightness-75 object-cover w-80 lg:w-auto hover:scale-105 transition duration-500"
           />
         </motion.div>
         <motion.div
@@ -52,7 +52,7 @@ const Welcome: React.FC = () => {
             alt="welcome first image"
             width={1000}
             height={1000}
-            className="h-96 rounded-lg brightness-75 object-cover w-80 lg:w-auto"
+            className="h-96 rounded-lg brightness-75 object-cover w-80 lg:w-auto hover:scale-105 transition duration-500"
           />
         </motion.div>
       </div>

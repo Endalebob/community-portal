@@ -22,17 +22,9 @@ const Landing: React.FC = () => {
         />
         <div className="md:absolute bottom-0.5 left-16 text-primary-text md:text-primarybg w-1/1 md:w-7/12 lg:w-1/2 text-lg lg:bottom-1/4 m-4 md:m-0">
           <div className="mb-8 md:m-0 m-4">
-            <motion.h1
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold md:pt-0 pt-8"
-              initial={{ y: -1000 }}
-              animate={{ y: 0 }}
-              transition={{
-                duration: 2,
-                type: "spring",
-              }}
-            >
+            <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold lg:font-bold md:pt-0 pt-8">
               Who We Are
-            </motion.h1>
+            </h1>
             <motion.p
               className="mt-8 md:text-lg lg:text-xl"
               initial={{ opacity: 0 }}
@@ -47,7 +39,6 @@ const Landing: React.FC = () => {
               to use it.
             </motion.p>
           </div>
-
           <motion.div
             className="flex flex-row mt-4 mx-auto my-auto"
             initial={{ opacity: 0 }}
@@ -55,15 +46,12 @@ const Landing: React.FC = () => {
             transition={{ duration: 3 }}
           >
             <motion.button
-              className="ml-4 md:ml-0 bg-primary px-2 sm:px-4 md:px-16 lg:px-24 xl:px-28 py-2 rounded-md mr-12 hover:bg-blue-400 font-bold text-white"
+              className="ml-2 md:ml-0 bg-primary px-2 sm:px-4 md:px-16 lg:px-24 xl:px-28 py-2 rounded-md mr-4 lg:mr-12 hover:bg-blue-400 font-semibold sm:font-bold text-white"
               initial={{ scale: 0.9 }}
-              animate={{
+              whileHover={{
                 scale: 1,
                 transition: {
-                  duration: 1,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  ease: "easeInOut",
+                  duration: 0.5,
                 },
               }}
               onClick={handleJoinUs}
@@ -73,7 +61,9 @@ const Landing: React.FC = () => {
 
             <Link href={"#more"}>
               <div className="flex flex-row">
-                <button className="text-end font-bold">More Information</button>
+                <button className="text-end font-semibold sm:font-bold">
+                  More Information
+                </button>
                 <div className="p-3">
                   <AiOutlineRight />
                 </div>
