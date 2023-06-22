@@ -115,7 +115,7 @@ const EditContestForm: React.FC = () => {
     try {
       await updateContest(updatedContest).unwrap();
       // Contest update successful, redirect to contest details
-      router.push(`/contest`);
+      router.push(`/contests`);
     } catch (error) {
       alert(`An error occurred while updating the contest:, ${error}`);
     }
