@@ -62,7 +62,7 @@ const HowToJoin = () => {
                 <step.icon color="#3182CE" size={40} />
               </div>
               <div>
-                <h1 className="text-lg md:text-xl lg:text-2xl font-semibold">
+                <h1 className="text-lg md:text-lg lg:text-2xl font-extrabold">
                   {step.title}
                 </h1>
                 <p className="text-secondary-text pt-2 md:text-lg lg:text-xl">
