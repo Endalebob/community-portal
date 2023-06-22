@@ -10,23 +10,14 @@ import Modal from "../common/Modal";
 import ContestDetail from "./ContestDetail";
 import { useWindowWidth } from "../common/WindowWidth";
 import Error from "../common/Error";
+import { useRouter } from "next/router";
 
 const Journey: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
-
-  const {
-    data: response,
-    isLoading,
-    isError,
-    isSuccess,
-    error,
-  } = useGetContestsQuery({});
   const dispatch = useDispatch();
-  const contests = response?.value;
   const selectedContest = useSelector(
     (state: RootState) => state.selectedContest.id
   );
-
   const windowWidth = useWindowWidth();
   const largeScreen = 1024;
   const modalOpen = windowWidth! < largeScreen && selectedContest !== null;
@@ -119,18 +110,20 @@ const Journey: React.FC = () => {
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 w-full border-t">
+    <div className="grid grid-cols-2 lg:grid-cols-4 w-full">
       <div
         className={`${
           selectedContest != null ? `lg:col-span-2` : `lg:col-span-3`
-        } col-span-4 flex flex-col lg:border-r p-4 pt-8`}
+        } col-span-4 flex flex-col lg:border-r p-4 pt-8 lg:min-h-screen`}
       >
         <div className="flex flex-col p-2">
           <Stepper steps={steps} setActiveStep={setActiveStep} />
         </div>
 
         <div className="flex flex-col p-4 mt-4">
-          <p className="font-bold text-2xl">{steps[activeStep].stepName}</p>
+          <p className="font-bold text-lg lg:text-2xl ">
+            {steps[activeStep].stepName}
+          </p>
           <div className="flex flex-col p-4 gap-4">
             {steps[activeStep]?.subSteps.map((subStep, index) => {
               const stepInprogress =
@@ -160,26 +153,7 @@ const Journey: React.FC = () => {
           modalOpen || selectedContest === null ? "" : "border-r px-3"
         }`}
       >
-        {isLoading ? (
-          <div className="animate-pulse w-full flex flex-col p-4 gap-2">
-            <div className="w-2/3 rounded-sm h-4 mb-8 bg-slate-200"></div>
-            <div className="w-full rounded-md  h-20 bg-slate-200"></div>
-            <div className="w-full rounded-md  h-20 bg-slate-200"></div>
-            <div className="w-full rounded-md  h-20 bg-slate-200"></div>
-          </div>
-        ) : isSuccess ? (
-          response?.error ? (
-            <div>{response?.error}</div>
-          ) : (
-            <Contests contests={contests} />
-          )
-        ) : isError ? (
-          <div className="flex justify-center h-fit w-full p-4">
-            <Error message={"An error occured while fetching Contests"} />
-          </div>
-        ) : (
-          ""
-        )}
+        <Contests />
       </div>
 
       <div
@@ -188,19 +162,23 @@ const Journey: React.FC = () => {
         } flex-col col-span-1`}
       >
         <div className="lg:hidden">
-          <Modal
-            isOpen={modalOpen}
-            onClose={() => dispatch(setSelectedContest({ id: null }))}
-          >
-            <ContestDetail
-              id={selectedContest!}
-              setSelectedContest={setSelectedContest}
-            />
-          </Modal>
+          {(selectedContest !== null || windowWidth! < largeScreen) && (
+            <Modal
+              isOpen={modalOpen}
+              onClose={() => dispatch(setSelectedContest({ id: null }))}
+            >
+              <ContestDetail
+                id={selectedContest!}
+                setSelectedContest={setSelectedContest}
+                modal
+              />
+            </Modal>
+          )}
+
           <div className="bg-primarybg rounded-lg p-4"></div>
         </div>
         <div className="hidden  lg:flex sticky top-0">
-          {selectedContest && (
+          {selectedContest != null && (
             <ContestDetail
               id={selectedContest}
               setSelectedContest={setSelectedContest}
@@ -211,5 +189,4 @@ const Journey: React.FC = () => {
     </div>
   );
 };
-
 export default Journey;

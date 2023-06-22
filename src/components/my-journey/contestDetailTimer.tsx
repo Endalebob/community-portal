@@ -51,19 +51,19 @@ const ContestDetailTimer: React.FC<ContestDetailTimerProps> = ({ date }) => {
   }, [date]);
   return (
     <div className="grid grid-cols-4 w-64">
-      <div className="grid items-start p-2">
+      <div className="grid items-start place-items-center p-2">
         <p className="text-sm">Days</p>
         <p className="text-3xl">{remainingTime?.days}</p>
       </div>
-      <div className="grid items-start p-2">
+      <div className="grid items-start place-items-center p-2">
         <p className="text-sm">Hours</p>
         <p className="text-3xl">{remainingTime?.hours}</p>
       </div>
-      <div className="grid items-start p-2">
+      <div className="grid items-start place-items-center p-2">
         <p className="text-sm">Minutes</p>
         <p className="text-3xl">{remainingTime?.minutes}</p>
       </div>
-      <div className="grid items-start p-2">
+      <div className="grid items-start place-items-center p-2">
         <p className="text-sm">Seconds</p>
         <p className="text-3xl">{remainingTime?.seconds}</p>
       </div>

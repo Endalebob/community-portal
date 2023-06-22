@@ -19,7 +19,7 @@ const Task: React.FC<TaskProps> = ({
       </div>
 
       <div className="flex flex-col gap-1 p-2">
-        <p className="font-bold text-lg">{title}</p>
+        <p className="font-bold text-md lg:text-lg">{title}</p>
         <p className="font-small opacity-50">{description}</p>
       </div>
     </div>
