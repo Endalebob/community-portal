@@ -10,6 +10,7 @@ export const notificationApiSlice = createApi({
       if (token) {
         headers.set("authorization", `bearer ${token}`);
       }
+      headers.set("Access-Control-Allow-Origin", "*"); // Add the CORS header
       return headers;
     },
   }),
