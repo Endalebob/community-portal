@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useCreateContestMutation } from "<@>/store/contest/contest-api";
 import { useRouter } from "next/router";
+import ProgressIndicator from "<@>/components/auth/ProgressIndicator";
 
 const initialState = {
   title: "",
@@ -14,6 +15,7 @@ const ContestForm: React.FC = () => {
   const [contest, setContest] = useState(initialState);
   const [errors, setErrors] = useState(initialState);
   const [createContest, { isLoading }] = useCreateContestMutation();
+  const [backEndError, setBackendError] = useState("");
   const router = useRouter();
   const handleCancel = () => {
     // Todo
@@ -93,7 +95,7 @@ const ContestForm: React.FC = () => {
       setErrors(initialState);
     } catch (error) {
       // Handle contest creation error
-      console.error("An error occurred while creating the contest:", error);
+      setBackendError("An error occurred while creating the contest");
     }
   };
 
@@ -104,6 +106,7 @@ const ContestForm: React.FC = () => {
           Create Contest
         </h1>
       </div>
+      {backEndError && <p className="text-red-500">{backEndError}</p>}
       <div className="mb-8">
         <label htmlFor="title" className="block mb-2 font-semibold">
           Title
@@ -195,7 +198,11 @@ const ContestForm: React.FC = () => {
             disabled={isLoading}
             className="px-4 py-1 mt-4 bg-blue-500 text-white rounded hover:bg-blue-600 text-lg"
           >
-            {isLoading ? "Creating..." : "Create"}
+            {isLoading ? (
+              <ProgressIndicator size={5} color="white" />
+            ) : (
+              "Create"
+            )}
           </button>
         </div>
       </div>
