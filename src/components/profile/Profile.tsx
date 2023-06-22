@@ -83,10 +83,12 @@ const Profile = () => {
 
   return (
     <section className="bg-[#F6F6FC]">
-      <h1 className="ml-16 text-xl md:text-lg font-bold font-sans">Profile</h1>
+      <h1 className="ml-28 py-8 text-xl md:text-2xl text-gray-500 font-bold font-sans">
+        Profile
+      </h1>
 
-      <div className="grid grid-cols-1 2xl:grid-cols-4 md:p-4 lg:p-20 space-y-6 lg:space-x-6 mx-2">
-        <div className="flex flex-row flex-wrap gap-5 2xl:flex-col justify-center  md:col-span-2 lg:col-span-1">
+      <div className="grid grid-cols-1 items-start md:grid-cols-6 md:p-4 xl:p-20 space-y-6 lg:space-y-0 lg:space-x-6 mx-2">
+        <div className="flex flex-col gap-5 justify-center items-center  md:col-span-3 xl:col-span-2">
           <ProfileCard />
           <div className="w-96 mx-2">
             <h1 className="font-light font-sans uppercase whitespace-nowrap p-6 bg-white">
