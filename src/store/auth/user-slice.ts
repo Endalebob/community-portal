@@ -7,26 +7,26 @@ interface UserState {
 
 const initialState: UserState = {
   user: {
-  appUserId: 0,
-  email: "",
-  fullName: "",
-  profilePicture: "",
-  phoneNumber: "",
-  telegramUsername: "",
-  country: "",
-  shortBio: "",
-  university: "",
-  department: "",
-  graduationYear: "",
-  leetCode: "",
-  gitHub: "",
-  codeforces: "",
-  hackerrank: "",
-  linkedIn: "",
-  cv: null,
-  favoriteLanguage: "",
-  groupId: 0,
-
+    appUserId: "",
+    email: "",
+    fullName: "",
+    profilePicture: "",
+    phoneNumber: "",
+    telegramUsername: "",
+    country: "",
+    shortBio: "",
+    university: "",
+    department: "",
+    graduationYear: "",
+    leetCode: "",
+    gitHub: "",
+    codeforces: "",
+    hackerrank: "",
+    linkedIn: "",
+    cv: null,
+    cvLink: "",
+    favoriteLanguage: "",
+    groupId: 0,
   },
 };
 
@@ -36,7 +36,7 @@ const userSlice = createSlice({
   reducers: {
     setUser(state, action: PayloadAction<User>) {
       state.user = action.payload;
-    }
+    },
   },
 });
 
