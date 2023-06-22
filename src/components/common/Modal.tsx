@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { MdClose } from "react-icons/md";
 import { useWindowWidth } from "./WindowWidth";
+import { AiOutlineClose } from "react-icons/ai";
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -44,6 +45,14 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         ref={modalRef}
         className="bg-primarybg m-2 p-4 rounded-lg shadow-lg max-h-[80%] overflow-auto"
       >
+        <div className="w-full flex justify-end">
+          <AiOutlineClose
+            onClick={() => {
+              onClose();
+            }}
+            className=" rounded-full shrink-0 mt-1 hover:bg-secondary  p-1 w-7 h-7 border"
+          />
+        </div>
         {children}
       </div>
     </div>

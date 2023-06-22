@@ -10,15 +10,17 @@ import { useAppDispatch } from "<@>/store/hooks";
 import Error from "../common/Error";
 
 interface ContestDetailProps {
-  id: string | number;
+  id: string;
   setSelectedContest: ActionCreatorWithPayload<
     SelectedContest,
     "selectedContest/setSelectedContest"
   >;
+  modal?: boolean;
 }
 const ContestDetail: React.FC<ContestDetailProps> = ({
   id,
   setSelectedContest,
+  modal,
 }) => {
   const {
     currentData: response,
@@ -30,13 +32,14 @@ const ContestDetail: React.FC<ContestDetailProps> = ({
   } = useGetContestQuery(id);
   const dispatch = useAppDispatch();
   const contest = response?.value;
+  const contestTime = new Date(contest?.date);
 
+  const openContest = () => {
+    window.open(contest.link, "_blank");
+  };
   return (
     <div className="flex flex-col items-start w-full max-w-sm p-4 gap-8">
-      <div
-        onClick={() => dispatch(setSelectedContest({ id: null }))}
-        className="flex mt-1 w-full justify-between items-start  p-1 transition-opacity gap-6"
-      >
+      <div className="flex mt-1 w-full justify-between items-start  p-1 gap-6">
         {isFetching && !response ? (
           <div className="w-36 rounded-sm h-4 bg-slate-200"></div>
         ) : isSuccess ? (
@@ -47,7 +50,12 @@ const ContestDetail: React.FC<ContestDetailProps> = ({
           ""
         )}
 
-        <AiOutlineClose className="rounded-full shrink-0 mt-1 hover:bg-secondary  p-1 w-7 h-7 border" />
+        {!modal && (
+          <AiOutlineClose
+            onClick={() => dispatch(setSelectedContest({ id: null }))}
+            className="rounded-full shrink-0 mt-1 hover:bg-secondary  p-1 w-7 h-7 border"
+          />
+        )}
       </div>
 
       {isFetching && !response ? (
@@ -68,14 +76,31 @@ const ContestDetail: React.FC<ContestDetailProps> = ({
           <>
             <div className="w-full flex flex-col gap-6">
               <div className="flex justify-center">
-                <ContestDetailTimer date={new Date(contest.date)} />
+                {contestTime > new Date() ? (
+                  <ContestDetailTimer date={contestTime} />
+                ) : (
+                  <p className="">
+                    {contestTime.toLocaleDateString()}{" "}
+                    {contestTime
+                      .toLocaleTimeString()
+                      .split(":")
+                      .slice(0, 2)
+                      .join(":") +
+                      " " +
+                      contestTime.toLocaleTimeString().slice(-2)}
+                  </p>
+                )}
               </div>
 
               <p>{contest.description}</p>
             </div>
 
             <div className="flex w-full justify-end">
-              <Button label="Open Contest" startIcon={<BiLinkExternal />} />
+              <Button
+                onClick={openContest}
+                label="Open Contest"
+                startIcon={<BiLinkExternal />}
+              />
             </div>
           </>
         )

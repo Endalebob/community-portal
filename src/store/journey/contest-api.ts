@@ -7,8 +7,13 @@ export const contestApiSlice = createApi({
   reducerPath: "contest",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://a2sv-community-portal-api.onrender.com/api",
+<<<<<<< HEAD
     prepareHeaders: (headers) => {
       const token = getCookie('token');
+=======
+    prepareHeaders: (headers, { getState }) => {
+      const token = localStorage.getItem("token");
+>>>>>>> 50153d4 (use the new contest endpoint)
       if (token) {
         headers.set("authorization", `bearer ${token}`);
       }
@@ -24,10 +29,10 @@ export const contestApiSlice = createApi({
         query: () => "/contests",
       }),
       getUpcomingContests: builder.query({
-        query: () => "",
+        query: () => "/Contests/upcoming",
       }),
       getRecentContests: builder.query({
-        query: () => "",
+        query: () => "/Contests/recent",
       }),
     };
   },
