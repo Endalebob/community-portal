@@ -5,10 +5,11 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const authApiSlice = createApi({
   reducerPath: "auth/api",
+  tagTypes: ["User"],
   baseQuery: fetchBaseQuery({
     baseUrl: "https://a2sv-community-portal-api.onrender.com/api",
     prepareHeaders: (headers) => {
-      const token = getCookie('token');
+      const token = getCookie("token");
       if (token) {
         headers.set("authorization", `bearer ${token}`);
       }
@@ -35,12 +36,26 @@ export const authApiSlice = createApi({
       }),
 
       updateUser: builder.mutation({
-        query: ({ ...put }) => ({
-          url: "/Profile/me",
-          method: "POST",
-
-          body: put,
-        }),
+        query: (body: any) => {
+          const formData = new FormData();
+          for (const key in body) {
+            if (key === "cv" || key === "profilePicture") {
+              if (body[key]) {
+                formData.append(key, body[key]);
+              }
+            } else {
+              if (body[key]) {
+                formData.append(key, body[key]);
+              }
+            }
+          }
+          return {
+            url: "/Profile/me",
+            method: "POST",
+            body: formData,
+          };
+        },
+        invalidatesTags: ["User"],
       }),
 
       getUserapi: builder.query({
@@ -48,12 +63,14 @@ export const authApiSlice = createApi({
           url: "/Profile/me",
           method: "GET",
         }),
+        providesTags: ["User"],
       }),
       deleteUser: builder.mutation({
         query: () => ({
-          url: "account/user-detail/",
+          url: "/Profile/me",
           method: "DELETE",
         }),
+        invalidatesTags: ["User"],
       }),
     };
   },
