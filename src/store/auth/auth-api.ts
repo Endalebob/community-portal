@@ -39,16 +39,10 @@ export const authApiSlice = createApi({
         query: (body: any) => {
           const formData = new FormData();
           for (const key in body) {
-            if (key === "cv" || key === "profilePicture") {
-              if (body[key]) {
-                formData.append(key, body[key]);
-              }
-            } else {
               if (body[key]) {
                 formData.append(key, body[key]);
               }
             }
-          }
           return {
             url: "/Profile/me",
             method: "POST",

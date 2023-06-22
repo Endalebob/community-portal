@@ -1,7 +1,16 @@
+
+// interface Filee {
+//   url: string|File;
+//   type: string;
+//   publicId: string;
+// }
+
+
 export default interface User {
   appUserId: string;
   email: string;
   fullName: string;
+  // profilePicture: Filee;
   profilePicture: string;
   phoneNumber: string;
   telegramUsername: string;
@@ -15,7 +24,8 @@ export default interface User {
   codeforces: string;
   hackerrank: string;
   linkedIn: string;
-  cv: File | null;
+  // cv: Filee;
+  cv: string|File;
   cvLink: string;
   favoriteLanguage: string;
   groupId: number;

@@ -90,7 +90,7 @@ const Edit = () => {
   const handleImageUpload = (e: any) => {
     const formData = new FormData();
     formData.append("profilePicture", e.target.files[0]);
-    setFormValue({ ...formValue, [e.target.name]: formData });
+    setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
     console.log(e.target.files[0]);
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -104,17 +104,16 @@ const Edit = () => {
   };
 
   const handlePdfUpload = (e: any) => {
-    const formData = new FormData();
-    formData.append("cv", e.target.files[0]);
-    setFormValue({ ...formValue, [e.target.name]: formData });
+    const forData = new FormData();
+    forData.append("cv", e.target.files[0]);
+    setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
   };
 
-  const openPdfInNewTab = () => {
-    if (formValue.cv) {
-      const url = URL.createObjectURL(formValue.cv);
-      window.open(url, "_blank");
-    }
-  };
+  // const openPdfInNewTab = () => {
+  //   if (formValue.cv) {
+  //     const url = URL.createObjectURL(formValue.cv);
+  //     window.open(url, "_blank");
+  //   }
 
   return (
     <div className="flex flex-col  items-center justify-center min-h-screen">
@@ -334,7 +333,7 @@ const Edit = () => {
                   onChange={handlePdfUpload}
                   className="border max-h-8 rounded-md mt-1 border-gray-300 placeholder-white-400"
                 />
-                {formValue.cv && (
+                {/* {formValue.cv && (
                   <Link
                     href="#"
                     className="text-blue-500 underline hover:text-blue-700 mr-5"
@@ -342,7 +341,7 @@ const Edit = () => {
                   >
                     {formValue.cv.name}
                   </Link>
-                )}
+                )} */}
               </div>
             </div>
             <div className="flex flex-col flex-grow">
