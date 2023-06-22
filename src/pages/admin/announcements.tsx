@@ -138,6 +138,7 @@ const announcements: React.FC = () => {
         {announcement.map((a, index) => {
           return (
             <AnnouncementCard
+              key={index}
               onClick={() => {
                 setAnnouncementDetail(index);
                 setShowModal(true);
