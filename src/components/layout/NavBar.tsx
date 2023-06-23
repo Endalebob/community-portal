@@ -110,7 +110,7 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <section className="flex p-4 border-b-2">
+      <section className="flex p-4 border border-gray-200">
         <Link href="/">
           <div className="w-28 lg:w-52">
             <Image src="/a2sv-logo.png" width={105} height={30} alt="logo" />
