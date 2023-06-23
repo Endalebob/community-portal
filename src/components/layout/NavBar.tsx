@@ -9,7 +9,9 @@ import { useAppDispatch } from "<@>/store/hooks";
 import { clearToken } from "<@>/store/auth/auth-slice";
 import UserAvatar from "../common/UserAvatar";
 import { IoNotificationsSharp } from "react-icons/io5";
-
+import { useGetNotificationsQuery } from "<@>/store/notifications/notifications-api";
+import { Notification } from "<@>/types/notifications/notifications";
+import { MdNotificationAdd } from "react-icons/md";
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -89,11 +91,12 @@ const NavBar: React.FC = () => {
       setNavigation(navData.student);
     }
   }, [role]);
+  const { data, isLoading, isError } = useGetNotificationsQuery();
 
   const showProfileRef = useRef<HTMLDivElement>(null);
   const showNavRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-
+  const [count, setCount] = useState<Number>(0);
   const dispatch = useAppDispatch();
   const handleLogout = () => {
     dispatch(clearToken());
@@ -159,6 +162,22 @@ const NavBar: React.FC = () => {
     return () => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
+  }, []);
+
+  useEffect(() => {
+    // get notifications
+    if (isAuthenticated) {
+      // count unread notifications
+      const notifications = data?.value;
+      let curr_count = 0;
+      notifications?.forEach((item: Notification) => {
+        if (item.isRead === false) {
+          curr_count += 1;
+        }
+      });
+
+      setCount(curr_count);
+    }
   }, []);
 
   return (
@@ -230,9 +249,16 @@ const NavBar: React.FC = () => {
             {/* Logged in user profile icon */}
             {isAuthenticated && (
               <div className="flex items-center gap-x-2">
-                <Link href={"/notifications"}>
-                  <IoNotificationsSharp className="text-gray-700 text-2xl hover:text-gray-500" />
-                </Link>
+                {count ? (
+                  <Link href={"/notifications"}>
+                    <MdNotificationAdd className="text-red-500 text-2xl hover:text-red-300-500" />
+                  </Link>
+                ) : (
+                  <Link href={"/notifications"}>
+                    <IoNotificationsSharp className="text-gray-700 text-2xl hover:text-gray-500" />
+                  </Link>
+                )}
+
                 <button
                   className="shadow rounded-full"
                   onClick={() => {
