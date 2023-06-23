@@ -43,6 +43,16 @@ const Signup = () => {
     password,
     confirmPassword,
   } = formValue;
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setConfirmPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setConfirmPassword(!showConfirmPassword);
+  };
   const handleChange = (e: any) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
@@ -238,20 +248,26 @@ const Signup = () => {
           <InputField
             label="Password"
             name="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="********"
             value={password}
             onChange={handleChange}
             error={errors.password}
+            isPasswordField={true}
+            togglePasswordVisibility={togglePasswordVisibility}
+            showPassword={showPassword}
           />
           <InputField
             label="Confirm Password"
             name="confirmPassword"
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             placeholder="********"
             value={confirmPassword}
             onChange={handleChange}
             error={errors.confirmPassword}
+            isPasswordField={true}
+            togglePasswordVisibility={toggleConfirmPasswordVisibility}
+            showPassword={showConfirmPassword}
           />
           <div className="flex">
             <input
