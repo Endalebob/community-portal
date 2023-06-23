@@ -3,99 +3,32 @@ import AnnouncementDetail from "<@>/components/admin/AnnouncementDetail";
 import CreateAnnouncement from "<@>/components/admin/CreateAnnouncement";
 import EditAnnouncement from "<@>/components/admin/EditAnnouncement";
 import Button from "<@>/components/common/Button";
+import Error from "<@>/components/common/Error";
 import Modal from "<@>/components/common/Modal";
+import { useGetAnnouncementsQuery } from "<@>/store/announcement/announcement-api";
+import { Announcement } from "<@>/types/admin/Announcement";
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
-const announcements: React.FC = () => {
+const index: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [editAnnouncement, setEditAnnouncement] = useState(false);
   const [createAnnouncement, setCreateAnnouncement] = useState(false);
   const [announcementDetail, setAnnouncementDetail] = useState<number | null>();
-  const announcement = [
-    {
-      id: "dkjfkdjfkdj",
-      title: "Quo asperiores odit aut error est eos autem quae delectus.",
-      description:
-        "Et veniam eos dolorem eaque sapiente repellendus ut. Ea doloremque utmollitia culpa dolor accusamus pariatur quisquam assumenda....",
-      date: "2023-06-22",
-    },
-    {
-      id: "dkjfkdjfkdj",
-      title: "Quo asperiores odit aut error est eos autem quae delectus.",
-      description:
-        "Et veniam eos dolorem eaque sapiente repellendus ut. Ea doloremque utmollitia culpa dolor accusamus pariatur quisquam assumenda....",
-      date: "2023-06-22",
-    },
-    {
-      id: "dkjfkdjfkdj",
-      title: "Quo asperiores odit aut error est eos autem quae delectus.",
-      description:
-        "Et veniam eos dolorem eaque sapiente repellendus ut. Ea doloremque utmollitia culpa dolor accusamus pariatur quisquam assumenda....",
-      date: "2023-06-22",
-    },
-    {
-      id: "dkjfkdjfkdj",
-      title: "Quo asperiores odit aut error est eos autem quae delectus.",
-      description:
-        "Et veniam eos dolorem eaque sapiente repellendus ut. Ea doloremque utmollitia culpa dolor accusamus pariatur quisquam assumenda....",
-      date: "2023-06-22",
-    },
-    {
-      id: "dkjfkdjfkdj",
-      title: "Quo asperiores odit aut error est eos autem quae delectus.",
-      description:
-        "Et veniam eos dolorem eaque sapiente repellendus ut. Ea doloremque utmollitia culpa dolor accusamus pariatur quisquam assumenda....",
-      date: "2023-06-22",
-    },
-    {
-      id: "dkjfkdjfkdj",
-      title: "Quo asperiores odit aut error est eos autem quae delectus.",
-      description:
-        "Et veniam eos dolorem eaque sapiente repellendus ut. Ea doloremque utmollitia culpa dolor accusamus pariatur quisquam assumenda....",
-      date: "2023-06-22",
-    },
-    {
-      id: "dkjfkdjfkdj",
-      title: "Quo asperiores odit aut error est eos autem quae delectus.",
-      description:
-        "Et veniam eos dolorem eaque sapiente repellendus ut. Ea doloremque utmollitia culpa dolor accusamus pariatur quisquam assumenda....",
-      date: "2023-06-22",
-    },
-    {
-      id: "dkjfkdjfkdj",
-      title: "Quo asperiores odit aut error est eos autem quae delectus.",
-      description:
-        "Et veniam eos dolorem eaque sapiente repellendus ut. Ea doloremque utmollitia culpa dolor accusamus pariatur quisquam assumenda....",
-      date: "2023-06-22",
-    },
-    {
-      id: "dkjfkdjfkdj",
-      title: "Quo asperiores odit aut error est eos autem quae delectus.",
-      description:
-        "Et veniam eos dolorem eaque sapiente repellendus ut. Ea doloremque utmollitia culpa dolor accusamus pariatur quisquam assumenda....",
-      date: "2023-06-22",
-    },
-    {
-      id: "dkjfkdjfkdj",
-      title: "Quo asperiores odit aut error est eos autem quae delectus.",
-      description:
-        "Et veniam eos dolorem eaque sapiente repellendus ut. Ea doloremque utmollitia culpa dolor accusamus pariatur quisquam assumenda....",
-      date: "2023-06-22",
-    },
-    {
-      id: "dkjfkdjfkdj",
-      title: "Quo asperiores odit aut error est eos autem quae delectus.",
-      description:
-        "Et veniam eos dolorem eaque sapiente repellendus ut. Ea doloremque utmollitia culpa dolor accusamus pariatur quisquam assumenda....",
-      date: "2023-06-22",
-    },
-  ];
+  const {
+    data: response,
+    isSuccess,
+    isLoading,
+    isError,
+  } = useGetAnnouncementsQuery({});
+
+  const announcements: Announcement[] = response?.value;
+
   return (
     <div className="w-full p-8">
       {createAnnouncement && (
         <Modal onClose={() => setCreateAnnouncement(false)}>
-          <CreateAnnouncement />
+          <CreateAnnouncement onClose={() => setCreateAnnouncement(false)} />
         </Modal>
       )}
 
@@ -108,14 +41,25 @@ const announcements: React.FC = () => {
           }}
         >
           {editAnnouncement ? (
-            <EditAnnouncement onClose={() => setEditAnnouncement(false)} />
+            <EditAnnouncement
+              announcement={
+                announcements.find(
+                  (announcement) => announcement.id === announcementDetail
+                )!
+              }
+              onClose={() => setEditAnnouncement(false)}
+            />
           ) : (
             <AnnouncementDetail
-              onDelete={() => {}}
+              onClose={() => setAnnouncementDetail(null)}
               onEdit={() => {
                 setEditAnnouncement(true);
               }}
-              announcement={announcement[announcementDetail]}
+              announcement={
+                announcements.find(
+                  (announcement) => announcement.id === announcementDetail
+                )!
+              }
             />
           )}
         </Modal>
@@ -135,23 +79,52 @@ const announcements: React.FC = () => {
       </div>
 
       <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-8 p-4">
-        {announcement.map((a, index) => {
-          return (
-            <AnnouncementCard
-              key={index}
-              onClick={() => {
-                setAnnouncementDetail(index);
-                setShowModal(true);
-              }}
-              title={a.title}
-              description={a.description}
-              date={a.date}
-            />
-          );
-        })}
+        {isLoading ? (
+          Array.from({ length: 16 }).map((_, index) => (
+            <div className="animate-pulse flex flex-col gap-6 rounded-md shadow-md p-4">
+              <div className="flex flex-col gap-2">
+                <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
+                <div className="w-36 rounded-sm h-4 bg-slate-200"></div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
+                <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
+                <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
+                <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
+              </div>
+              <div className="self-end w-24 rounded-sm h-4 bg-slate-200"></div>
+            </div>
+          ))
+        ) : isSuccess ? (
+          response?.error ? (
+            <Error message={"An error occured while fetching Contests"} />
+          ) : (
+            announcements.map((announcement, index) => {
+              return (
+                <AnnouncementCard
+                  key={index}
+                  onClick={() => {
+                    setAnnouncementDetail(announcement.id);
+                    setShowModal(true);
+                  }}
+                  title={announcement.title}
+                  description={announcement.description}
+                  date={announcement.date!}
+                />
+              );
+            })
+          )
+        ) : isError ? (
+          <div>
+            <Error message={"An error occured while fetching Contests"} />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
 };
 
-export default announcements;
+export default index;

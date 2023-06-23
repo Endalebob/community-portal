@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../common/Button";
 import { AiOutlinePlus } from "react-icons/ai";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 interface AnnouncementCardProps {
   title: string;
   description: string;
@@ -13,6 +14,10 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
   description,
   date,
 }) => {
+  const postTime = Math.floor(
+    (new Date().getTime() - new Date(date).getTime()) / (24 * 60 * 60 * 1000)
+  );
+
   return (
     <div
       onClick={onClick}
@@ -20,14 +25,13 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
     >
       <p className="text-lg font-medium">{title}</p>
 
-      <p className="line-clamp-4">{description}</p>
+      <p className="line-clamp-4">
+        {" "}
+        <ReactMarkdown children={description} />
+      </p>
       <div className="flex justify-end w-full ">
         <p className="text-sm opacity-30">
-          {Math.floor(
-            (new Date().getTime() - new Date(date).getTime()) /
-              (24 * 60 * 60 * 1000)
-          )}{" "}
-          days ago
+          {postTime} {`day${postTime > 1 ? "s" : ""} ago`}
         </p>
       </div>
     </div>
