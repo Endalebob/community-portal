@@ -5,7 +5,7 @@ import {
 } from "<@>/store/contest/contest-api";
 import { useRouter } from "next/router";
 import Contest from "<@>/types/contest";
-import ProgressIndicator from "<@>/components/auth/ProgressIndicator";
+import ProgressIndicator from "../common/ProgressIndicator";
 
 const initialState = {
   id: "",
