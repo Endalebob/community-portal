@@ -6,6 +6,7 @@ import { contestApiSlice } from "./journey/contest-api";
 import { stepApiSlice } from "./journey/journey-api";
 import contestSlice from "./journey/contest-slice";
 import { contestsApi } from "./contest/contest-api";
+import { announcementApiSlice } from "./announcement/announcement-api";
 
 export const store = configureStore({
   reducer: {
@@ -16,13 +17,15 @@ export const store = configureStore({
     [stepApiSlice.reducerPath]: stepApiSlice.reducer,
     [authApiSlice.reducerPath]: authApiSlice.reducer,
     [contestsApi.reducerPath]: contestsApi.reducer,
+    [announcementApiSlice.reducerPath]: announcementApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
       authApiSlice.middleware,
       contestApiSlice.middleware,
       stepApiSlice.middleware,
-      contestsApi.middleware
+      contestsApi.middleware,
+      announcementApiSlice.middleware
     );
   },
 });
