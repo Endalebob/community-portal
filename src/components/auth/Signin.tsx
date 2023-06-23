@@ -23,6 +23,7 @@ interface FormValues {
   email: string;
   password: string;
 }
+
 const Signin = () => {
   const dispatch = useAppDispatch();
   const [formValue, setFormValue] = useState(initialState);
@@ -31,6 +32,12 @@ const Signin = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const handleChange = (e: any) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
+  };
+  const [password_, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
   const router = useRouter();
   let [
@@ -97,9 +104,7 @@ const Signin = () => {
     if (isSigninSucces) {
       const authData = signinData as unknown as AuthResponse;
       console.log(authData);
-      dispatch(
-        setToken(authData)
-      );
+      dispatch(setToken(authData));
       router.push("/journey");
     }
     if (isSigninError && signInError) {
@@ -146,7 +151,6 @@ const Signin = () => {
           {errors.fromBackEnd && (
             <p className="text-red-500 text-[14px]">{errors.fromBackEnd}</p>
           )}
-
           <InputField
             label="Email"
             name="email"
@@ -159,12 +163,16 @@ const Signin = () => {
           <InputField
             label="Password"
             name="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="********"
             value={password}
             onChange={handleChange}
             error={errors.password}
+            isPasswordField={true}
+            togglePasswordVisibility={togglePasswordVisibility}
+            showPassword={showPassword}
           />
+
           <div className="flex">
             <input
               type="checkbox"
