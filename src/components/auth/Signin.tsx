@@ -8,12 +8,11 @@ import {
   useLoginUserMutation,
 } from "<@>/store/auth/auth-api";
 import { setToken } from "<@>/store/auth/auth-slice";
-import ProgressIndicator from "./ProgressIndicator";
-import CustomError from "<@>/types/auth/custom-error";
-import CustomSuccess from "<@>/types/auth/custom-success";
-import { setUser } from "<@>/store/auth/user-slice";
+import ProgressIndicator from "../common/ProgressIndicator";
 import Link from "next/link";
 import { getCookie, removeCookie, setCookie } from "<@>/utils/cookie";
+import { CustomError } from "<@>/types/auth/custom-error";
+import AuthResponse from "<@>/types/auth/auth-response";
 
 const initialState = {
   email: "",
@@ -70,7 +69,6 @@ const Signin = () => {
     }
   };
   useEffect(() => {
-    // Retrieve email and password from local storage
     const storedEmail = getCookie("rememberMeEmail");
     const storedPassword = getCookie("rememberMePassword");
 
@@ -85,9 +83,9 @@ const Signin = () => {
   }, []);
   useEffect(() => {
     if (rememberMe) {
-      setCookie("rememberMeEmail", email, {expires: 20});
-      setCookie("rememberMePassword", password, {expires: 20});
-        } else {
+      setCookie("rememberMeEmail", email, { expires: 20 });
+      setCookie("rememberMePassword", password, { expires: 20 });
+    } else {
       removeCookie("rememberMeEmail");
       removeCookie("rememberMePassword");
     }
@@ -97,23 +95,29 @@ const Signin = () => {
   };
   useEffect(() => {
     if (isSigninSucces) {
-      console.log(signinData.value);
+      const authData = signinData as unknown as AuthResponse;
+      console.log(authData);
       dispatch(
-        setToken({
-          token: signinData.value.token,
-          role: signinData.value.user.role,
-          isAuthenticated: true,
-        })
+        setToken(authData)
       );
       router.push("/journey");
     }
     if (isSigninError && signInError) {
       const customError = signInError as unknown as CustomError;
-      console.log(customError.data);
-      if (customError.data.message) {
-        setErrors({ ...errors, fromBackEnd: customError.data.message });
+      if (!customError.data) {
+        setErrors({ ...errors, fromBackEnd: "Something went wrong." });
       } else if (customError.data.error) {
-        setErrors({ ...errors, fromBackEnd: customError.data.error[0] });
+        const error = customError.data.error[0];
+        const propertyName =
+          error.propertyName.charAt(0).toLowerCase() +
+          error.propertyName.slice(1);
+        if (propertyName === "password") {
+          setErrors({ ...errors, password: error.errorMessage });
+        } else if (propertyName === "email") {
+          setErrors({ ...errors, email: error.errorMessage });
+        }
+      } else if (customError.data.message) {
+        setErrors({ ...errors, fromBackEnd: customError.data.message });
       }
       isSigninLoading = false;
     }

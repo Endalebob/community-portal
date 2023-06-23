@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import AuthImage from "./AuthImage";
 import InputField from "./InputField";
 import { useRegisterUserMutation } from "<@>/store/auth/auth-api";
-import ProgressIndicator from "./ProgressIndicator";
+import ProgressIndicator from "../common/ProgressIndicator";
 import { setToken } from "<@>/store/auth/auth-slice";
-import CustomError from "<@>/types/auth/custom-error";
 import { removeCookie, setCookie } from "<@>/utils/cookie";
+import { CustomError } from "<@>/types/auth/custom-error";
+import AuthResponse from "<@>/types/auth/auth-response";
 
 const initialState = {
   fullName: "",
@@ -80,13 +81,7 @@ const Signup = () => {
       validationErrors.codeforces = "Codeforces handle is required";
     } else if (!telegram) {
       validationErrors.telegram = "Telegram handle is required";
-    } else if (!password) {
-      validationErrors.password = "Password is required";
-    } else if (!confirmPassword) {
-      validationErrors.confirmPassword = "Confirm Password is required";
-    } else if (password !== confirmPassword) {
-      validationErrors.confirmPassword = "Passwords must match";
-    }
+    } 
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -108,9 +103,9 @@ const Signup = () => {
   };
   useEffect(() => {
     if (rememberMe) {
-      setCookie("rememberMeEmail", email, {expires: 20});
-      setCookie("rememberMePassword", password, {expires: 20});
-        } else {
+      setCookie("rememberMeEmail", email, { expires: 20 });
+      setCookie("rememberMePassword", password, { expires: 20 });
+    } else {
       removeCookie("rememberMeEmail");
       removeCookie("rememberMePassword");
     }
@@ -118,24 +113,53 @@ const Signup = () => {
 
   useEffect(() => {
     if (isRegisterSuccess) {
-      console.log(registerData.value);
+      const authData = registerData as unknown as AuthResponse;
       dispatch(
-        setToken({
-          token: registerData.value.token,
-          role: registerData.value.user.role,
-          isAuthenticated: true,
-        })
+        setToken(authData)
       );
       router.push("/journey");
     }
     if (isRegisterError && registerError) {
       const customError = registerError as unknown as CustomError;
-      console.log(customError.data);
-      if (customError.data.message) {
-        setErrors({ ...errors, fromBackEnd: customError.data.message });
-      } else if (customError.data.error) {
-        setErrors({ ...errors, fromBackEnd: customError.data.error[0] });
+      console.log(customError);
+      if (!customError.data){
+        setErrors({ ...errors, fromBackEnd: "Something went wrong" });
       }
+      else if (customError.data.error) {
+        const error = customError.data.error[0];
+        const propertyName =
+          error.propertyName.charAt(0).toLowerCase() +
+          error.propertyName.slice(1);
+        if (propertyName === "confirmPassword") {
+          setErrors({ ...errors, confirmPassword: error.errorMessage });
+        }
+        else if (propertyName === "password") {
+          setErrors({ ...errors, password: error.errorMessage });
+        }
+        else if (propertyName === "email") {
+          setErrors({ ...errors, email: error.errorMessage });
+        }
+        else if (propertyName === "phoneNumber") {
+          setErrors({ ...errors, phoneNumber: error.errorMessage });
+        }
+        else if (propertyName === "codeforces") {
+          setErrors({ ...errors, codeforces: error.errorMessage });
+        }
+        else if (propertyName === "telegram") {
+          setErrors({ ...errors, telegram: error.errorMessage });
+        }
+        else if (propertyName === "fullName") {
+          setErrors({ ...errors, fullName: error.errorMessage });
+        }
+        else {
+          setErrors({ ...errors, fromBackEnd: error.errorMessage });
+        }
+      }
+
+        
+      else if (customError.data.message) {
+        setErrors({ ...errors, fromBackEnd: customError.data.message });
+      } 
       isSignupLoading = false;
     }
   }, [registerData, isRegisterError, isRegisterSuccess]);

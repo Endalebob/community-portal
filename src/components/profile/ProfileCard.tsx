@@ -32,7 +32,7 @@ const ProfileCard = () => {
       {applicant.profilePicture ? (
         <Image
           className="w-full rounded-lg"
-          src={applicant.profilePicture.url}
+          src={applicant.profilePicture}
           alt="profile-picture"
           width={317}
           height={212}
