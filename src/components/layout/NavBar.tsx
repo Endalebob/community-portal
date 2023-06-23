@@ -65,6 +65,7 @@ const NavBar: React.FC = () => {
     );
   }, [asPath]);
 
+  const auth = useSelector((state: RootState) => state.auth);
   const user = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
@@ -178,9 +179,9 @@ const NavBar: React.FC = () => {
                   setShowNav(false);
                 }}
               >
-                {user.profilePicture ? (
+                {auth.profilePicture && auth.profilePicture !== "null" ? (
                   <Image
-                    src={user.profilePicture}
+                    src={auth.profilePicture}
                     className="w-10 h-10 rounded-full object-cover bg-white hover:ring-2 p-1 hover:ring-gray-300 transition ease-in-out duration-200"
                     alt="profile picture"
                     width={150}
@@ -207,7 +208,7 @@ const NavBar: React.FC = () => {
                   ref={showProfileRef}
                 >
                   <div className="text-start p-2">
-                    <p className="font-bold">{user.fullName}</p>
+                    <p className="font-bold">{auth.fullName}</p>
                     <span>{user.email}</span>
                   </div>
                   <div className="border border-y-2 border-x-0 flex flex-col text-sm gap-y-2">

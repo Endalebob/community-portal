@@ -101,7 +101,7 @@ const StudentDetail = () => {
 
               <span className="block text-gray-500">
                 {applicant.cv && (
-                  <Link href={applicant.cv.url} className="">
+                  <Link href={applicant.cv} className="">
                     Link
                   </Link>
                 )}
