@@ -25,7 +25,7 @@ const OverViewContests: React.FC = () => {
   return (
     <div className="flex flex-row flex-wrap">
       {overViewData.map((data, index) => (
-        <div key={index} className="ml-6 mt-4">
+        <div key={index} className="ml-4 sm:ml-6 mt-4">
           <OverViewCard
             icon={data.icon}
             title={data.title}

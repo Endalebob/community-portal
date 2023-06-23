@@ -56,7 +56,7 @@ const ContestList: React.FC = () => {
   const contestData = contests.value;
   return (
     <div>
-      <div className="mt-8">
+      <div className="mt-8 sm:ml-2">
         <h1 className="text-secondary-text font-semibold ml-6 text-lg">
           OverView
         </h1>
@@ -87,7 +87,7 @@ const ContestList: React.FC = () => {
         ) : (
           <div>
             {role !== "HeadOfEducation" && (
-              <h1 className="text-secondary-text font-semibold ml-6 text-lg">
+              <h1 className="text-secondary-text font-semibold mt-8 mb-4 text-lg">
                 Contests
               </h1>
             )}
