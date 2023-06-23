@@ -41,10 +41,10 @@ const StudentDetail = () => {
           </div>
           <div className="mt-4 grid grid-cols-2 lg:grid-cols-6 ">
             <div className="col-span-1 grid-rows-4 grid-cols-1 space-y-5">
-              <p className="">Full Name: </p>
-              <p className="">Phone number:</p>
-              <p className="">Email: </p>
-              <p className="">Country: </p>
+              <p className="whitespace-nowrap">Full Name: </p>
+              <p className="whitespace-nowrap">Phone number:</p>
+              <p className="whitespace-nowrap">Email: </p>
+              <p className="whitespace-nowrap">Country: </p>
             </div>
 
             <div className="col-span-1 grid-rows-4 grid-cols-1 space-y-5">
@@ -80,10 +80,10 @@ const StudentDetail = () => {
           </div>
           <div className="mt-4 grid grid-cols-2 lg:grid-cols-6 ">
             <div className="col-span-1 grid-rows-4 grid-cols-1 space-y-5">
-              <p className="">Education Institute: </p>
-              <p className="">Department:</p>
-              <p className="">Graduation Year: </p>
-              <p className="">CV: </p>
+              <p className="whitespace-nowrap">Education Institute: </p>
+              <p className="whitespace-nowrap">Department:</p>
+              <p className="whitespace-nowrap">Graduation Year: </p>
+              <p className="whitespace-nowrap">CV: </p>
             </div>
 
             <div className="col-span-1 grid-rows-4 grid-cols-1 space-y-5">
