@@ -236,13 +236,13 @@ const NavBar: React.FC = () => {
             >
               {/* auth buttons */}
               <Link href="/auth/signin">
-                <button className="py-2 px-4 rounded-md border-2 shadow-xl md:shadow-none border-blue-400 text-primary hover:scale-110 transition ease-in-out duration-200">
+                <button className="py-2 px-4 rounded-md border shadow-xl md:shadow-none border-primary text-primary hover:scale-110 transition ease-in-out duration-200">
                   Login
                 </button>
               </Link>
 
               <Link href="/auth/signup">
-                <button className="py-2 px-4 rounded-md border-2 shadow-xl md:shadow-none border-blue-400 bg-primary hover:scale-110 text-white transition ease-in-out duration-200">
+                <button className="py-2 px-4 rounded-md  shadow-xl md:shadow-none bg-primary hover:scale-110 text-white transition ease-in-out duration-200">
                   Sign Up
                 </button>
               </Link>
