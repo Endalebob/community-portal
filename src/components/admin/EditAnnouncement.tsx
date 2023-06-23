@@ -121,7 +121,7 @@ const EditAnnouncement: React.FC<EditAnnouncementProps> = ({
           <Button
             onClick={() => validAnnouncement()}
             className="font-medium"
-            label="Create"
+            label="Update"
           ></Button>
         )}
       </div>
