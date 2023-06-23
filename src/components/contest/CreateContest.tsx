@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useCreateContestMutation } from "<@>/store/contest/contest-api";
 import { useRouter } from "next/router";
-import ProgressIndicator from "<@>/components/auth/ProgressIndicator";
+import ProgressIndicator from "../common/ProgressIndicator";
 
 const initialState = {
   title: "",
