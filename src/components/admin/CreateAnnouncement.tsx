@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import InputField from "../auth/InputField";
 import Button from "../common/Button";
 import { useCreateAnnouncementMutation } from "<@>/store/announcement/announcement-api";
-import ProgressIndicator from "../auth/ProgressIndicator";
+import ProgressIndicator from "../common/ProgressIndicator";
 import { AiOutlineCheck } from "react-icons/ai";
 
 interface CreateAnnouncementProps {
