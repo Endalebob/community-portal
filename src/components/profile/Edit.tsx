@@ -7,6 +7,7 @@ import router from "next/router";
 import React, { useEffect, useState } from "react";
 import InputField from "../auth/InputField";
 import { africanCountries } from "<@>/constants/african-countries";
+import { programmingLanguages } from "<@>/constants/programming-languages";
 import Image from "next/image";
 import Link from "next/link";
 import User from "<@>/types/auth/user";
@@ -57,7 +58,7 @@ const Edit = () => {
       isError: isUpdateError,
       isSuccess: isUpdateSuccess,
       error: updateError,
-      isLoading:isProfileLoading,
+      isLoading: isProfileLoading,
     },
   ] = useUpdateUserMutation();
 
@@ -75,8 +76,7 @@ const Edit = () => {
       )
     ) {
       validationErrors.email = "Email is invalid";
-    }
-    else if (phoneNumber) {
+    } else if (phoneNumber) {
       if (!/^(?:\+251|251|0)?[1-59]\d{8}$/.test(phoneNumber)) {
         validationErrors.phoneNumber = "Phone number is invalid";
       }
@@ -92,48 +92,36 @@ const Edit = () => {
     if (isUpdateError && updateError) {
       const customError = updateError as unknown as CustomError;
       console.log(customError);
-      if (!customError.data){
+      if (!customError.data) {
         setErrors({ ...errors, fromBackEnd: "Something went wrong" });
-      }
-      else if (customError.data.error) {
+      } else if (customError.data.error) {
         const error = customError.data.error[0];
         const propertyName =
           error.propertyName.charAt(0).toLowerCase() +
           error.propertyName.slice(1);
         if (propertyName === "confirmPassword") {
           setErrors({ ...errors, confirmPassword: error.errorMessage });
-        }
-        else if (propertyName === "password") {
+        } else if (propertyName === "password") {
           setErrors({ ...errors, password: error.errorMessage });
-        }
-        else if (propertyName === "email") {
+        } else if (propertyName === "email") {
           setErrors({ ...errors, email: error.errorMessage });
-        }
-        else if (propertyName === "phoneNumber") {
+        } else if (propertyName === "phoneNumber") {
           setErrors({ ...errors, phoneNumber: error.errorMessage });
-        }
-        else if (propertyName === "codeforces") {
+        } else if (propertyName === "codeforces") {
           setErrors({ ...errors, codeforces: error.errorMessage });
-        }
-        else if (propertyName === "telegram") {
+        } else if (propertyName === "telegram") {
           setErrors({ ...errors, telegram: error.errorMessage });
-        }
-        else if (propertyName === "fullName") {
+        } else if (propertyName === "fullName") {
           setErrors({ ...errors, fullName: error.errorMessage });
-        }
-        else {
+        } else {
           setErrors({ ...errors, fromBackEnd: error.errorMessage });
         }
-      }
-
-        
-      else if (customError.data.message) {
+      } else if (customError.data.message) {
         setErrors({ ...errors, fromBackEnd: customError.data.message });
-      } 
-      isProfileLoading = false
+      }
+      isProfileLoading = false;
     }
-  }, [isUpdateSuccess,isUpdateError,updateError,updateData]);
-
+  }, [isUpdateSuccess, isUpdateError, updateError, updateData]);
 
   const handleChange = (e: any) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
@@ -215,7 +203,7 @@ const Edit = () => {
                 placeholder=""
                 value={telegramUsername}
                 onChange={handleChange}
-                error={ errors.telegram }
+                error={errors.telegram}
               />
             </div>
           </div>
@@ -374,19 +362,29 @@ const Edit = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col flex-grow">
-              <InputField
-                label="Programming Language"
+
+            <div className="flex flex-col flex-grow ed:ml-16 max-w-[80%]">
+              <p className="text-primary-text text-[14px] font-semibold">
+                Programming Language
+              </p>
+              <select
                 name="favoriteLanguage"
-                type="text"
-                placeholder=""
-                value={favoriteLanguage}
                 onChange={handleChange}
-              />
-              {errors.fromBackEnd && (
-            <p className="text-red-500 text-[14px] pt-4">{errors.fromBackEnd}</p>
-          )}
+                className="border max-w-[80%] rounded-md py-1 px-3 mt-1 border-gray-300"
+              >
+                <option value={favoriteLanguage}>{favoriteLanguage}</option>
+                {programmingLanguages.map((language) => (
+                  <option key={language.label} value={language.label}>
+                    {language.label}
+                  </option>
+                ))}
+              </select>
             </div>
+            {errors.fromBackEnd && (
+              <p className="text-red-500 text-[14px] pt-4">
+                {errors.fromBackEnd}
+              </p>
+            )}
           </div>
           <hr />
 
@@ -406,7 +404,6 @@ const Edit = () => {
               ) : (
                 "Update"
               )}
-              
             </button>
           </div>
         </form>

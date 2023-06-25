@@ -1,10 +1,16 @@
-import Signup from '<@>/components/auth/Signup'
-import React from 'react'
+import Signup from "<@>/components/auth/Signup";
+import Head from "next/head";
+import React from "react";
 
 const SignupPage = () => {
   return (
-    <Signup/>
-  )
-}
+    <>
+      <Head>
+        <title>Signup</title>
+      </Head>
+      <Signup />
+    </>
+  );
+};
 
-export default SignupPage
+export default SignupPage;

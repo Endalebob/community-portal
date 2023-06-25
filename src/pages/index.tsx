@@ -5,17 +5,23 @@ import Welcome from "<@>/components/home/Welcome";
 import HowToJoin from "<@>/components/home/HowToJoin";
 import Partners from "<@>/components/home/Partners";
 import GetStarted from "<@>/components/home/GetStarted";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <main className="flex flex-col bg-primarybg">
-      <Landing />
-      <Welcome />
-      <HowToJoin />
-      <Partners />
-      <GetStarted />
-    </main>
+    <>
+      <Head>
+        <title>home</title>
+      </Head>
+      <main className="flex flex-col bg-primarybg">
+        <Landing />
+        <Welcome />
+        <HowToJoin />
+        <Partners />
+        <GetStarted />
+      </main>
+    </>
   );
 }
