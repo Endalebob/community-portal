@@ -7,7 +7,7 @@ const AuthImage = () => {
 >
       <div className="absolute inset-0 bg-sky-700 opacity-70"></div>
       <div className="absolute inset-0 justify-center">
-        <div className="flex flex-col h-full justify-between">
+        <div className="mx-5 pt-5 flex flex-col h-full justify-between">
           <Image
             width={100}
             height={100}
