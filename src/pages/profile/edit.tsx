@@ -1,10 +1,16 @@
-import Edit from '<@>/components/profile/Edit'
-import React from 'react'
+import Edit from "<@>/components/profile/Edit";
+import Head from "next/head";
+import React from "react";
 
 const EditProfilePage = () => {
   return (
-    <Edit/>
-  )
-}
+    <>
+      <Head>
+        <title>edit profile</title>
+      </Head>
+      <Edit />
+    </>
+  );
+};
 
-export default EditProfilePage
+export default EditProfilePage;
