@@ -7,7 +7,7 @@ const AuthImage = () => {
 >
       <div className="absolute inset-0 bg-sky-700 opacity-70"></div>
       <div className="absolute inset-0 justify-center">
-        <div className="m-5 flex flex-col h-full justify-between">
+        <div className="flex flex-col h-full justify-between">
           <Image
             width={100}
             height={100}
@@ -34,7 +34,7 @@ const AuthImage = () => {
             </div>
           </div>
 
-          <p className="text-white mb-10">© 2023 A2SV. All rights reserved.</p>
+          <p className="text-white mb-5">© 2023 A2SV. All rights reserved.</p>
         </div>
       </div>
     </div>
