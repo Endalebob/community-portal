@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getCookie } from '<@>/utils/cookie';
+import Group from '<@>/types/groups/group';
 const BASE_URL = "https://a2sv-community-portal-api.onrender.com/api"
 
 
 export const GroupDataApi = createApi({
+tagTypes:["groups"],
   baseQuery: fetchBaseQuery({
   baseUrl: BASE_URL,
   
@@ -16,15 +18,17 @@ export const GroupDataApi = createApi({
   },
 }),
   endpoints: (builder) => ({
-    createGroup: builder.mutation<any, any>({
+    createGroup: builder.mutation<any, Partial<Group>>({
       query: (group) => ({
         url: "/Groups",
         method: "POST",
         body: group,
       }),
+      invalidatesTags:["groups"]
     }),
     getGroups: builder.query({
-    query: () => '/Groups'
+    query: () => '/Groups',
+    providesTags:["groups"]
   }),
 })
 });

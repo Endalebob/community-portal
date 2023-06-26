@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useCreateGroupMutation } from '<@>/store/group/group-api';
-import Group from '<@>/types/group/group';
+import { useCreateGroupMutation } from '<@>/store/groups/groups-api';
+import Group from '<@>/types/groups/group';
 
 const initialState:Group = {
   name: "",
@@ -85,13 +85,14 @@ const CreateGroup: React.FC = () => {
     // console.log(response.data.data)
   } catch (errors){
     console.error("Failed to create Group")
+    console.log(errors)
   }
   
   };
 
 return (
   <div className="container w-full md:w-3/4 lg:w-1/2 mx-auto mt-8 h-full p-8 sm:p-12 md:p-16 lg:p-24 lg:py-16">
-  <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xlfont-bold items-center py-12 text-gray-700 w-full h-full lg:mb-16">
+  <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold items-center py-12 text-gray-700 w-full h-full lg:mb-16">
       Create New Group
     </h1>
     <form onSubmit={handleSubmit}>

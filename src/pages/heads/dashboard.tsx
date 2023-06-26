@@ -1,8 +1,8 @@
 import React from "react";
 import GroupCard from "../../components/groups/GroupCard";
-import Sidebar from "<@>/components/heads/SideBar";
+// import Sidebar from "<@>/components/heads/SideBar";
 import { useState, useEffect } from "react";
-import groupdata from "../../types/heads/dashboard";
+import groupdata from "../../types/groups/dashboard";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useGetGroupsQuery } from "<@>/store/groups/groups-api";
@@ -47,7 +47,7 @@ const DashBoard: React.FC = () => {
         id = {groupData.id}
         groupName= {groupData.groupName}
         memberCount={groupData.memberCount}
-        handleCardClick = {()=>handleCardClick}
+        // handleCardClick = {()=>handleCardClick}
 
         // className={selecteGroup === groupData.id ? 'bg-gray-100' : ''}
         />
