@@ -9,11 +9,13 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 interface AddToGroupProps {
   selectedApplicants: string[];
   setShowModal: (show: boolean) => void;
+  setSelectedApplicants : (selectedApplicants:string[])=>void
 }
 
 const AddToGroup: React.FC<AddToGroupProps> = ({
   selectedApplicants,
   setShowModal,
+  setSelectedApplicants
 }) => {
   const [selectedGroup, setSelectedGroup] = useState("");
   const { data, isLoading, error } = useGetGroupsQuery();
@@ -29,6 +31,8 @@ const AddToGroup: React.FC<AddToGroupProps> = ({
     });
 
     setShowModal(false);
+    setSelectedApplicants([]);
+
   };
 
   return (
@@ -64,6 +68,7 @@ const AddToGroup: React.FC<AddToGroupProps> = ({
           </select>
           <div className="text-end">
             <button
+              disabled={selectedGroup.length != 1}
               onClick={handleMoveToGroup}
               className="bg-primary text-white p-2 rounded"
             >
