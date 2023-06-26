@@ -173,7 +173,7 @@ const NavBar: React.FC = () => {
       >
         <Link href="/">
           <div className="w-28 lg:w-52">
-            <Image src="/a2sv-logo.png" width={105} height={30} alt="logo" />
+            <Image src="/A2SV-Logo.svg" width={105} height={30} alt="logo" />
           </div>
         </Link>
 
