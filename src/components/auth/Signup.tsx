@@ -13,8 +13,8 @@ import AuthResponse from "<@>/types/auth/auth-response";
 const initialState = {
   fullName: "",
   phoneNumber: "",
-  codeforces: "",
-  telegram: "",
+  codeforcesHandle: "",
+  telegramUsername: "",
   email: "",
   password: "",
   confirmPassword: "",
@@ -23,8 +23,8 @@ interface FormValues {
   fromBackEnd: string;
   fullName: string;
   phoneNumber: string;
-  codeforces: string;
-  telegram: string;
+  codeforcesHandle: string;
+  telegramUsername: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -37,8 +37,8 @@ const Signup = () => {
   const {
     fullName,
     phoneNumber,
-    codeforces,
-    telegram,
+    codeforcesHandle,
+    telegramUsername,
     email,
     password,
     confirmPassword,
@@ -87,10 +87,10 @@ const Signup = () => {
       validationErrors.phoneNumber = "Phone number is required";
     } else if (!/^(?:\+251|251|0)?[1-59]\d{8}$/.test(phoneNumber)) {
       validationErrors.phoneNumber = "Phone number is invalid";
-    } else if (!codeforces) {
-      validationErrors.codeforces = "Codeforces handle is required";
-    } else if (!telegram) {
-      validationErrors.telegram = "Telegram handle is required";
+    } else if (!codeforcesHandle) {
+      validationErrors.codeforcesHandle = "Codeforces handle is required";
+    } else if (!telegramUsername) {
+      validationErrors.telegramUsername = "Telegram handle is required";
     } 
 
     if (Object.keys(validationErrors).length > 0) {
@@ -99,8 +99,8 @@ const Signup = () => {
       registerUser({
         fullName,
         phoneNumber,
-        telegram,
-        codeforces,
+        telegramUsername,
+        codeforcesHandle,
         email,
         password,
         confirmPassword,
@@ -152,11 +152,11 @@ const Signup = () => {
         else if (propertyName === "phoneNumber") {
           setErrors({ ...errors, phoneNumber: error.errorMessage });
         }
-        else if (propertyName === "codeforces") {
-          setErrors({ ...errors, codeforces: error.errorMessage });
+        else if (propertyName === "codeforcesHandle") {
+          setErrors({ ...errors, codeforcesHandle: error.errorMessage });
         }
-        else if (propertyName === "telegram") {
-          setErrors({ ...errors, telegram: error.errorMessage });
+        else if (propertyName === "telegramUsername") {
+          setErrors({ ...errors, telegramUsername: error.errorMessage });
         }
         else if (propertyName === "fullName") {
           setErrors({ ...errors, fullName: error.errorMessage });
@@ -225,25 +225,25 @@ const Signup = () => {
             onChange={handleChange}
             error={errors.phoneNumber}
           />
-          {/* codeforces input field */}
+          {/* codeforcesHandle input field */}
           <InputField
             label="Codeforces Handle"
-            name="codeforces"
+            name="codeforcesHandle"
             type="text"
-            placeholder="Enter your codeforces handle"
-            value={codeforces}
+            placeholder="Enter your codeforcesHandle handle"
+            value={codeforcesHandle}
             onChange={handleChange}
-            error={errors.codeforces}
+            error={errors.codeforcesHandle}
           />
 
           <InputField
             label="Telegram Handle"
-            name="telegram"
+            name="telegramUsername"
             type="text"
             placeholder="Enter your handle"
-            value={telegram}
+            value={telegramUsername}
             onChange={handleChange}
-            error={errors.telegram}
+            error={errors.telegramUsername}
           />
           <InputField
             label="Password"
