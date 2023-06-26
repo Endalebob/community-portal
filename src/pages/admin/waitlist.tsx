@@ -13,7 +13,7 @@ const WaitList: React.FC = () => {
   const [params, setParams] = useState({
     pageNumber: 1,
     searchTerm: "",
-    pageSize: 5,
+    pageSize: 10,
   });
 
   const [userDetailId, setUserDetailId] = useState<string>("");
