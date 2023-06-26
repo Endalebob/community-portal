@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CheckBox from "./CheckBox";
 import Connector from "./Connector";
 import { SubSteps } from "<@>/types/Journey/SubSteps";
@@ -12,7 +12,25 @@ interface StepperProps {
   steps: Step[];
   setActiveStep: (step: number) => void;
 }
+export function areAllSubStepsTrue(step: any): boolean {
+  return step.subSteps.every(
+    (subStep: any) => subStep.constraintSpecification === "true"
+  );
+}
+
 const Stepper: React.FC<StepperProps> = ({ steps, setActiveStep }) => {
+  useEffect(() => {
+    for (let index = 0; index < steps.length; index++) {
+      const curStep = steps[index];
+
+      if (
+        !areAllSubStepsTrue(curStep) &&
+        (index === 0 || areAllSubStepsTrue(steps[index - 1]))
+      ) {
+        setActiveStep(index);
+      }
+    }
+  }, []);
   return (
     <div
       className={`justify-items-start flex-grow max-w-[68rem] gap-2  text-xs md:text-sm lg:text-base`}
@@ -31,9 +49,9 @@ const Stepper: React.FC<StepperProps> = ({ steps, setActiveStep }) => {
             <div className="w-full flex items-center">
               <Connector
                 fill={
-                  step.isCompleted ||
-                  (!step.isCompleted &&
-                    (index === 0 || steps[index - 1].isCompleted))
+                  areAllSubStepsTrue(step) ||
+                  (!areAllSubStepsTrue(step) &&
+                    (index === 0 || areAllSubStepsTrue(steps[index - 1])))
                     ? true
                     : false
                 }
@@ -43,10 +61,10 @@ const Stepper: React.FC<StepperProps> = ({ steps, setActiveStep }) => {
               <div className="mt-1">
                 <CheckBox
                   stepper
-                  isCompleted={step.isCompleted}
+                  isCompleted={areAllSubStepsTrue(step)}
                   active={
-                    !step.isCompleted &&
-                    (index === 0 || steps[index - 1].isCompleted)
+                    !areAllSubStepsTrue(step) &&
+                    (index === 0 || areAllSubStepsTrue(steps[index - 1]))
                   }
                 />
               </div>
