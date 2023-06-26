@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import ProgressIndicator from "../common/ProgressIndicator";
 
 const initialState = {
+  GymId: "",
   title: "",
   description: "",
   date: "",
@@ -41,12 +42,20 @@ const ContestForm: React.FC = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    const { title, description, date, time, link } = contest;
+    const { GymId, title, description, date, time, link } = contest;
 
     if (!title) {
       setErrors((prevErrors) => ({
         ...prevErrors,
         title: "title is required",
+      }));
+      return;
+    }
+
+    if (!GymId) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        GymId: "Gym Id is required",
       }));
       return;
     }
@@ -85,17 +94,17 @@ const ContestForm: React.FC = () => {
     const dateTime = `${date}T${time}:00Z`;
     try {
       await createContest({
+        GymId,
         title,
         description,
         date: dateTime,
         link,
       }).unwrap();
       // Contest creation successful, reset form fields
-      setContest(initialState);
-      setErrors(initialState);
-    } catch (error) {
+      router.push("/contests");
+    } catch (error: any) {
       // Handle contest creation error
-      setBackendError("An error occurred while creating the contest");
+      setBackendError(`An error occurred : ${error.data.title}`);
     }
   };
 
@@ -120,6 +129,21 @@ const ContestForm: React.FC = () => {
           className="w-full p-2 border rounded h-8 focus:outline-none"
         />
         {errors.title && <p className="text-red-500">{errors.title}</p>}
+      </div>
+      <div className="mb-8">
+        <label htmlFor="GymId" className="block mb-2 font-semibold">
+          GymId
+        </label>
+        <input
+          type="number"
+          id="GymId"
+          name="GymId"
+          value={contest.GymId}
+          onChange={handleChange}
+          placeholder="0"
+          className="w-full p-2 border rounded h-8 focus:outline-none"
+        />
+        {errors.GymId && <p className="text-red-500">{errors.GymId}</p>}
       </div>
       <div className="mb-8">
         <label htmlFor="description" className="block mb-2 font-semibold">
