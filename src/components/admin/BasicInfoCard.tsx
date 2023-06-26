@@ -13,6 +13,7 @@ const BasicInfoCard: React.FC<BasicInfoCardProps> = ({
   link = "",
   icon: Icon,
 }) => {
+  
   return (
     <div className="flex space-x-3 py-2 px-3 items-center">
       <div className="bg-blue-100 p-3 text-blue-950 rounded-lg">
@@ -20,7 +21,7 @@ const BasicInfoCard: React.FC<BasicInfoCardProps> = ({
       </div>
       {link ? (
         <Link className="text-gray-700" href={link}>
-          data
+          {data}
         </Link>
       ) : (
         <h4 className="text-gray-700">{data}</h4>

@@ -22,7 +22,7 @@ const ProgrammingHandles: React.FC<ProgrammingHandlesProps> = ({
       <div>
         <h4 className="text-gray-700 font-semibold">{platform}</h4>
         <Link href={link}>
-          <a className="text-xs text-gray-500">{handle}</a>
+          <p className="text-xs text-gray-500">{handle}</p>
         </Link>
       </div>
     </div>

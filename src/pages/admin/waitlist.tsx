@@ -72,7 +72,7 @@ const WaitList: React.FC = () => {
   };
 
   return (
-    <section className="grid sm:grid-cols-12 grid-cols-1">
+    <section className="grid md:grid-cols-12 grid-cols-1">
       <div className="col-span-4 border-r border-r-gray-100 overflow-y-scroll max-h-screen waitlist-card-scroll">
         <div className="flex items-center justify-between space-x-4 sticky px-6 py-4 top-0 bg-white">
           <h2 className="text-lg font-medium text-gray-700">Members</h2>

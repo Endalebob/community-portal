@@ -18,7 +18,7 @@ interface FormValues {
   fromBackEnd: string;
   fullName: string;
   phoneNumber: string;
-  codeforces: string;
+  codeforcesHandle: string;
   telegram: string;
   email: string;
   password: string;
@@ -42,11 +42,11 @@ const Edit = () => {
     university,
     department,
     graduationYear,
-    leetCode,
-    gitHub,
-    codeforces,
-    hackerrank,
-    linkedIn,
+    leetCodeHandle,
+    gitHubHandle,
+    codeforcesHandle,
+    hackerrankHandle,
+    linkedInHandle,
     cv,
     favoriteLanguage,
   } = formValue;
@@ -107,8 +107,8 @@ const Edit = () => {
           setErrors({ ...errors, email: error.errorMessage });
         } else if (propertyName === "phoneNumber") {
           setErrors({ ...errors, phoneNumber: error.errorMessage });
-        } else if (propertyName === "codeforces") {
-          setErrors({ ...errors, codeforces: error.errorMessage });
+        } else if (propertyName === "codeforcesHandle") {
+          setErrors({ ...errors, codeforcesHandle: error.errorMessage });
         } else if (propertyName === "telegram") {
           setErrors({ ...errors, telegram: error.errorMessage });
         } else if (propertyName === "fullName") {
@@ -297,31 +297,31 @@ const Edit = () => {
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Leetcode Username"
-                name="leetCode"
+                name="leetCodeHandle"
                 type="text"
                 placeholder=""
-                value={leetCode}
+                value={leetCodeHandle}
                 onChange={handleChange}
               />
             </div>
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Codeforces Username"
-                name="codeforces"
+                name="codeforcesHandle"
                 type="text"
                 placeholder=""
-                value={codeforces}
+                value={codeforcesHandle}
                 onChange={handleChange}
-                error={errors.codeforces}
+                error={errors.codeforcesHandle}
               />
             </div>
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Hackerrank Username"
-                name="hackerrank"
+                name="hackerrankHandle"
                 type="text"
                 placeholder=""
-                value={hackerrank}
+                value={hackerrankHandle}
                 onChange={handleChange}
               />
             </div>
@@ -330,20 +330,20 @@ const Edit = () => {
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Github Username"
-                name="gitHub"
+                name="gitHubHandle"
                 type="text"
                 placeholder=""
-                value={gitHub}
+                value={gitHubHandle}
                 onChange={handleChange}
               />
             </div>
             <div className="flex flex-col flex-grow">
               <InputField
                 label="Linkedin Url"
-                name="linkedIn"
+                name="linkedInHandle"
                 type="text"
                 placeholder=""
-                value={linkedIn}
+                value={linkedInHandle}
                 onChange={handleChange}
               />
             </div>

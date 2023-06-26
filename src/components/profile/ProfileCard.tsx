@@ -23,7 +23,7 @@ const ProfileCard = () => {
     },
     {
       icon: FaLinkedin,
-      to: `https://www.linkedin.com/in/${applicant.linkedIn}`,
+      to: `https://www.linkedin.com/in/${applicant.linkedInHandle}`,
     },
   ];
 
