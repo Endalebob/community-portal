@@ -5,7 +5,6 @@ const BASE_URL = "https://a2sv-community-portal-api.onrender.com/api"
 
 
 export const GroupDataApi = createApi({
-tagTypes:["groups"],
   baseQuery: fetchBaseQuery({
   baseUrl: BASE_URL,
   
@@ -18,20 +17,18 @@ tagTypes:["groups"],
   },
 }),
   endpoints: (builder) => ({
-    createGroup: builder.mutation<any, Partial<Group>>({
+    createGroup: builder.mutation<any, any>({
       query: (group) => ({
         url: "/Groups",
         method: "POST",
         body: group,
       }),
-      invalidatesTags:["groups"]
+
     }),
     getGroups: builder.query({
-    query: () => '/Groups',
-    providesTags:["groups"]
+    query: () => '/Groups'
   }),
 })
 });
 
 export const {useGetGroupsQuery, useCreateGroupMutation }= GroupDataApi;
-
