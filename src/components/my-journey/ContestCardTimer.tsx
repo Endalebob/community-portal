@@ -21,6 +21,8 @@ function getRemainingTime(startTime: Date): [string, boolean] {
     startTime.getUTCSeconds(),
     startTime.getUTCMilliseconds()
   );
+
+  console.log(startTime, currentTime);
   const timeDifference = startUTCTime - currentUTCTime;
   if (timeDifference < 0) {
     return ["", false];

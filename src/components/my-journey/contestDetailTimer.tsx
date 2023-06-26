@@ -29,6 +29,22 @@ function getRemainingTime(startTime: Date): ITimeLeft {
     startTime.getUTCMilliseconds()
   );
 
+  const currentDate = new Date();
+  console.log(currentDate);
+  // Get the contest date and time in UTC
+  const contestDate = new Date(Date.UTC(2023, 5, 26, 12, 0, 0));
+  console.log(contestDate);
+  // Calculate the time difference in milliseconds
+  const timeDiff = contestDate.getTime() - currentDate.getTime();
+
+  // Convert the time difference to a more readable format
+  const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
   const timeDifference = startUTCTime - currentUTCTime;
   if (timeDifference < 0) {
     return { days: "0", hours: "00", minutes: "00", seconds: "00" };
@@ -44,10 +60,10 @@ function getRemainingTime(startTime: Date): ITimeLeft {
   const remainingSeconds = Math.floor((timeDifference % (60 * 1000)) / 1000);
 
   return {
-    days: `${remainingDays}`,
-    hours: `${String(remainingHours).padStart(2, "0")}`,
-    minutes: `${String(remainingMinutes).padStart(2, "0")}`,
-    seconds: `${String(remainingSeconds).padStart(2, "0")}`,
+    days: `${days}`,
+    hours: `${String(hours).padStart(2, "0")}`,
+    minutes: `${String(minutes).padStart(2, "0")}`,
+    seconds: `${String(seconds).padStart(2, "0")}`,
   };
 }
 
