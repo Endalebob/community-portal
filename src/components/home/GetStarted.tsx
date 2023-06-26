@@ -1,11 +1,16 @@
+import { RootState } from "<@>/store";
 import { useRouter } from "next/router";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const GetStarted: React.FC = () => {
   const router = useRouter();
   const handleGetStarted = () => {
     router.push("/auth/signup");
   };
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
   return (
     <div className="mt-16 h-full mb-16 lg:h-52 my-auto mx-auto bg-primary w-full text-white font-poppins tracking-wider leading-10">
       <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold ml-8 md:ml-28 mt-8">
@@ -17,14 +22,16 @@ const GetStarted: React.FC = () => {
           limitless possibilities and join A2SV today. Together, let's unlock
           your true potential and create a brighter future through technology.
         </p>
-        <div className="col-span-2 text-xl mt-8 ml-8 md:ml-20 lg:ml-8 py-auto px-auto  mb-8">
-          <button
-            className="bg-white text-primary py-3 px-8 ml-2 md:ml-8 rounded-lg hover:bg-primary hover:text-white hover:border-2 hover:border-white transition duration-500"
-            onClick={handleGetStarted}
-          >
-            Get Started
-          </button>
-        </div>
+        {!isAuthenticated && (
+          <div className="col-span-2 text-xl mt-8 ml-8 md:ml-20 lg:ml-8 py-auto px-auto  mb-8">
+            <button
+              className="bg-white text-primary py-3 px-8 ml-2 md:ml-8 rounded-lg hover:scale-110 transition duration-300"
+              onClick={handleGetStarted}
+            >
+              Get Started
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
