@@ -1,0 +1,42 @@
+import React from 'react';
+
+interface Chapter {
+  id: string;
+  name: string;
+  details: string;
+}
+
+interface ResourceData {
+  [key: string]: Chapter[];
+}
+
+interface SidebarProps {
+  resources: ResourceData;
+  onChapterClick: (resourceName: string, chapterId: string) => void;
+  onResourceClick: (resourceName: string) => void;
+  selectedResource: string;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ resources, onChapterClick, onResourceClick, selectedResource }) => {
+  return (
+    <div className="h-screen bg-white shadow-lg rounded-lg py-5 px-10 max-w-sm">
+      {Object.entries(resources).map(([resourceName, chapters]) => (
+        <div key={resourceName}>
+            <h1 onClick={() => onResourceClick(resourceName)} className="text-xl font-bold mb-4">{resourceName}</h1>
+
+          {selectedResource === resourceName && (
+            <ul className="ml-4 flex flex-col gap-1">
+              {chapters.map((chapter) => (
+                <li key={chapter.id} onClick={() => onChapterClick(resourceName, chapter.id)}>
+                  {chapter.name}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default Sidebar;
