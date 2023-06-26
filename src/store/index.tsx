@@ -2,11 +2,10 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import userSlice from "./auth/user-slice";
 import { authApiSlice } from "./auth/auth-api";
 import authSlice from "./auth/auth-slice";
-import { contestApiSlice } from "./journey/contest-api";
 import { stepApiSlice } from "./journey/journey-api";
-import contestSlice from "./journey/contest-slice";
-import { contestsApi } from "./contest/contest-api";
+import contestSlice from "./contest/contest-slice";
 import { announcementApiSlice } from "./announcement/announcement-api";
+import { contestApiSlice } from "./contest/contest-api";
 
 export const store = configureStore({
   reducer: {
@@ -16,7 +15,6 @@ export const store = configureStore({
     [contestApiSlice.reducerPath]: contestApiSlice.reducer,
     [stepApiSlice.reducerPath]: stepApiSlice.reducer,
     [authApiSlice.reducerPath]: authApiSlice.reducer,
-    [contestsApi.reducerPath]: contestsApi.reducer,
     [announcementApiSlice.reducerPath]: announcementApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
@@ -24,7 +22,6 @@ export const store = configureStore({
       authApiSlice.middleware,
       contestApiSlice.middleware,
       stepApiSlice.middleware,
-      contestsApi.middleware,
       announcementApiSlice.middleware
     );
   },

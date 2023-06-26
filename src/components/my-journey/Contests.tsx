@@ -1,22 +1,18 @@
 import React from "react";
 import ContestCard from "./ContestCard";
 import { Contest } from "<@>/types/Journey/Contest";
-import { setSelectedContest } from "<@>/store/journey/contest-slice";
+import { setSelectedContest } from "<@>/store/contest/contest-slice";
 import { RootState } from "<@>/store";
 import { useSelector } from "react-redux";
 import Modal from "../common/Modal";
 import ContestDetail from "./ContestDetail";
+import Error from "../common/Error";
 import {
   useGetRecentContestsQuery,
   useGetUpcomingContestsQuery,
-} from "<@>/store/journey/contest-api";
-import Error from "../common/Error";
+} from "<@>/store/contest/contest-api";
 
 const Contests: React.FC = () => {
-  const selectedContest = useSelector(
-    (state: RootState) => state.selectedContest.id
-  );
-
   const upcomingContestResponse = useGetUpcomingContestsQuery({});
   const recentContestResponse = useGetRecentContestsQuery({});
   return (

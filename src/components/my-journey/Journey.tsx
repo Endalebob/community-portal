@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import Stepper from "./Stepper";
 import Task from "./Task";
 import Contests from "./Contests";
-import { useGetContestsQuery } from "<@>/store/journey/contest-api";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "<@>/store";
-import { setSelectedContest } from "<@>/store/journey/contest-slice";
+import { setSelectedContest } from "<@>/store/contest/contest-slice";
 import Modal from "../common/Modal";
 import ContestDetail from "./ContestDetail";
 import { useWindowWidth } from "../common/WindowWidth";
-import Error from "../common/Error";
-import { useRouter } from "next/router";
 
 const Journey: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
