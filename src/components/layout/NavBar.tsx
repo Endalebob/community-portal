@@ -75,11 +75,19 @@ const NavBar: React.FC = () => {
   console.log("role", role);
 
   const [navigation, setNavigation] = useState(() => {
-    if (role == adminRole) {
+    if (role === adminRole) {
       return navData.admin;
     }
     return navData.student;
   });
+
+  useEffect(() => {
+    if (role === adminRole) {
+      setNavigation(navData.admin);
+    } else {
+      setNavigation(navData.student);
+    }
+  }, [role]);
 
   const showProfileRef = useRef<HTMLDivElement>(null);
   const showNavRef = useRef<HTMLDivElement>(null);
