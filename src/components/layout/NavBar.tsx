@@ -2,8 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import { MdFavorite, MdOutlineClose, MdViewHeadline } from "react-icons/md";
-import { BsCollectionFill } from "react-icons/bs";
+import { MdOutlineClose, MdViewHeadline } from "react-icons/md";
 import { useRouter } from "next/router";
 import { RootState } from "<@>/store";
 import { useAppDispatch } from "<@>/store/hooks";
@@ -110,7 +109,7 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <section className="flex p-4 border-b-2">
+      <section className="flex p-4 border-b-2 items-center">
         <Link href="/">
           <div className="w-28 lg:w-52">
             <Image src="/a2sv-logo.png" width={105} height={30} alt="logo" />
