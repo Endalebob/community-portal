@@ -51,6 +51,7 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
       if (intervalId) clearInterval(intervalId);
     };
   }, [isSuccess]);
+
   return (
     <div className="w-full h-full p-2 flex flex-col gap-2">
       <p className="font-bold text-lg">Create new Announcement</p>
@@ -60,9 +61,12 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
 
       <div>
         {error &&
-          createError.data.error.map((err: any, index: number) => {
+          createError.data?.error?.map((err: any, index: number) => {
             return <p className="text-xs text-red-500">{err.errorMessage}</p>;
           })}{" "}
+        {error && !createError.data && (
+          <p className="text-xs text-red-500">Unknown Error</p>
+        )}
       </div>
 
       <form className="flex flex-col gap-2">
@@ -96,7 +100,7 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
       <div className="flex justify-end gap-2">
         <Button
           onClick={() => onClose()}
-          className="bg-secondary text-[#000000] font-medium"
+          className=" bg-secondary text-gray-800 font-medium "
           label="Cancel"
         ></Button>
 

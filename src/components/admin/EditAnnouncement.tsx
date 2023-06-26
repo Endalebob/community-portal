@@ -45,7 +45,7 @@ const EditAnnouncement: React.FC<EditAnnouncementProps> = ({
           : "please add announcement description",
       });
   };
-  console.log(error);
+
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null;
 
@@ -64,6 +64,9 @@ const EditAnnouncement: React.FC<EditAnnouncementProps> = ({
           editError.data?.error?.map((err: any, index: number) => {
             return <p className="text-xs text-red-500">{err.errorMessage}</p>;
           })}{" "}
+        {error && !editError.data && (
+          <p className="text-xs text-red-500">Unknown Error</p>
+        )}
       </div>
 
       <form className="flex flex-col gap-2">
@@ -97,7 +100,7 @@ const EditAnnouncement: React.FC<EditAnnouncementProps> = ({
       <div className="flex justify-end gap-2">
         <Button
           onClick={() => onClose()}
-          className="bg-secondary text-[#000000] font-medium"
+          className=" bg-secondary text-gray-800 font-medium "
           label="Cancel"
         ></Button>
 
