@@ -5,6 +5,8 @@ const BASE_URL = "https://a2sv-community-portal-api.onrender.com/api"
 
 
 export const GroupDataApi = createApi({
+  reducerPath:'group/api',
+  tagTypes: ['Group'],
   baseQuery: fetchBaseQuery({
   baseUrl: BASE_URL,
   
@@ -23,12 +25,30 @@ export const GroupDataApi = createApi({
         method: "POST",
         body: group,
       }),
-
+    invalidatesTags: ['Group'],
     }),
     getGroups: builder.query({
-    query: () => '/Groups'
+    query: () => '/Groups',
+    providesTags: ['Group']
   }),
+
+    getGroup: builder.query({
+      query: (id) => `/Groups/${id}`,
+      providesTags: ['Group']
+    }),
+
+  autoFillGroup: builder.mutation<any, any>({
+    query: (body) => ({
+      url: "/Groups/auto-fill-members",
+      method: "POST",
+      body,
+    }),
+    invalidatesTags: ['Group']
+  }),
+
+
 })
 });
 
-export const {useGetGroupsQuery, useCreateGroupMutation }= GroupDataApi;
+
+export const {useGetGroupsQuery, useCreateGroupMutation, useGetGroupQuery , useAutoFillGroupMutation}= GroupDataApi;
