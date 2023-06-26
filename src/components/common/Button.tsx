@@ -34,11 +34,11 @@ function Button({
   return (
     <button
       {...props}
-      className={`${
+      className={`${className} ${
         outline
           ? " outline outline-2 outline-primary text-primary  bg-secondary hover:bg-primary hover:text-secondary"
-          : "text-secondary bg-primary"
-      } flex justify-center items-center gap-x-3 px-8 py-2 text-md  rounded-md cursor-pointer ${className} `}
+          : " bg-primary text-secondary"
+      } flex justify-center items-center gap-x-3 px-8 py-2 text-md  rounded-md cursor-pointer `}
     >
       {startIcon && startIcon} {label} {endIcon && endIcon}{" "}
     </button>
