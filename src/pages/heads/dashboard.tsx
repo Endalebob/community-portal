@@ -1,15 +1,13 @@
 import React from "react";
-import GroupsCard from "../../components/heads/GroupCard";
+import GroupsCard from "../../components/groups/GroupCard";
 import { useState } from "react";
-import OverView from "../../components/heads/Overview"
+import OverView from "../../components/groups/OverView"
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useGetGroupsQuery } from "<@>/store/group/group-api";
-import Sidebar from "<@>/components/heads/SideBar";
-import GroupCard from "../../components/heads/GroupCard";
-import groupdata from "<@>/types/heads/dashboard";
-
-
+import { useGetGroupsQuery } from "<@>/store/groups/groups-api";
+// import Sidebar from "<@>/components/heads/SideBar";
+import GroupCard from "../../components/groups/GroupCard";
+import groupdata from "<@>/types/groups/dashboard";
 
 const DashBoard: React.FC = () => {
   const { data: group = [], isLoading, error } = useGetGroupsQuery({});
@@ -56,7 +54,7 @@ const DashBoard: React.FC = () => {
   <div className={`col-span-1 flex flex-col lg:flex-row gap-4 ${selecteGroup ? 'lg:pl-72' : ''}`}>
   <div className="flex flex-col gap-4">
     {groupData.map((data:any) => (
-      <button onClick={handleCardClick}>
+      <button onClick={()=>handleCardClick}>
         <GroupsCard
         key={data.id}
         id = {data.id}
