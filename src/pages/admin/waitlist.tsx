@@ -154,6 +154,7 @@ const WaitList: React.FC = () => {
             <AddToGroup
               setShowModal={setShowModal}
               selectedApplicants={selectedApplicants}
+              setSelectedApplicants = {setSelectedApplicants}
             />
           }
           onClose={() => setShowModal(false)}
