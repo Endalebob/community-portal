@@ -1,5 +1,6 @@
 import React from "react";
 import CheckBox from "./CheckBox";
+import ReactMarkdown from "react-markdown";
 interface TaskProps {
   isCompleted: boolean;
   title: string;
@@ -20,7 +21,10 @@ const Task: React.FC<TaskProps> = ({
 
       <div className="flex flex-col gap-1 p-2">
         <p className="font-bold text-md lg:text-lg">{title}</p>
-        <p className="font-small opacity-50">{description}</p>
+        <p className="font-small opacity-50">
+          {" "}
+          <ReactMarkdown children={description} />
+        </p>
       </div>
     </div>
   );

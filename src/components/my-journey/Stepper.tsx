@@ -13,9 +13,7 @@ interface StepperProps {
   setActiveStep: (step: number) => void;
 }
 export function areAllSubStepsTrue(step: any): boolean {
-  return step.subSteps.every(
-    (subStep: any) => subStep.constraintSpecification === "true"
-  );
+  return step.subSteps.every((subStep: any) => subStep.isCompleted);
 }
 
 const Stepper: React.FC<StepperProps> = ({ steps, setActiveStep }) => {

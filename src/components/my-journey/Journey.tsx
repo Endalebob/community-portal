@@ -145,14 +145,14 @@ const Journey: React.FC = () => {
                     return (
                       <Task
                         key={index}
-                        isCompleted={subStep.constraintSpecification === "true"}
+                        isCompleted={subStep.isCompleted}
                         title={subStep.subStepName}
                         description={subStep.description}
                         active={
-                          !(subStep.constraintSpecification === "true") &&
+                          !subStep.isCompleted &&
                           (index === 0 ||
                             steps[activeStep].subSteps[index - 1]
-                              .constraintSpecification === "true") &&
+                              .isCompleted) &&
                           stepInprogress
                         }
                       />
