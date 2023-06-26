@@ -44,22 +44,22 @@ const NavBar: React.FC = () => {
     admin: [
       {
         name: "Groups",
-        to: "/groups",
+        to: "/admin/groups",
         current: true,
       },
       {
         name: "Contests",
-        to: "/contests",
+        to: "/admin/contests",
         current: false,
       },
       {
         name: "Announcements",
-        to: "/announcements",
+        to: "/admin/announcements",
         current: false,
       },
       {
         name: "Wait list",
-        to: "/wait-list",
+        to: "/admin/waitlist",
         current: false,
       },
     ],
