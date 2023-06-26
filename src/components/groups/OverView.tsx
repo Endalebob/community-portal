@@ -1,9 +1,8 @@
 import React from "react";
-import GroupOverviewCard from "./GroupCard";
 // import CardProps from "../../types/group/overview"
 import { PiStudentFill } from "react-icons/pi";
 import { MdGroups2 } from 'react-icons/md';
-import { CardProps } from "./GroupOverviewCard";
+import OverViewCard, { CardProps } from "../common/OverViewCard";
 
 
 const GroupOverViewData: CardProps[] = [
@@ -32,7 +31,7 @@ const GroupOverView: React.FC = () => {
         <div className="flex flex-row flex-wrap">
             {GroupOverViewData.map((data, index) => (
         <div key={index} className="ml-4 sm:ml-6 mt-4">
-          <GroupOverviewCard
+          <OverViewCard
             icon={data.icon}
             title={data.title}
             number={data.number}
