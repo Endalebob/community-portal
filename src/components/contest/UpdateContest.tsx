@@ -9,6 +9,7 @@ import ProgressIndicator from "../common/ProgressIndicator";
 
 const initialState = {
   id: "",
+  GymId: "",
   title: "",
   description: "",
   date: "",
@@ -32,9 +33,9 @@ const EditContestForm: React.FC = () => {
   useEffect(() => {
     if (response.value) {
       const curr = response.value;
-      console.log(curr.date.split("T")[1].slice(0, 5));
       const currContest = {
         id: id as string,
+        GymId: curr.GymId,
         title: curr.title,
         description: curr.description,
         date: curr.date.split("T")[0],
@@ -63,10 +64,11 @@ const EditContestForm: React.FC = () => {
     e.preventDefault();
 
     // Validate form fields
-    const { id, title, description, time, date, link } = contest;
+    const { id, GymId, title, description, time, date, link } = contest;
     const dateTime = `${date}T${time}:00Z`;
     const updatedContest: Partial<Contest> = {
       id,
+      GymId,
       title,
       description,
       date: dateTime,
@@ -80,7 +82,13 @@ const EditContestForm: React.FC = () => {
       }));
       return;
     }
-
+    if (!GymId) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        GymId: "Gym Id is required",
+      }));
+      return;
+    }
     if (!description) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -163,6 +171,21 @@ const EditContestForm: React.FC = () => {
           className="w-full p-2 border rounded h-8 focus:outline-none"
         />
         {errors.title && <p className="text-red-500">{errors.title}</p>}
+      </div>
+      <div className="mb-8">
+        <label htmlFor="GymId" className="block mb-2 font-semibold">
+          GymId
+        </label>
+        <input
+          type="number"
+          id="GymId"
+          name="GymId"
+          value={contest.GymId || ""}
+          onChange={handleChange}
+          placeholder="0"
+          className="w-full p-2 border rounded h-8 focus:outline-none"
+        />
+        {errors.GymId && <p className="text-red-500">{errors.GymId}</p>}
       </div>
       <div className="mb-8">
         <label htmlFor="description" className="block mb-2 font-semibold">
