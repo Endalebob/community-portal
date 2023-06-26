@@ -32,6 +32,13 @@ const Signin = () => {
   const handleChange = (e: any) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const router = useRouter();
   let [
     signInUser,
@@ -157,11 +164,14 @@ const Signin = () => {
           <InputField
             label="Password"
             name="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="********"
             value={password}
             onChange={handleChange}
             error={errors.password}
+            isPasswordField={true}
+            togglePasswordVisibility={togglePasswordVisibility}
+            showPassword={showPassword}
           />
           <div className="flex">
             <input
