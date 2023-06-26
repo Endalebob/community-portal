@@ -52,7 +52,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <nav>
-      <ul className="flex justify-center space-x-2">
+      <ul className="flex justify-center space-x-2 py-3">
         {pageNumbers.map((pageNumber, index) => (
           <li
             key={index}
