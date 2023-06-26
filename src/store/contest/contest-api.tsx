@@ -1,14 +1,16 @@
 import Contest from "<@>/types/contest";
+import { getCookie } from "<@>/utils/cookie";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const BASE_URL = "https://a2sv-community-portal-api.onrender.com/api";
 
-export const contestsApi = createApi({
+export const contestApiSlice = createApi({
+  reducerPath: "contest",
   tagTypes: ["Contest"],
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as any).auth.token;
+    prepareHeaders: (headers) => {
+      const token = getCookie("token");
       if (token) {
         headers.set("authorization", `bearer ${token}`);
       }
@@ -46,6 +48,12 @@ export const contestsApi = createApi({
         body: contest,
       }),
     }),
+    getUpcomingContests: builder.query({
+      query: () => "/Contests/upcoming",
+    }),
+    getRecentContests: builder.query({
+      query: () => "/Contests/recent",
+    }),
   }),
 });
 
@@ -55,4 +63,6 @@ export const {
   useGetContestQuery,
   useGetContestsQuery,
   useDeleteContestMutation,
-} = contestsApi;
+  useGetRecentContestsQuery,
+  useGetUpcomingContestsQuery,
+} = contestApiSlice;

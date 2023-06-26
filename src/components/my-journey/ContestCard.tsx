@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import ContestTimer from "./ContestCardTimer";
-import { setSelectedContest } from "<@>/store/journey/contest-slice";
+import { setSelectedContest } from "<@>/store/contest/contest-slice";
 import { useAppDispatch } from "<@>/store/hooks";
 
 interface ContestCardProps {

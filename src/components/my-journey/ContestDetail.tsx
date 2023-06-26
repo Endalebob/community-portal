@@ -3,11 +3,11 @@ import ContestDetailTimer from "./contestDetailTimer";
 import Button from "../common/Button";
 import { BiLinkExternal } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
-import { useGetContestQuery } from "<@>/store/journey/contest-api";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { SelectedContest } from "<@>/store/journey/contest-slice";
+import { SelectedContest } from "<@>/store/contest/contest-slice";
 import { useAppDispatch } from "<@>/store/hooks";
 import Error from "../common/Error";
+import { useGetContestQuery } from "<@>/store/contest/contest-api";
 
 interface ContestDetailProps {
   id: string;

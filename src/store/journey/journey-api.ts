@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 export const stepApiSlice = createApi({
   reducerPath: "step",
   baseQuery: fetchBaseQuery({
-    baseUrl: "some",
+    baseUrl: "https://a2sv-community-portal-api.onrender.com/api/steps",
   }),
   endpoints(builder) {
     return {
