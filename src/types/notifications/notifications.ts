@@ -1,6 +1,6 @@
 export interface Notification {
   title: string;
-  description: string;
+  content: string;
   date: Date;
   isRead: boolean;
 }
