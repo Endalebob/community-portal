@@ -45,7 +45,7 @@ const EditAnnouncement: React.FC<EditAnnouncementProps> = ({
           : "please add announcement description",
       });
   };
-
+  console.log(error);
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null;
 
@@ -60,8 +60,8 @@ const EditAnnouncement: React.FC<EditAnnouncementProps> = ({
     <div className="w-full h-full p-2 flex flex-col gap-2">
       <p className="font-bold text-lg">Edit Announcement</p>
       <div>
-        {error &&
-          editError.data.error.map((err: any, index: number) => {
+        {editError &&
+          editError.data?.error?.map((err: any, index: number) => {
             return <p className="text-xs text-red-500">{err.errorMessage}</p>;
           })}{" "}
       </div>

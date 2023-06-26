@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 
 function getRemainingTime(targetDate: Date): [string, boolean] {
   const currentDate = new Date();
-  const timeDifference = targetDate.getTime() - currentDate.getTime();
+  const utcTargetDate = new Date(targetDate.toUTCString());
+  const utcCurrentDate = new Date(currentDate.toUTCString());
+  const timeDifference = utcTargetDate.getTime() - utcCurrentDate.getTime();
+
   if (timeDifference < 0) {
     return ["", false];
   } else if (timeDifference > 24 * 60 * 60 * 1000) {

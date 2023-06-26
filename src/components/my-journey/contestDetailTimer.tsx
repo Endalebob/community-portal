@@ -9,7 +9,9 @@ interface ITimeLeft {
 
 function getRemainingTime(targetDate: Date): ITimeLeft {
   const currentDate = new Date();
-  const timeDifference = targetDate.getTime() - currentDate.getTime();
+  const utcTargetDate = new Date(targetDate.toUTCString());
+  const utcCurrentDate = new Date(currentDate.toUTCString());
+  const timeDifference = utcTargetDate.getTime() - utcCurrentDate.getTime();
   if (timeDifference < 0) {
     return { days: "0", hours: "00", minutes: "00", seconds: "00" };
   }
