@@ -70,6 +70,7 @@ const NavBar: React.FC = () => {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
+  const [hideNav, setHideNav] = useState<Boolean>(false);
   const role = useSelector((state: RootState) => state.auth.role);
   const adminRole = "HeadOfEducation";
   console.log("role", role);
@@ -100,6 +101,13 @@ const NavBar: React.FC = () => {
   };
 
   useEffect(() => {
+    // remove navbar from pages certain pages
+    if (["/", "/auth/signin", "/auth/signup"].includes(asPath)) {
+      setHideNav(true);
+    } else {
+      setHideNav(false);
+    }
+
     setNavigation(
       navigation!.map((item) => {
         if (item.to === asPath) {
@@ -157,7 +165,12 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <section className="flex px-4 py-2 border-b-2 items-center">
+      <section
+        className={classNames(
+          hideNav ? "hidden" : "flex",
+          "px-4 py-2 border-b-2 items-center"
+        )}
+      >
         <Link href="/">
           <div className="w-28 lg:w-52">
             <Image src="/a2sv-logo.png" width={105} height={30} alt="logo" />
@@ -219,6 +232,7 @@ const NavBar: React.FC = () => {
             {/* Logged in user profile icon */}
             {isAuthenticated && (
               <button
+                className="shadow rounded-full"
                 onClick={() => {
                   setShowProfile(!showProfile);
                   setShowNav(false);
@@ -267,18 +281,18 @@ const NavBar: React.FC = () => {
             <div
               className={classNames(
                 showNav || !isAuthenticated ? "flex" : "hidden",
-                "ml-auto md:flex items-center space-x-2 text-sm"
+                "ml-auto md:flex items-center space-x-4 text-sm"
               )}
             >
               {/* auth buttons */}
               <Link href="/auth/signin">
-                <button className="py-2 px-4 rounded-md border-2 shadow-xl md:shadow-none border-blue-400 text-primary hover:scale-110 transition ease-in-out duration-200">
+                <button className="py-2 px-4 rounded-md border-2  border-primary  text-primary hover:shadow-lg font-bold transition ease-in-out duration-200">
                   Login
                 </button>
               </Link>
 
               <Link href="/auth/signup">
-                <button className="py-2 px-4 rounded-md border-2 shadow-xl md:shadow-none border-blue-400 bg-primary hover:scale-110 text-white transition ease-in-out duration-200">
+                <button className="py-2 px-4 rounded-md  bg-primary hover:shadow-lg font-bold text-white transition ease-in-out duration-200">
                   Sign Up
                 </button>
               </Link>
