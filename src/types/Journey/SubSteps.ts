@@ -1,5 +1,5 @@
 export interface SubSteps {
-  constraintSpecification: string;
+  isCompleted: boolean;
   subStepName: string;
   description: string;
 }

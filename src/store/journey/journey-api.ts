@@ -16,7 +16,7 @@ export const stepApiSlice = createApi({
   endpoints(builder) {
     return {
       getSteps: builder.query({
-        query: () => "/steps",
+        query: () => "/progress/me",
       }),
     };
   },
