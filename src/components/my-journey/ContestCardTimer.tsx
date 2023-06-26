@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from "react";
 
-function getRemainingTime(targetDate: Date): [string, boolean] {
-  const currentDate = new Date();
-  const utcTargetDate = new Date(targetDate.toUTCString());
-  const utcCurrentDate = new Date(currentDate.toUTCString());
-  const timeDifference = utcTargetDate.getTime() - utcCurrentDate.getTime();
+function getRemainingTime(startTime: Date): [string, boolean] {
+  const currentTime = new Date();
+  const currentUTCTime = Date.UTC(
+    currentTime.getUTCFullYear(),
+    currentTime.getUTCMonth(),
+    currentTime.getUTCDate(),
+    currentTime.getUTCHours(),
+    currentTime.getUTCMinutes(),
+    currentTime.getUTCSeconds(),
+    currentTime.getUTCMilliseconds()
+  );
 
+  const startUTCTime = Date.UTC(
+    startTime.getUTCFullYear(),
+    startTime.getUTCMonth(),
+    startTime.getUTCDate(),
+    startTime.getUTCHours(),
+    startTime.getUTCMinutes(),
+    startTime.getUTCSeconds(),
+    startTime.getUTCMilliseconds()
+  );
+  const timeDifference = startUTCTime - currentUTCTime;
   if (timeDifference < 0) {
     return ["", false];
   } else if (timeDifference > 24 * 60 * 60 * 1000) {

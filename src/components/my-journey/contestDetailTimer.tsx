@@ -7,11 +7,29 @@ interface ITimeLeft {
   seconds: string;
 }
 
-function getRemainingTime(targetDate: Date): ITimeLeft {
-  const currentDate = new Date();
-  const utcTargetDate = new Date(targetDate.toUTCString());
-  const utcCurrentDate = new Date(currentDate.toUTCString());
-  const timeDifference = utcTargetDate.getTime() - utcCurrentDate.getTime();
+function getRemainingTime(startTime: Date): ITimeLeft {
+  const currentTime = new Date();
+  const currentUTCTime = Date.UTC(
+    currentTime.getUTCFullYear(),
+    currentTime.getUTCMonth(),
+    currentTime.getUTCDate(),
+    currentTime.getUTCHours(),
+    currentTime.getUTCMinutes(),
+    currentTime.getUTCSeconds(),
+    currentTime.getUTCMilliseconds()
+  );
+
+  const startUTCTime = Date.UTC(
+    startTime.getUTCFullYear(),
+    startTime.getUTCMonth(),
+    startTime.getUTCDate(),
+    startTime.getUTCHours(),
+    startTime.getUTCMinutes(),
+    startTime.getUTCSeconds(),
+    startTime.getUTCMilliseconds()
+  );
+
+  const timeDifference = startUTCTime - currentUTCTime;
   if (timeDifference < 0) {
     return { days: "0", hours: "00", minutes: "00", seconds: "00" };
   }
