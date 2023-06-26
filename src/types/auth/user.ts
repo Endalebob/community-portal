@@ -10,13 +10,12 @@ export default interface User {
   university: string;
   department: string;
   graduationYear: string;
-  leetCode: string;
-  gitHub: string;
-  codeforces: string;
-  hackerrank: string;
-  linkedIn: string;
+  leetCodeHandle: string;
+  gitHubHandle: string;
+  codeforcesHandle: string;
+  hackerrankHandle: string;
+  linkedInHandle: string;
   cv: string;
-  cvLink: string;
   favoriteLanguage: string;
   groupId: number;
 }

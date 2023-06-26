@@ -26,26 +26,26 @@ const Profile = () => {
   const programmingSites = [
     {
       platform: "LeetCode",
-      handle: applicant?.leetCode,
-      baseUrl: `https://leetcode.com/${applicant?.leetCode}`,
+      handle: applicant?.leetCodeHandle,
+      baseUrl: `https://leetcode.com/${applicant?.leetCodeHandle}`,
       icon: SiLeetcode,
     },
     {
       platform: "CodeForces",
-      handle: applicant?.codeforces,
-      baseUrl: `https://codeforces.com/profile/${applicant?.gitHub}`,
+      handle: applicant?.codeforcesHandle,
+      baseUrl: `https://codeforces.com/profile/${applicant?.gitHubHandle}`,
       icon: SiCodeforces,
     },
     {
       platform: "Github",
-      handle: applicant?.gitHub,
-      baseUrl: `https://github.com/${applicant?.gitHub}`,
+      handle: applicant?.gitHubHandle,
+      baseUrl: `https://github.com/${applicant?.gitHubHandle}`,
       icon: SiGithub,
     },
     {
       platform: "HackerRank",
-      handle: applicant?.hackerrank,
-      baseUrl: `https://www.hackerrank.com/${applicant?.hackerrank}`,
+      handle: applicant?.hackerrankHandle,
+      baseUrl: `https://www.hackerrank.com/${applicant?.hackerrankHandle}`,
       icon: FaHackerrank,
     },
   ];

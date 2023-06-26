@@ -26,13 +26,6 @@ interface StudentDetailProps {
 }
 
 const StudentDetail: React.FC<StudentDetailProps> = ({ userId }) => {
-  if (!userId) {
-    return (
-      <div className="flex py-10 items-center text-gray-500 space-x-2 justify-center">
-        No user selected
-      </div>
-    );
-  }
 
   const { data, isLoading, error } = useGetUserDetailQuery({ userId });
 
@@ -61,9 +54,9 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ userId }) => {
       icon: FaPhone,
     },
     {
-      data: applicant?.linkedIn,
+      data: applicant?.linkedInHandle,
       icon: FaLinkedin,
-      link: `https://www.linkedin.com/in/${applicant?.linkedIn}`,
+      link: `https://www.linkedin.com/in/${applicant?.linkedInHandle}`,
     },
     {
       data: applicant?.university,
@@ -78,26 +71,26 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ userId }) => {
   const programmingSites = [
     {
       platform: "LeetCode",
-      handle: applicant?.leetCode,
-      link: `https://leetcode.com/${applicant?.leetCode}`,
+      handle: applicant?.leetCodeHandle,
+      link: `https://leetcode.com/${applicant?.leetCodeHandle}`,
       icon: SiLeetcode,
     },
     {
       platform: "CodeForces",
-      handle: applicant?.codeforces,
-      link: `https://codeforces.com/profile/${applicant?.gitHub}`,
+      handle: applicant?.codeforcesHandle,
+      link: `https://codeforces.com/profile/${applicant?.gitHubHandle}`,
       icon: SiCodeforces,
     },
     {
       platform: "GitHub",
-      handle: applicant?.gitHub,
-      link: `https://github.com/${applicant?.gitHub}`,
+      handle: applicant?.gitHubHandle,
+      link: `https://github.com/${applicant?.gitHubHandle}`,
       icon: SiGithub,
     },
     {
       platform: "HackerRank",
-      handle: applicant?.hackerrank,
-      link: `https://www.hackerrank.com/${applicant?.hackerrank}`,
+      handle: applicant?.hackerrankHandle,
+      link: `https://www.hackerrank.com/${applicant?.hackerrankHandle}`,
       icon: FaHackerrank,
     },
   ];
