@@ -10,7 +10,7 @@ const Notifications = () => {
 
   useEffect(() => {
     if (data) {
-      setNotifications(data.value);
+      setNotifications(data.value.items);
     }
   }, []);
 
@@ -37,6 +37,9 @@ const Notifications = () => {
       <p>couldn't fetch notifications</p>
     </div>;
   }
+
+  console.log("notifications", notifications);
+  console.log("data", data);
 
   return (
     <section className="w-1/2 mx-auto mt-5">
