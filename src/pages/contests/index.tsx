@@ -62,11 +62,11 @@ const ContestList: React.FC = () => {
         </h1>
         <OverViewContests />
       </div>
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg pl-8 pr-8">
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg pl-4 pr-8">
         {role === "HeadOfEducation" && (
           <div className="grid grid-cols-2 mt-8">
             <div>
-              <h1 className="text-secondary-text font-semibold ml-6 text-lg col-span-1">
+              <h1 className="text-secondary-text font-semibold ml-2 text-lg col-span-1">
                 Contests
               </h1>
             </div>
@@ -91,8 +91,8 @@ const ContestList: React.FC = () => {
                 Contests
               </h1>
             )}
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table className="w-full text-sm text-left text-gray-500">
+              <thead className="text-xs text-gray-700 bg-gray-50">
                 <tr>
                   <th scope="col" className="px-6 py-4">
                     Title
@@ -117,13 +117,13 @@ const ContestList: React.FC = () => {
                 {contestData.map((contest: any, index: any) => (
                   <tr
                     key={index}
-                    className={`border-b dark:bg-gray-900 dark:border-gray-700 py-8 ${
+                    className={`border-b ${
                       index % 2 ? "bg-gray-50" : "bg-white"
                     }`}
                   >
                     <td
                       scope="row"
-                      className="px-6 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      className="px-6 py-5 font-medium text-gray-900 whitespace-nowrap"
                     >
                       {contest.title}
                     </td>
@@ -137,24 +137,25 @@ const ContestList: React.FC = () => {
                       <a href={contest.link}>Link</a>
                     </td>
                     {role === "HeadOfEducation" && (
-                      <td className="flex flex-row py-4">
+                      <td className="flex flex-row py-4 font-medium my-auto flex-wrap">
                         <div>
+                          
+                        </div>
+                        <div className="mx-auto my-auto mt-4 md:mt-0 text-center">
                           <a
                             href={`/contests/${contest.id}`}
-                            className="font-medium text-primary dark:text-primary hover:underline px-4"
+                            className="text-primary hover:underline"
                           >
                             Edit
                           </a>
                         </div>
 
-                        <div>
-                          <button
-                            onClick={() => handleDelete(contest.id)}
-                            className="font-medium text-red-600 dark:text-red-500 hover:underline px-4"
-                          >
-                            Remove
-                          </button>
-                        </div>
+                        <button
+                          onClick={() => handleDelete(contest.id)}
+                          className="text-red-600 hover:underline px-4"
+                        >
+                          Remove
+                        </button>
                       </td>
                     )}
                   </tr>

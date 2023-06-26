@@ -59,7 +59,7 @@ const ContestList: React.FC = () => {
         {role === "HeadOfEducation" && (
           <div className="first:flex items-center justify-end pb-4">
             <button
-              className="px-4 py-1 bg-primary text-white rounded-md"
+              className="px-4 py-1 bg-primary text-white rounded-md hover:bg-blue-300"
               onClick={() => router.push("/contests/create-contest")}
             >
               <span className="font-bold">+</span> New Contest
