@@ -44,29 +44,29 @@ const Footer: React.FC = () => {
       <div className="flex justify-between items-center space-x-10">
         <Link
           className="text-gray-500 hover:text-primary text-xl"
-          href=""
+          href="https://t.me/a2svofficial"
           target="_blank"
         >
-          <RiTelegramLine className="" />
+          <RiTelegramLine />
         </Link>
 
         <Link
           className="text-gray-500 hover:text-primary text-xl"
-          href={"/"}
+          href="http://www.instagram.com/a2sv_org"
           target="_blank"
         >
           <RiInstagramLine />
         </Link>
         <Link
           className="text-gray-500 hover:text-primary text-xl"
-          href={"/"}
+          href={"https://twitter.com/A2_SV"}
           target="_blank"
         >
           <RiTwitterLine />
         </Link>
         <Link
           className="text-gray-500 hover:text-primary text-xl"
-          href={"/"}
+          href={"http://www.linkedin.com/company/a2sv"}
           target="_blank"
         >
           <RiLinkedinBoxFill />
@@ -74,7 +74,7 @@ const Footer: React.FC = () => {
 
         <Link
           className="text-gray-500 hover:text-primary text-xl"
-          href={"/"}
+          href={"/https://www.facebook.com/profile.php?id=100085473798621"}
           target="_blank"
         >
           <RiFacebookCircleLine />
