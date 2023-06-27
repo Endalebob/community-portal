@@ -1,22 +1,13 @@
-// in this component I only want to show the button that lead to edit profile page
-
 import { useGetUserapiQuery } from "<@>/store/auth/auth-api";
 import { setUser } from "<@>/store/auth/user-slice";
 import { useAppDispatch } from "<@>/store/hooks";
 import CustomSuccess from "<@>/types/auth/custom-success";
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 import StudentDetail from "./StudentDetail";
 import { useSelector } from "react-redux";
 import { RootState } from "<@>/store";
-import Redirect from "../common/Redirect";
 import ProgrammingHandles from "./ProgrammingHandles";
-import {
-  SiCodeforces,
-  SiGeeksforgeeks,
-  SiGithub,
-  SiLeetcode,
-} from "react-icons/si";
+import { SiCodeforces, SiGithub, SiLeetcode } from "react-icons/si";
 import { FaHackerrank } from "react-icons/fa";
 import ProfileCard from "./ProfileCard";
 import ProfileLoadingSkeleton from "./ProfileLoadingSkeleton";
@@ -50,11 +41,6 @@ const Profile = () => {
       icon: FaHackerrank,
     },
   ];
-  // route protection
-  const router = useRouter();
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
 
   const dispatch = useAppDispatch();
   const {
@@ -63,23 +49,12 @@ const Profile = () => {
     isSuccess,
   } = useGetUserapiQuery("");
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      setTimeout(() => router.push("/auth/signin"), 2000);
-      // Redirect to login page if user is not authenticated
-    }
-  }, [isAuthenticated, router]);
-
   if (isFetching) {
     return <ProfileLoadingSkeleton />;
   }
   if (isSuccess) {
     console.log(data);
     dispatch(setUser(data.value));
-  }
-
-  if (!isAuthenticated) {
-    return <Redirect />;
   }
 
   return (
