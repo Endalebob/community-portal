@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { IconType } from "react-icons/lib";
 import { BiSolidUserCircle } from "react-icons/bi";
+import { setCookie } from "<@>/utils/cookie";
 
 interface socialIcon {
   icon: IconType;
@@ -27,7 +28,10 @@ const ProfileCard = () => {
       to: `https://www.linkedin.com/in/${applicant.linkedInHandle}`,
     },
   ];
-
+  // check if the applicant has a profile picture and set profilePicture cookie
+  if (applicant.profilePicture) {
+    setCookie("profilePicture", applicant.profilePicture);
+  }
   return (
     <div className="w-96  mx-2 rounded overflow-hidden bg-white shadow-lg p-10">
       {applicant.profilePicture ? (
