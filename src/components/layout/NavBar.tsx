@@ -49,7 +49,7 @@ const NavBar: React.FC = () => {
       },
       {
         name: "Contests",
-        to: "/admin/contests",
+        to: "/contests",
         current: false,
       },
       {
@@ -177,7 +177,7 @@ const NavBar: React.FC = () => {
           </div>
         </Link>
 
-        <div className="w-full absolute -right-0 flex flex-col md:flex-row md:static">
+        <div className="w-full absolute -right-0 flex flex-col md:flex-row md:ml-8 md:static">
           {/* Navigation Links*/}
 
           {isAuthenticated && (

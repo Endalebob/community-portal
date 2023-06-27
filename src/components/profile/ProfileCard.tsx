@@ -6,6 +6,7 @@ import { FaTelegram, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { IconType } from "react-icons/lib";
+import { BiSolidUserCircle } from "react-icons/bi";
 
 interface socialIcon {
   icon: IconType;
@@ -38,13 +39,9 @@ const ProfileCard = () => {
           height={212}
         />
       ) : (
-        <Image
-          className="w-full rounded-lg"
-          src="/img/profile/dummy-profile.png"
-          alt="profile-picture"
-          width={317}
-          height={212}
-        />
+        <div className="m-auto">
+          <BiSolidUserCircle color="gray" size={300} />
+        </div>
       )}
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{applicant.fullName}</div>
