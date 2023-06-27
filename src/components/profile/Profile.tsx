@@ -19,6 +19,7 @@ import {
 } from "react-icons/si";
 import { FaHackerrank } from "react-icons/fa";
 import ProfileCard from "./ProfileCard";
+import ProfileLoadingSkeleton from "./ProfileLoadingSkeleton";
 
 const Profile = () => {
   const applicant = useSelector((state: RootState) => state.user.user);
@@ -70,7 +71,7 @@ const Profile = () => {
   }, [isAuthenticated, router]);
 
   if (isFetching) {
-    return <div>Loading...</div>;
+    return <ProfileLoadingSkeleton />;
   }
   if (isSuccess) {
     console.log(data);

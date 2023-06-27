@@ -11,7 +11,7 @@ const StudentDetail = () => {
       {applicant.country && (
         <div className="flex justify-end items-center font-light">
           <CiLocationOn className="mr-4" />
-          {applicant.country}
+          {applicant.country || ""}
         </div>
       )}
 
@@ -49,19 +49,19 @@ const StudentDetail = () => {
 
             <div className="col-span-1 grid-rows-4 grid-cols-1 space-y-5">
               <span className="block text-gray-500">
-                {applicant?.fullName || ""}
+                {applicant?.fullName || "-"}
               </span>
 
               <span className="block text-gray-500">
-                {applicant?.phoneNumber}
+                {applicant?.phoneNumber || "-"}
               </span>
 
               <span className="block text-gray-500">
-                {applicant?.email || ""}
+                {applicant?.email || "-"}
               </span>
 
               <span className="block text-gray-500">
-                {applicant?.country || ""}
+                {applicant?.country || "-"}
               </span>
             </div>
           </div>
@@ -88,15 +88,15 @@ const StudentDetail = () => {
 
             <div className="col-span-1 grid-rows-4 grid-cols-1 space-y-5">
               <span className="block text-gray-500">
-                {applicant?.university || ""}
+                {applicant?.university || "-"}
               </span>
 
               <span className="block text-gray-500">
-                {applicant?.department}
+                {applicant?.department || "-"}
               </span>
 
               <span className="block text-gray-500">
-                {applicant?.graduationYear || ""}
+                {applicant?.graduationYear || "-"}
               </span>
 
               <span className="block text-gray-500">
