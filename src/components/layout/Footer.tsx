@@ -7,10 +7,34 @@ import {
   RiFacebookCircleLine,
   RiTwitterLine,
 } from "react-icons/ri";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
 
 const Footer: React.FC = () => {
+  const { asPath } = useRouter();
+
+  const [hideNav, setHideNav] = useState<Boolean>(false);
+
+  useEffect(() => {
+    // remove navbar from pages certain pages
+    if (["/auth/signin", "/auth/signup"].includes(asPath)) {
+      setHideNav(true);
+    } else {
+      setHideNav(false);
+    }
+  }, []);
+
   return (
-    <div className="flex flex-col gap-y-10 items-start md:flex-row justify-between md:items-center py-10 px-20 mt-auto border-t-2 border-gray-100">
+    <div
+      className={classNames(
+        hideNav ? "hidden" : "flex",
+        "flex-col gap-y-10 items-start md:flex-row justify-between md:items-center py-10 px-20 mt-auto border-t-2 border-gray-100 bg-slate-100"
+      )}
+    >
       <div className="flex flex-col space-y-5 items-start">
         <Image src="/A2SV-Logo.svg" alt="logo" width={150} height={150} />
         <p className="text-sm text-gray-500">
