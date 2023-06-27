@@ -21,7 +21,14 @@ export const notificationApiSlice = createApi({
         url: "/Notifications",
       }),
     }),
+    readAllNotifications: builder.mutation<void, void>({
+      query: () => ({
+        url: "/Notifications",
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useGetNotificationsQuery } = notificationApiSlice;
+export const { useGetNotificationsQuery, useReadAllNotificationsMutation } =
+  notificationApiSlice;

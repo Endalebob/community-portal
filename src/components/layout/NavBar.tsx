@@ -92,11 +92,13 @@ const NavBar: React.FC = () => {
     }
   }, [role]);
   const { data, isLoading, isError } = useGetNotificationsQuery();
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [hasUnreadNotification, sethasUnreadNotification] =
+    useState<Boolean>(false);
 
   const showProfileRef = useRef<HTMLDivElement>(null);
   const showNavRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const [count, setCount] = useState<Number>(0);
   const dispatch = useAppDispatch();
   const handleLogout = () => {
     dispatch(clearToken());
@@ -164,21 +166,19 @@ const NavBar: React.FC = () => {
     };
   }, []);
 
+  // notifications
   useEffect(() => {
-    // get notifications
-    if (isAuthenticated) {
-      // count unread notifications
-      const notifications = data?.value;
-      let curr_count = 0;
-      notifications?.forEach((item: Notification) => {
-        if (item.isRead === false) {
-          curr_count += 1;
-        }
-      });
-
-      setCount(curr_count);
+    if (isAuthenticated && data?.isSuccess) {
+      setNotifications(data.value.items);
     }
-  }, []);
+  }, [data]);
+
+  useEffect(() => {
+    const hasUnreadNotificationValue = notifications.some(
+      (notification) => !notification.isRead
+    );
+    sethasUnreadNotification(hasUnreadNotificationValue);
+  }, [notifications]);
 
   return (
     <>
@@ -249,7 +249,7 @@ const NavBar: React.FC = () => {
             {/* Logged in user profile icon */}
             {isAuthenticated && (
               <div className="flex items-center gap-x-2">
-                {count ? (
+                {hasUnreadNotification ? (
                   <Link href={"/notifications"}>
                     <MdNotificationAdd className="text-red-500 text-2xl hover:text-red-300-500" />
                   </Link>
@@ -258,6 +258,8 @@ const NavBar: React.FC = () => {
                     <IoNotificationsSharp className="text-gray-700 text-2xl hover:text-gray-500" />
                   </Link>
                 )}
+
+                <div className="h-5 border mx-1"></div>
 
                 <button
                   className="shadow rounded-full"
