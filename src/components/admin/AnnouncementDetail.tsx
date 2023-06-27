@@ -4,6 +4,8 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Announcement } from "<@>/types/admin/Announcement";
 import { useDeleteAnnouncementMutation } from "<@>/store/announcement/announcement-api";
 import { MdModeEditOutline } from "react-icons/md";
+import DOMPurify from "dompurify";
+import { createMarkup } from "../common/TextEditor";
 
 interface AnnouncementDetailProps {
   announcement: Announcement;
@@ -15,14 +17,16 @@ const AnnouncementDetail: React.FC<AnnouncementDetailProps> = ({
   onEdit,
   onClose,
 }) => {
-  const [deleteAnnouncement, { data, isError, isSuccess, isLoading }] =
-    useDeleteAnnouncementMutation();
+  const [
+    deleteAnnouncement,
+    { data, isError, isSuccess, isLoading: isDeleting },
+  ] = useDeleteAnnouncementMutation();
 
   useEffect(() => {
     if (isSuccess) {
       onClose();
     }
-  }, [isSuccess, data, isLoading, isError]);
+  }, [isSuccess, data, isDeleting, isError]);
   return (
     <div className="w-full max-w-5xl h-full p-2 flex flex-col gap-4">
       <div className="flex justify-between items-start gap-24">
@@ -34,14 +38,13 @@ const AnnouncementDetail: React.FC<AnnouncementDetailProps> = ({
           <MdModeEditOutline onClick={onEdit} className="w-5 h-5" />
           <AiFillDelete
             onClick={() => {
-              deleteAnnouncement(id);
+              !isDeleting && deleteAnnouncement(id);
             }}
             className="w-5 h-5"
           />
         </div>
       </div>
-
-      <ReactMarkdown children={description} />
+      <div dangerouslySetInnerHTML={createMarkup(description)} />
     </div>
   );
 };
