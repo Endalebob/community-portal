@@ -1,6 +1,6 @@
 export interface Notification {
   title: string;
   content: string;
-  date: Date;
+  dateCreated: Date;
   isRead: boolean;
 }
