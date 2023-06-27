@@ -1,35 +1,29 @@
 import Image from "next/image";
 import React from "react";
-
 interface UserAvatarProps {
   fullName: string;
   profilePhotoUrl: string;
 }
-
 const UserAvatar: React.FC<UserAvatarProps> = ({
   fullName,
   profilePhotoUrl,
 }) => {
-
   const placeholder: string = fullName
     .split(" ")
     .map((name) => name.charAt(0))
-    .slice(0, 2).join("");
-
-    //To get the background color of the avatar based on the user's name
-    const getBackgroundColor = () => {
-      const asciiSum = fullName
-        .split("")
-        .reduce((sum, char) => sum + char.charCodeAt(0), 0);
-  
-      const r = (asciiSum * 37) % 255;
-      const g = (asciiSum * 79) % 255;
-      const b = (asciiSum * 127) % 255;
-  
-      return `rgb(${r}, ${g}, ${b})`;
-    };
-
-    const bgColor = getBackgroundColor();
+    .slice(0, 2)
+    .join("");
+  //To get the background color of the avatar based on the user's name
+  const getBackgroundColor = () => {
+    const asciiSum = fullName
+      .split("")
+      .reduce((sum, char) => sum + char.charCodeAt(0), 0);
+    const r = (asciiSum * 37) % 255;
+    const g = (asciiSum * 79) % 255;
+    const b = (asciiSum * 127) % 255;
+    return `rgb(${r}, ${g}, ${b})`;
+  };
+  const bgColor = getBackgroundColor();
   return (
     <div>
       {profilePhotoUrl ? (
@@ -51,5 +45,4 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
     </div>
   );
 };
-
 export default UserAvatar;

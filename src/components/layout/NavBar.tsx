@@ -7,41 +7,80 @@ import { useRouter } from "next/router";
 import { RootState } from "<@>/store";
 import { useAppDispatch } from "<@>/store/hooks";
 import { clearToken } from "<@>/store/auth/auth-slice";
+import UserAvatar from "../common/UserAvatar";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
+interface NavDataType {
+  student: NavItem[];
+  admin: NavItem[];
+}
 interface NavItem {
   name: string;
   to: string;
   current: boolean;
 }
 const NavBar: React.FC = () => {
-  const navData: NavItem[] = [
-    {
-      name: "Home",
-      to: "/",
-      current: true,
-    },
-    {
-      name: "Contests",
-      to: "/contests",
-      current: false,
-    },
-    {
-      name: "Your Progress",
-      to: "/journey",
-      current: false,
-    },
-  ];
+  const navData: NavDataType = {
+    student: [
+      {
+        name: "Home",
+        to: "/",
+        current: true,
+      },
+      {
+        name: "Contests",
+        to: "/contests",
+        current: false,
+      },
+      {
+        name: "Your Progress",
+        to: "/journey",
+        current: false,
+      },
+    ],
+    admin: [
+      {
+        name: "Groups",
+        to: "/groups",
+        current: true,
+      },
+      {
+        name: "Contests",
+        to: "/contests",
+        current: false,
+      },
+      {
+        name: "Announcements",
+        to: "/announcements",
+        current: false,
+      },
+      {
+        name: "Wait list",
+        to: "/wait-list",
+        current: false,
+      },
+    ],
+  };
   const { asPath } = useRouter();
   const [showNav, setShowNav] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const [navigation, setNavigation] = useState(() => navData);
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
+  const role = useSelector((state: RootState) => state.auth.role);
+  const adminRole = "HeadOfEducation";
+  console.log("role", role);
+
+  const [navigation, setNavigation] = useState(() => {
+    if (role == adminRole) {
+      return navData.admin;
+    }
+    return navData.student;
+  });
+
   const showProfileRef = useRef<HTMLDivElement>(null);
   const showNavRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -54,7 +93,7 @@ const NavBar: React.FC = () => {
 
   useEffect(() => {
     setNavigation(
-      navigation.map((item) => {
+      navigation!.map((item) => {
         if (item.to === asPath) {
           return { ...item, current: true };
         } else {
@@ -65,6 +104,7 @@ const NavBar: React.FC = () => {
   }, [asPath]);
 
   const auth = useSelector((state: RootState) => state.auth);
+
   const user = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
@@ -109,7 +149,7 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <section className="flex p-4 border-b-2 items-center">
+      <section className="flex px-4 py-2 border-b-2 items-center">
         <Link href="/">
           <div className="w-28 lg:w-52">
             <Image src="/a2sv-logo.png" width={105} height={30} alt="logo" />
@@ -128,16 +168,14 @@ const NavBar: React.FC = () => {
             >
               <div
                 ref={showNavRef}
-                className="flex flex-col gap-5 z-20 md:m-0 bg-white content-between md:flex-row md:w-full justify-between"
+                className="flex flex-col gap-5 z-20 md:m-0 bg-white content-between md:flex-row md:items-center md:w-full justify-between"
               >
-                {navigation.map(({ name, to, current }, index) => (
+                {navigation!.map(({ name, to, current }, index) => (
                   <Link
                     key={index}
                     href={to}
                     className={classNames(
-                      current
-                        ? "text-blue-700 underline underline-offset-8 decoration-4"
-                        : "no-underline text-primary-text",
+                      current ? "text-blue-700" : "text-primary-text",
                       "text-sm md:text-base"
                     )}
                   >
@@ -179,21 +217,12 @@ const NavBar: React.FC = () => {
                 }}
               >
                 {auth.profilePicture && auth.profilePicture !== "null" ? (
-                  <Image
-                    src={auth.profilePicture}
-                    className="w-10 h-10 rounded-full object-cover bg-white hover:ring-2 p-1 hover:ring-gray-300 transition ease-in-out duration-200"
-                    alt="profile picture"
-                    width={150}
-                    height={150}
+                  <UserAvatar
+                    fullName={auth.fullName!}
+                    profilePhotoUrl={auth.profilePicture!}
                   />
                 ) : (
-                  <Image
-                    className="w-10 h-10 rounded-full object-cover bg-white hover:ring-2 p-1 hover:ring-gray-300 transition ease-in-out duration-200"
-                    src="/img/profile-picture.webp"
-                    alt="Bordered avatar"
-                    width={150}
-                    height={150}
-                  />
+                  <UserAvatar fullName={auth.fullName!} profilePhotoUrl="" />
                 )}
               </button>
             )}
@@ -230,7 +259,7 @@ const NavBar: React.FC = () => {
             <div
               className={classNames(
                 showNav || !isAuthenticated ? "flex" : "hidden",
-                "ml-auto md:flex items-center space-x-2 text-sm lg:text-lg"
+                "ml-auto md:flex items-center space-x-2 text-sm"
               )}
             >
               {/* auth buttons */}
