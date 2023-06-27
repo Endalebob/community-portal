@@ -183,7 +183,7 @@ const NavBar: React.FC = () => {
             <nav
               className={classNames(
                 showNav ? "flex" : "hidden",
-                "md:flex absolute md:static right-0 bg-white md:ml-0 shadow-xl md:shadow-none p-10 md:p-0 rounded-xl top-8"
+                "md:flex absolute mt-8 md:mt-0 md:static right-0 bg-white md:ml-0 shadow-xl md:shadow-none p-10 md:p-0 rounded-xl top-8"
               )}
             >
               <div
