@@ -73,7 +73,6 @@ const NavBar: React.FC = () => {
   const [hideNav, setHideNav] = useState<Boolean>(false);
   const role = useSelector((state: RootState) => state.auth.role);
   const adminRole = "HeadOfEducation";
-  console.log("role", role);
 
   const [navigation, setNavigation] = useState(() => {
     if (role === adminRole) {
