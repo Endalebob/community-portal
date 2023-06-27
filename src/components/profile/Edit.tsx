@@ -3,7 +3,7 @@ import {
   useUpdateUserMutation,
 } from "<@>/store/auth/auth-api";
 import { useAppDispatch, useAppSelector } from "<@>/store/hooks";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import InputField from "../auth/InputField";
 import { africanCountries } from "<@>/constants/african-countries";
@@ -13,24 +13,55 @@ import Link from "next/link";
 import User from "<@>/types/auth/user";
 import ProgressIndicator from "../common/ProgressIndicator";
 import { CustomError } from "<@>/types/auth/custom-error";
+import CustomSuccess from "<@>/types/auth/custom-success";
+import { RootState } from "<@>/store";
+import { setUser } from "<@>/store/auth/user-slice";
+import Redirect from "../common/Redirect";
 
 interface FormValues {
   fromBackEnd: string;
   fullName: string;
-  phoneNumber: string;
-  codeforcesHandle: string;
-  telegram: string;
   email: string;
-  password: string;
-  confirmPassword: string;
+  phoneNumber: string;
+  telegramUsername: string;
+  country: string;
+  shortBio: string;
+  profilePicture: string;
+  university: string;
+  department: string;
+  graduationYear: string;
+  leetCodeHandle: string;
+  gitHubHandle: string;
+  codeforcesHandle: string;
+  hackerrankHandle: string;
+  linkedInHandle: string;
+  cv: string;
+  favoriteLanguage: string;
 }
+const initialState = {
+  fullName: "",
+  email: "",
+  phoneNumber: "",
+  telegramUsername: "",
+  country: "",
+  shortBio: "",
+  profilePicture: "",
+  university: "",
+  department: "",
+  graduationYear: "",
+  leetCodeHandle: "",
+  gitHubHandle: "",
+  codeforcesHandle: "",
+  hackerrankHandle: "",
+  linkedInHandle: "",
+  cv: "",
+  favoriteLanguage: "",
+};
 
 const Edit = () => {
-  const { user } = useAppSelector((state) => state.user);
-  const [formValue, setFormValue] = useState(user);
   const [errors, setErrors] = useState<Partial<FormValues>>({});
   const [imagePreview, setImagePreview] = useState("");
-
+  const [formValue, setFormValue] = useState(initialState);
   const {
     fullName,
     email,
@@ -69,8 +100,7 @@ const Edit = () => {
       validationErrors.fullName = "Full Name is required";
     } else if (!email) {
       validationErrors.email = "Email is required";
-    } //check if email is valid
-    else if (
+    } else if (
       !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
         email
       )
@@ -99,20 +129,36 @@ const Edit = () => {
         const propertyName =
           error.propertyName.charAt(0).toLowerCase() +
           error.propertyName.slice(1);
-        if (propertyName === "confirmPassword") {
-          setErrors({ ...errors, confirmPassword: error.errorMessage });
-        } else if (propertyName === "password") {
-          setErrors({ ...errors, password: error.errorMessage });
-        } else if (propertyName === "email") {
+        if (propertyName === "email") {
           setErrors({ ...errors, email: error.errorMessage });
         } else if (propertyName === "phoneNumber") {
           setErrors({ ...errors, phoneNumber: error.errorMessage });
         } else if (propertyName === "codeforcesHandle") {
           setErrors({ ...errors, codeforcesHandle: error.errorMessage });
         } else if (propertyName === "telegram") {
-          setErrors({ ...errors, telegram: error.errorMessage });
+          setErrors({ ...errors, telegramUsername: error.errorMessage });
         } else if (propertyName === "fullName") {
           setErrors({ ...errors, fullName: error.errorMessage });
+        } else if (propertyName === "shortBio") {
+          setErrors({ ...errors, shortBio: error.errorMessage });
+        } else if (propertyName === "university") {
+          setErrors({ ...errors, university: error.errorMessage });
+        } else if (propertyName === "department") {
+          setErrors({ ...errors, department: error.errorMessage });
+        } else if (propertyName === "graduationYear") {
+          setErrors({ ...errors, graduationYear: error.errorMessage });
+        } else if (propertyName === "leetCodeHandle") {
+          setErrors({ ...errors, leetCodeHandle: error.errorMessage });
+        } else if (propertyName === "gitHubHandle") {
+          setErrors({ ...errors, gitHubHandle: error.errorMessage });
+        } else if (propertyName === "hackerrankHandle") {
+          setErrors({ ...errors, hackerrankHandle: error.errorMessage });
+        } else if (propertyName === "linkedInHandle") {
+          setErrors({ ...errors, linkedInHandle: error.errorMessage });
+        } else if (propertyName === "cv") {
+          setErrors({ ...errors, cv: error.errorMessage });
+        } else if (propertyName === "favoriteLanguage") {
+          setErrors({ ...errors, favoriteLanguage: error.errorMessage });
         } else {
           setErrors({ ...errors, fromBackEnd: error.errorMessage });
         }
@@ -148,6 +194,25 @@ const Edit = () => {
     forData.append("cv", e.target.files[0]);
     setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
   };
+  const dispatch = useAppDispatch();
+  const {
+    data = [] as unknown as CustomSuccess,
+    isFetching,
+    isSuccess,
+  } = useGetUserapiQuery("");
+
+  if (isFetching) {
+    return <div>Loading...</div>;
+  }
+  if (isSuccess) {
+    const customUserdata = data.value as unknown as User;
+    if (!customUserdata) {
+      return <Redirect />;
+    }
+    if (!formValue.fullName && !formValue.email && !formValue.phoneNumber) {
+      setFormValue({ ...customUserdata });
+    }
+  }
 
   return (
     <div className="flex flex-col  items-center justify-center min-h-screen">
@@ -203,7 +268,7 @@ const Edit = () => {
                 placeholder=""
                 value={telegramUsername}
                 onChange={handleChange}
-                error={errors.telegram}
+                error={errors.telegramUsername}
               />
             </div>
           </div>
@@ -390,7 +455,8 @@ const Edit = () => {
 
           <div className="flex flex-row justify-end gap-4 max-w-[90%]">
             <button
-              type="submit"
+              type="button"
+              onClick={() => router.push("/profile")}
               className="px-3 py-2 mt-4 text-white font-bold bg-red-400 rounded-md"
             >
               cancel
