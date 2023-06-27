@@ -120,7 +120,6 @@ const NavBar: React.FC = () => {
 
   const auth = useSelector((state: RootState) => state.auth);
 
-  const user = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -258,7 +257,7 @@ const NavBar: React.FC = () => {
                 >
                   <div className="text-start p-2">
                     <p className="font-bold">{auth.fullName}</p>
-                    <span>{user.email}</span>
+                    <span>{auth.email}</span>
                   </div>
                   <div className="border border-y-2 border-x-0 flex flex-col text-sm gap-y-2">
                     <Link href="/profile">
