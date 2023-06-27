@@ -208,7 +208,7 @@ const NavBar: React.FC = () => {
 
           {/* Mobile Navigation HumBurger Icon */}
 
-          <div className="flex ml-auto justify-end">
+          <div className="flex ml-auto justify-end mr-2">
             {isAuthenticated &&
               (showNav ? (
                 <MdOutlineClose
@@ -233,7 +233,7 @@ const NavBar: React.FC = () => {
               <button
                 className="shadow rounded-full"
                 onClick={() => {
-                  setShowProfile(!showProfile);
+                  setShowProfile(() => !showProfile);
                   setShowNav(false);
                 }}
               >
