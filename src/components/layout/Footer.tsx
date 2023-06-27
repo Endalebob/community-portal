@@ -19,7 +19,6 @@ const Footer: React.FC = () => {
 
   const [hideNav, setHideNav] = useState<Boolean>(false);
 
-  console.log(asPath);
   useEffect(() => {
     // remove navbar from pages certain pages
     if (["/auth/signin", "/auth/signup"].includes(asPath)) {
