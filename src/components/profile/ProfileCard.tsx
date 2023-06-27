@@ -48,13 +48,15 @@ const ProfileCard = () => {
       </div>
 
       <div className="flex ml-2 justify-start items-center space-x-5">
-        {socialMedia.map(({ icon: Icon, to }, index) => (
-          <Link key={index} target="_blank" href={to} passHref>
-            <div className="w-12 h-12 flex justify-center items-center rounded-full border-2 border-gray-300 hover:border-primary transition-colors duration-300">
-              <Icon className="text-2xl text-gray-500 hover:text-primary transition-colors duration-300" />
-            </div>
-          </Link>
-        ))}
+        {socialMedia.map(({ icon: Icon, to }, index) =>
+          to.split("/").pop() != "null" ? (
+            <Link key={index} target="_blank" href={to} passHref>
+              <div className="w-12 h-12 flex justify-center items-center rounded-full border-2 border-gray-300 hover:border-primary transition-colors duration-300">
+                <Icon className="text-2xl text-gray-500 hover:text-primary transition-colors duration-300" />
+              </div>
+            </Link>
+          ) : null
+        )}
       </div>
 
       <button
