@@ -6,6 +6,7 @@ import HowToJoin from "<@>/components/home/HowToJoin";
 import Partners from "<@>/components/home/Partners";
 import GetStarted from "<@>/components/home/GetStarted";
 import Head from "next/head";
+import "apexcharts/dist/apexcharts.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
