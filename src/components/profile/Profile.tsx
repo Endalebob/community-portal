@@ -34,7 +34,7 @@ const Profile = () => {
     {
       platform: "CodeForces",
       handle: applicant?.codeforcesHandle,
-      baseUrl: `https://codeforces.com/profile/${applicant?.gitHubHandle}`,
+      baseUrl: `https://codeforces.com/profile/${applicant?.codeforcesHandle}`,
       icon: SiCodeforces,
     },
     {
@@ -97,7 +97,7 @@ const Profile = () => {
             </h1>
             <div className="space-y-2 max-w-md rounded overflow-hidden shadow-lg p-10 align-top bg-white">
               {programmingSites.map((item, index) => {
-                return item.handle ? (
+                return item.handle && item.handle != null ? (
                   <ProgrammingHandles key={index} {...item} />
                 ) : null;
               })}
