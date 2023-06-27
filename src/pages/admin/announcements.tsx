@@ -81,17 +81,17 @@ const index: React.FC = () => {
       <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-8 p-4">
         {isLoading ? (
           Array.from({ length: 16 }).map((_, index) => (
-            <div className="animate-pulse flex flex-col gap-6 rounded-md shadow-md p-4">
+            <div className="animate-pulse flex flex-col gap-6 rounded-md shadow-md p-4 w-full">
               <div className="flex flex-col gap-2">
-                <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
-                <div className="w-36 rounded-sm h-4 bg-slate-200"></div>
+                <div className="w-[90%] rounded-sm h-4 bg-slate-200"></div>
+                <div className="w-[45%] rounded-sm h-4 bg-slate-200"></div>
               </div>
 
               <div className="flex flex-col gap-2">
-                <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
-                <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
-                <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
-                <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
+                <div className="w-[90%] rounded-sm h-4 bg-slate-200"></div>
+                <div className="w-[90%] rounded-sm h-4 bg-slate-200"></div>
+                <div className="w-[90%] rounded-sm h-4 bg-slate-200"></div>
+                <div className="w-[90%] rounded-sm h-4 bg-slate-200"></div>
               </div>
               <div className="self-end w-24 rounded-sm h-4 bg-slate-200"></div>
             </div>
@@ -110,7 +110,7 @@ const index: React.FC = () => {
                   }}
                   title={announcement.title}
                   description={announcement.description}
-                  date={announcement.date!}
+                  date={announcement.dateCreated!}
                 />
               );
             })

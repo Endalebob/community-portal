@@ -4,6 +4,7 @@ import Button from "../common/Button";
 import { useCreateAnnouncementMutation } from "<@>/store/announcement/announcement-api";
 import ProgressIndicator from "../common/ProgressIndicator";
 import { AiOutlineCheck } from "react-icons/ai";
+import Editor from "../common/TextEditor";
 
 interface CreateAnnouncementProps {
   onClose: () => void;
@@ -81,20 +82,17 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
         <p className="text-xs text-red-500">
           {announcementError.title !== "" && announcementError.title}
         </p>
-        <textarea
-          name="description"
-          placeholder="content"
+
+        <Editor
           value={announcement.description}
-          onChange={handleChange}
-          rows={10}
-          cols={130}
-          className="border rounded-md py-1 px-3 border-gray-300 placeholder-white-400"
+          setValue={(value: string) =>
+            setAnnouncement({ ...announcement, description: value })
+          }
         />
         <p className="text-xs text-red-500">
           {announcementError.description !== "" &&
             announcementError.description}
         </p>
-        <p className="text-sm opacity-30">Markdown Supported</p>
       </form>
 
       <div className="flex justify-end gap-2">

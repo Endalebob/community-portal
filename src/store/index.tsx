@@ -20,7 +20,6 @@ export const store = configureStore({
     [announcementApiSlice.reducerPath]: announcementApiSlice.reducer,
     [waitListApi.reducerPath]: waitListApi.reducer,
     [userDetailApi.reducerPath]: userDetailApi.reducer,
-
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
@@ -29,6 +28,7 @@ export const store = configureStore({
       stepApiSlice.middleware,
       waitListApi.middleware,
       userDetailApi.middleware,
+      announcementApiSlice.middleware
     );
   },
 });
