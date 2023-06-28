@@ -8,14 +8,22 @@ const Chart = dynamic(() => import("react-apexcharts"), {
 });
 const fullConfig = resolveConfig(tailwindConfig);
 
-const ContestantsByNumberOfQuestions = () => {
-  const numberOfParticipants = [56, 43, 27, 30];
-  const percentageOfParticipants = [70, 40, 28, 8];
-  const numberOfQuestions = [1, 2, 3, 4];
+interface ContestantsByNumberOfQuestions {
+  numberOfParticipants: number[];
+  numberOfQuestions: string[];
+  totalParticipants: number;
+}
+const ContestantsByNumberOfQuestions: React.FC<
+  ContestantsByNumberOfQuestions
+> = ({ numberOfParticipants, numberOfQuestions, totalParticipants }) => {
+  const percentageOfParticipants = numberOfParticipants.map(
+    (participants: number) =>
+      parseFloat(((participants / totalParticipants) * 100).toFixed(2))
+  );
   const state = {
     series: [
       {
-        name: "Percentage",
+        name: "Percentage of Partcipants who solved the given amount of question",
         data: percentageOfParticipants,
       },
     ],
@@ -28,8 +36,8 @@ const ContestantsByNumberOfQuestions = () => {
       },
       plotOptions: {
         bar: {
-          borderRadius: 2,
-          columnWidth: "40%",
+          borderRadius: 6,
+          columnWidth: "30%",
           dataLabels: {
             position: "top", // top, center, bottom
           },
@@ -38,9 +46,9 @@ const ContestantsByNumberOfQuestions = () => {
       dataLabels: {
         enabled: true,
         formatter: function (val: number, index: any) {
-          return numberOfParticipants[index.dataPointIndex];
+          return `${numberOfParticipants[index.dataPointIndex]}`;
         },
-        offsetY: -20,
+        offsetY: -30,
         style: {
           fontSize: "12px",
           colors: ["#304758"],
@@ -49,8 +57,19 @@ const ContestantsByNumberOfQuestions = () => {
 
       xaxis: {
         categories: numberOfQuestions,
+
         labels: {
           show: true,
+          formatter: function (val: string) {
+            return (
+              Math.floor(parseFloat(val)) +
+              `${parseFloat(val) > 1 ? " questions" : " question"}`
+            );
+          },
+          style: {
+            fontSize: "12px",
+            fontWeight: "bold",
+          },
         },
         position: "bottom",
         axisBorder: {
@@ -70,7 +89,7 @@ const ContestantsByNumberOfQuestions = () => {
           },
         },
         tooltip: {
-          enabled: true,
+          enabled: false,
         },
       },
       yaxis: {

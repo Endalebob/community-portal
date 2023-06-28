@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { getCookie } from "<@>/utils/cookie";
 import Error from "<@>/components/common/Error";
 import OverViewContests from "<@>/components/contest/OverViewContests";
+import Link from "next/link";
 
 const ContestList: React.FC = () => {
   const { data: contests = [], error, isLoading } = useGetContestsQuery({});
@@ -155,6 +156,15 @@ const ContestList: React.FC = () => {
                         >
                           Remove
                         </button>
+
+                        <div className="mx-auto my-auto mt-4 md:mt-0 text-center">
+                          <Link
+                            className="text-primary hover:underline"
+                            href={`/admin/contest/stats/${contest.id}`}
+                          >
+                            Stats
+                          </Link>
+                        </div>
                       </td>
                     )}
                   </tr>

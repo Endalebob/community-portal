@@ -6,12 +6,24 @@ const Chart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
-const ContestantsSolvedPerQuestion = () => {
+interface ContestantsSolvedPerQuestionProps {
+  numberOfParticipants: number[];
+  questions: string[];
+  totalParticipants: number;
+}
+
+const ContestantsSolvedPerQuestion: React.FC<
+  ContestantsSolvedPerQuestionProps
+> = ({ numberOfParticipants, questions, totalParticipants }) => {
+  const percentageOfParticipants = numberOfParticipants.map((participants) =>
+    parseFloat(((participants / totalParticipants) * 100).toFixed(2))
+  );
+
   const state = {
     series: [
       {
-        name: "Contestants Solved",
-        data: [56, 43, 44, 20],
+        name: "Participants who managed to solve this question",
+        data: percentageOfParticipants,
       },
     ],
     options: {
@@ -23,15 +35,43 @@ const ContestantsSolvedPerQuestion = () => {
       },
       plotOptions: {
         bar: {
-          borderRadius: 4,
+          borderRadius: 6,
+          barHeight: "50%",
           horizontal: true,
+          dataLabels: {
+            position: "top",
+
+            formatter: function (val: any, index: any) {
+              return typeof val === "number" ? Math.floor(val) + "%" : val;
+            },
+          },
         },
       },
       dataLabels: {
         enabled: true,
+
+        formatter: function (val: any, index: any) {
+          return numberOfParticipants[index.dataPointIndex];
+        },
+        offsetX: 20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"],
+        },
+      },
+      yaxis: {
+        labels: {
+          style: {
+            fontSize: "12px",
+            fontWeight: "bold",
+          },
+          formatter: function (val: any, index: any) {
+            return typeof val === "number" ? Math.floor(val) + "%" : val;
+          },
+        },
       },
       xaxis: {
-        categories: ["Problem A", "Problem B", "Problem C", "Problem D"],
+        categories: questions.map((question) => `Problem ${question}`),
         min: 0,
         max: 100,
         tickAmount: 5,
@@ -40,8 +80,8 @@ const ContestantsSolvedPerQuestion = () => {
             fontSize: "12px",
             fontWeight: "bold",
           },
-          formatter: function (val: any) {
-            return Math.floor(val) + "%";
+          formatter: function (val: any, index: any) {
+            return typeof val === "number" ? Math.floor(val) + "%" : val;
           },
         },
         crosshairs: {
