@@ -57,6 +57,13 @@ export const resourceApiSlice = createApi({
         },
         invalidatesTags: ["Resources"],
       }),
+      deleteTopic: builder.mutation({
+        query: (id) => {
+          return { url: `/resource/topic/${id}`, method: "DELETE" };
+        },
+        invalidatesTags: ["Resources"],
+      }),
+
       getResourceById: builder.query({
         query: (id) => ({
           url: `/resource/${id}`,
@@ -77,4 +84,5 @@ export const {
   useCreateTopicMutation,
   useEditTopicMutation,
   useGetResourceByIdQuery,
+  useDeleteTopicMutation,
 } = resourceApiSlice;

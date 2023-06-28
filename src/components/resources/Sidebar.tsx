@@ -13,6 +13,7 @@ import CreateTopic from "./CreateTopic";
 
 const SideBar: React.FC = () => {
   const [selectedResource, setSelectedResource] = useState<number>(0);
+  const [expand, setExpand] = useState<boolean>(false);
   const [selectedChapter, setSelectedChapter] = useState<number>(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [resources, setResources] = useState<IResourceTopic[]>([]);
@@ -37,6 +38,12 @@ const SideBar: React.FC = () => {
   };
 
   const handleResourceClick = (resourceId: number) => {
+    if (selectedResource !== resourceId) {
+      setExpand(true);
+    }
+    else{
+      setExpand(!expand);
+    }
     setSelectedResource(resourceId);
     setSelectedChapter(0);
   };
@@ -45,14 +52,14 @@ const SideBar: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen items-start">
+    <div className="flex min-h-screen w-full items-start">
       {!isSidebarOpen && (
         <button className="text-2xl px-5 py-1" onClick={handleToggleMenu}>
           <MdMenu size={30} />
         </button>
       )}
       <div
-        className={`flex flex-col w-400px md:w-1/4 h-full bg-gray-100 shadow-xl border-r-2 mr-5 ${
+        className={`flex flex-col min-w-[200px] md:w-1/4 min-h-screen bg-gray-100 shadow-xl border-r-2 mr-5 ${
           isSidebarOpen ? "block" : "hidden"
         }`}
       >
@@ -85,46 +92,48 @@ const SideBar: React.FC = () => {
                 className={`flex items-cent rounded-md justify-between px-4 py-2 cursor-pointer ${
                   selectedResource === resource.id
                     ? "text-primary"
-                    : "text-gray-700"
+                    : "text-black"
                 }`}
               >
-                <h1 className="font-semibold text-xl w-full">
+                <h1 className="font-bold  w-full">
                   {resource.title.length > 30
                     ? resource.title.substring(0, 30) + "..."
                     : resource.title}
                 </h1>
               </div>
-              {selectedResource === resource.id &&
+              {expand && (selectedResource === resource.id) &&
                 resource.resources.map((chapter) => (
                   <div className="flex items-center ml-10">
-                    <BsFillJournalBookmarkFill />
+                    <p>
+                      <BsFillJournalBookmarkFill  />
+                    </p>
+                    
                     <div
                       key={chapter.id}
                       onClick={() =>
                         handleChapterClick(resource.id, chapter.id)
                       }
-                      className={`flex items-center justify-between px-4 py-2 cursor-pointer ${
+                      className={`flex items-center justify-between pl-2 pr-4 py-2 cursor-pointer ${
                         selectedChapter === chapter.id
                           ? "text-primary"
-                          : "text-gray-500"
+                          : "text-gray-700"
                       }`}
                     >
                       <h1 className="">
-                        {chapter.title.length > 30
-                          ? chapter.title.substring(0, 30) + "..."
+                        {chapter.title.length > 25
+                          ? chapter.title.substring(0, 25) + "..."
                           : chapter.title}
                       </h1>
                     </div>
                   </div>
                 ))}
-              {selectedResource === resource.id && (
+              {expand && (selectedResource === resource.id) && (
                 <div className="flex items-center ml-10">
                   <button
                     onClick={() => setCreateResouce(true)}
-                    className="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md"
+                    className="flex items-center rounded-full justify-center p-2 mt-5 bg-primary text-white"
                   >
-                    <MdAdd className="mr-2 text-white" />
-                    Add Chapter
+                    <MdAdd className=" text-white" />
                   </button>
                 </div>
               )}
@@ -142,7 +151,7 @@ const SideBar: React.FC = () => {
         </div>
       </div>
       <div className="flex flex-col w-full h-full">
-        <Resource selectedChapter={selectedChapter} resources={resources} />
+        <Resource selectedChapter={selectedChapter} resources={resources} selectedResource={selectedResource} />
       </div>
     </div>
   );
