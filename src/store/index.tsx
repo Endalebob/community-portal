@@ -8,6 +8,7 @@ import { announcementApiSlice } from "./announcement/announcement-api";
 import { contestApiSlice } from "./contest/contest-api";
 import { waitListApi } from "./admin/waitlist-api";
 import { userDetailApi } from "./profile/user-detail-api";
+import { notificationApiSlice } from "./notifications/notifications-api";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     [announcementApiSlice.reducerPath]: announcementApiSlice.reducer,
     [waitListApi.reducerPath]: waitListApi.reducer,
     [userDetailApi.reducerPath]: userDetailApi.reducer,
+    [notificationApiSlice.reducerPath]: notificationApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
@@ -28,7 +30,8 @@ export const store = configureStore({
       stepApiSlice.middleware,
       waitListApi.middleware,
       userDetailApi.middleware,
-      announcementApiSlice.middleware
+      announcementApiSlice.middleware,
+      notificationApiSlice.middleware
     );
   },
 });
