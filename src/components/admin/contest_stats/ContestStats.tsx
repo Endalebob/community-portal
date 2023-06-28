@@ -8,6 +8,7 @@ import {
   useGetContestQuery,
 } from "<@>/store/contest/contest-api";
 import ProgressIndicator from "<@>/components/common/ProgressIndicator";
+import Error from "<@>/components/common/Error";
 
 interface ContestStatsProps {
   id: string;
@@ -183,7 +184,9 @@ const ContestStats: React.FC<ContestStatsProps> = ({ id }) => {
           </div>
         </div>
       ) : (
-        <div>Error</div>
+        <div>
+          <Error message="Error occurred while fetching" />{" "}
+        </div>
       )}
     </div>
   );
