@@ -4,15 +4,20 @@ import Button from "../common/Button";
 import ProgressIndicator from "../common/ProgressIndicator";
 import { AiOutlineCheck } from "react-icons/ai";
 import Editor from "../common/TextEditor";
-import { useCreateTopicMutation } from "<@>/store/resource/resource-api";
+import { useEditTopicMutation } from "<@>/store/resource/resource-api";
 
-interface CreateTopicsProps {
+interface UpdateTopicsProps {
   onClose: () => void;
+  topic: Topic;
 }
 
-const CreateTopic: React.FC<CreateTopicsProps> = ({ onClose }) => {
+const UpdateTopic: React.FC<UpdateTopicsProps> = ({
+  onClose,
+  topic: { id, title },
+}) => {
   const [topic, setTopic] = useState({
-    title: "",
+    id: id,
+    title: title,
   });
   const [topicError, setTopicError] = useState({
     title: "",
@@ -21,16 +26,16 @@ const CreateTopic: React.FC<CreateTopicsProps> = ({ onClose }) => {
     setTopic({ ...topic, [e.target.name]: e.target.value });
   };
 
-  let [createTopic, { data, isSuccess, isError, isLoading, error }] =
-    useCreateTopicMutation();
+  let [updateTopic, { data, isSuccess, isError, isLoading, error }] =
+    useEditTopicMutation();
 
-  const createError = error as any;
+  const updateError = error as any;
   const validTopic = () => {
     if (topic.title != "") {
       setTopicError({
         title: "",
       });
-      createTopic(topic);
+      updateTopic(topic);
     } else
       setTopicError({
         title: topic.title ? "" : "Please insert Topic title",
@@ -50,15 +55,15 @@ const CreateTopic: React.FC<CreateTopicsProps> = ({ onClose }) => {
 
   return (
     <div className="w-[44rem] h-full p-2 flex flex-col gap-2">
-      <p className="font-bold text-lg">Create new Topic</p>
+      <p className="font-bold text-lg">update new Topic</p>
       <p className="text-sm opacity-30">Add new Topic to the system.</p>
 
       <div>
         {error &&
-          createError.data?.error?.map((err: any, index: number) => {
+          updateError.data?.error?.map((err: any, index: number) => {
             return <p className="text-xs text-red-500">{err.errorMessage}</p>;
           })}{" "}
-        {error && !createError.data && (
+        {error && !updateError.data && (
           <p className="text-xs text-red-500">Unknown Error</p>
         )}
       </div>
@@ -105,7 +110,7 @@ const CreateTopic: React.FC<CreateTopicsProps> = ({ onClose }) => {
           <Button
             onClick={() => validTopic()}
             className="font-medium"
-            label="Create"
+            label="update"
           ></Button>
         )}
       </div>
@@ -113,4 +118,4 @@ const CreateTopic: React.FC<CreateTopicsProps> = ({ onClose }) => {
   );
 };
 
-export default CreateTopic;
+export default UpdateTopic;
