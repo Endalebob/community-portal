@@ -2,8 +2,9 @@ import Resource from "<@>/components/resources/Resource";
 import IResourceTopic from "<@>/types/resources/resourceListType";
 import React, { useEffect, useState } from "react";
 import { FaBook } from "react-icons/fa";
+import { GrAdd } from "react-icons/gr";
 import { BsFillJournalBookmarkFill } from "react-icons/bs";
-import { MdMenu } from "react-icons/md";
+import { MdAdd, MdMenu } from "react-icons/md";
 import { useGetResourcesQuery } from "<@>/store/resource/resource-api";
 
 const SideBar: React.FC = () => {
@@ -66,7 +67,7 @@ const SideBar: React.FC = () => {
                     : "text-gray-700"
                 }`}
               >
-                <h1 className=" font-semibold text-lg">
+                <h1 className="font-semibold text-xl w-full">
                   {resource.title.length > 30
                     ? resource.title.substring(0, 30) + "..."
                     : resource.title}
@@ -74,7 +75,7 @@ const SideBar: React.FC = () => {
               </div>
               {selectedResource === resource.id &&
                 resource.resources.map((chapter) => (
-                  <div className="flex items-center ml-5">
+                  <div className="flex items-center ml-10">
                     <BsFillJournalBookmarkFill />
                     <div
                       key={chapter.id}
@@ -84,7 +85,7 @@ const SideBar: React.FC = () => {
                       className={`flex items-center justify-between px-4 py-2 cursor-pointer ${
                         selectedChapter === chapter.id
                           ? "text-primary"
-                          : "text-gray-700"
+                          : "text-gray-500"
                       }`}
                     >
                       <h1 className="">
@@ -95,8 +96,22 @@ const SideBar: React.FC = () => {
                     </div>
                   </div>
                 ))}
+              {selectedResource === resource.id && (
+                <div className="flex items-center ml-10">
+                  <button className="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md">
+                    <MdAdd className="mr-2 text-white" />
+                    Add Chapter
+                  </button>
+                </div>
+              )}
             </div>
           ))}
+        </div>
+        <div className="ml-5 my-20">
+          <button className="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md">
+            <MdAdd className="mr-2" />
+            Add Topic
+          </button>
         </div>
       </div>
       <div className="flex flex-col w-full h-full">
