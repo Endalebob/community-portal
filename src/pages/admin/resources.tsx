@@ -5,7 +5,11 @@ import EditAnnouncement from "<@>/components/admin/EditAnnouncement";
 import Button from "<@>/components/common/Button";
 import Error from "<@>/components/common/Error";
 import Modal from "<@>/components/common/Modal";
+import CreateResources from "<@>/components/resources/CreateResource";
+import CreateTopic from "<@>/components/resources/CreateTopic";
+import UpdateTopic from "<@>/components/resources/EditTopic";
 import { useGetAnnouncementsQuery } from "<@>/store/announcement/announcement-api";
+import { useGetResourcesQuery } from "<@>/store/resource/resource-api";
 import { Announcement } from "<@>/types/admin/Announcement";
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -20,15 +24,15 @@ const index: React.FC = () => {
     isSuccess,
     isLoading,
     isError,
-  } = useGetAnnouncementsQuery({});
+  } = useGetResourcesQuery({});
 
-  const announcements: Announcement[] = response?.value;
+  const announcements: any[] = response?.value;
 
   return (
     <div className="w-full p-8">
       {createAnnouncement && (
         <Modal onClose={() => setCreateAnnouncement(false)}>
-          <CreateAnnouncement onClose={() => setCreateAnnouncement(false)} />
+          <CreateTopic onClose={() => setCreateAnnouncement(false)} />
         </Modal>
       )}
 
@@ -41,8 +45,8 @@ const index: React.FC = () => {
           }}
         >
           {editAnnouncement ? (
-            <EditAnnouncement
-              announcement={
+            <UpdateTopic
+              topic={
                 announcements.find(
                   (announcement) => announcement.id === announcementDetail
                 )!
@@ -66,7 +70,7 @@ const index: React.FC = () => {
       )}
 
       <div className="flex justify-between w-full">
-        <p className="opacity-60 text-lg">Announcements</p>
+        <p className="opacity-60 text-lg">Topics</p>
 
         <Button
           onClick={() => {
@@ -74,7 +78,7 @@ const index: React.FC = () => {
             setShowModal(true);
           }}
           startIcon={<AiOutlinePlus></AiOutlinePlus>}
-          label="New Announcements"
+          label="New Resource"
         />
       </div>
 
@@ -102,16 +106,17 @@ const index: React.FC = () => {
           ) : (
             announcements.map((announcement, index) => {
               return (
-                <AnnouncementCard
-                  key={index}
+                <div
                   onClick={() => {
                     setAnnouncementDetail(announcement.id);
                     setShowModal(true);
                   }}
-                  title={announcement.title}
-                  description={announcement.description}
-                  date={announcement.dateCreated!}
-                />
+                  className="border rounded-md shadow-md border-gray-50 p-4 flex flex-col justify-between hover:cursor-pointer"
+                >
+                  <div key={index} className="flex flex-col gap-4">
+                    <p className="text-lg font-medium">{announcement.title}</p>
+                  </div>
+                </div>
               );
             })
           )
