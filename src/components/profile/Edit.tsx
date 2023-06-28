@@ -2,21 +2,19 @@ import {
   useGetUserapiQuery,
   useUpdateUserMutation,
 } from "<@>/store/auth/auth-api";
-import { useAppDispatch, useAppSelector } from "<@>/store/hooks";
-import router, { useRouter } from "next/router";
+import { useAppDispatch } from "<@>/store/hooks";
+import router from "next/router";
 import React, { useEffect, useState } from "react";
 import InputField from "../auth/InputField";
 import { africanCountries } from "<@>/constants/african-countries";
 import { programmingLanguages } from "<@>/constants/programming-languages";
 import Image from "next/image";
-import Link from "next/link";
 import User from "<@>/types/auth/user";
 import ProgressIndicator from "../common/ProgressIndicator";
 import { CustomError } from "<@>/types/auth/custom-error";
 import CustomSuccess from "<@>/types/auth/custom-success";
-import { RootState } from "<@>/store";
-import { setUser } from "<@>/store/auth/user-slice";
 import Redirect from "../common/Redirect";
+import Loading from "../common/Loading";
 
 interface FormValues {
   fromBackEnd: string;
@@ -106,10 +104,6 @@ const Edit = () => {
       )
     ) {
       validationErrors.email = "Email is invalid";
-    } else if (phoneNumber) {
-      if (!/^(?:\+251|251|0)?[1-59]\d{8}$/.test(phoneNumber)) {
-        validationErrors.phoneNumber = "Phone number is invalid";
-      }
     }
 
     await updateUser({ ...formValue });
@@ -194,15 +188,10 @@ const Edit = () => {
     forData.append("cv", e.target.files[0]);
     setFormValue({ ...formValue, [e.target.name]: e.target.files[0] });
   };
-  const dispatch = useAppDispatch();
-  const {
-    data = [] as unknown as CustomSuccess,
-    isFetching,
-    isSuccess,
-  } = useGetUserapiQuery("");
+  const { data, isFetching, isSuccess } = useGetUserapiQuery("");
 
   if (isFetching) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   if (isSuccess) {
     const customUserdata = data.value as unknown as User;
@@ -215,63 +204,93 @@ const Edit = () => {
   }
 
   return (
-    <div className="flex flex-col  items-center justify-center min-h-screen">
-      <div className="flex flex-col items-center justify-center w-[80%]">
-        <h1 className="text-2xl font-semibold w-full text-primary-text">
-          Edit Profile
-        </h1>
-        <form
-          onSubmit={handleUpdate}
-          className="flex flex-col justify-center w-full space-y-4 mx-5 my-4"
-        >
-          <div className="flex flex-col">
-            <p className="text-primary-text text-[14px] font-semibold">
-              Profile Picture
-            </p>
-            <div className="flex flex-row gap-4">
-              <input
-                type="file"
-                name="profilePicture"
-                placeholder=""
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="border max-h-8 rounded-md mt-1 border-gray-300 placeholder-white-400"
+    <form onSubmit={handleUpdate} className="items-center justify-center">
+      <h1 className="text-2xl m-10 my-6 text-gray-700 font-semibold">
+        Edit Profile
+      </h1>
+
+      <div className="flex border bg-gray-50 m-10 p-10">
+        <div className="flex w-full space-x-10">
+          <div>
+            {imagePreview ? (
+              <Image
+                width={80}
+                height={40}
+                src={imagePreview}
+                alt={fullName + "preview"}
+                className="w-44 h-44 border object-cover"
               />
-              {imagePreview && (
-                <Image
-                  width={80}
-                  height={40}
-                  src={imagePreview}
-                  alt=""
-                  className="border rounded-md"
+            ) : (
+              <Image
+                className="w-44 h-44 border object-cover"
+                src={profilePicture || ""}
+                width={200}
+                height={200}
+                alt={fullName + "avatar"}
+              />
+            )}
+
+            <div className="flex justify-center items-center">
+              <label className="mt-2 border px-4 rounded-full hover:bg-gray-100 border-gray-100 hover:border-gray-300">
+                <span className="text-base text-gray-600 leading-normal">
+                  Update picture
+                </span>
+                <input
+                  onChange={handleImageUpload}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
                 />
-              )}
+              </label>
             </div>
           </div>
-          <div className="flex flex-col ed:flex-row ed:max-w-[89%]">
-            <div className="flex flex-col flex-grow">
-              <InputField
-                label="Full Name"
-                name="fullName"
-                type="text"
-                placeholder=""
-                value={fullName}
-                onChange={handleChange}
-                error={errors.fullName}
-              />
+          <div className="flex flex-col justify-between w-full">
+            <div className="flex space-x-6">
+              <div className="basis-1/2">
+                <InputField
+                  label="Full Name"
+                  height="min-h-[2.5rem]"
+                  name="fullName"
+                  type="text"
+                  placeholder=""
+                  value={fullName}
+                  onChange={handleChange}
+                  error={errors.fullName}
+                />
+              </div>
+              <div className="flex flex-col flex-grow">
+                <InputField
+                  label="Telegram Username"
+                  name="telegramUsername"
+                  type="text"
+                  height="min-h-[2.5rem]"
+                  placeholder=""
+                  value={telegramUsername}
+                  onChange={handleChange}
+                  error={errors.telegramUsername}
+                />
+              </div>
             </div>
-            <div className="flex flex-col flex-grow">
-              <InputField
-                label="Telegram Username"
-                name="telegramUsername"
-                type="text"
+            <div className="">
+              <p className="text-gray-600 text-sm m font-semibold">Short bio</p>
+              <textarea
+                rows={4}
+                name="shortBio"
                 placeholder=""
-                value={telegramUsername}
+                value={shortBio}
                 onChange={handleChange}
-                error={errors.telegramUsername}
+                className="border text-gray-700 w-full outline-none px-2 focus:border-gray-300 rounded-md border-gray-200 placeholder-white-400"
               />
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="border bg-gray-50 m-10 p-10">
+        <h3 className="text-lg uppercase text-gray-600 font-semibold pb-3">
+          BASIC INFO
+        </h3>
+        <div className="grid grid-cols-3 gap-4 gap-y-6">
           <InputField
             label="Email"
             name="email"
@@ -281,200 +300,164 @@ const Edit = () => {
             onChange={handleChange}
             error={errors.email}
           />
-
-          <div className="flex flex-col ed:flex-row ed:max-w-[89%]">
-            <div className="flex flex-col flex-grow">
-              <p className="text-primary-text text-[14px] font-semibold">
-                Country
-              </p>
-              <select
-                name="country"
-                onChange={handleChange}
-                className="border max-w-[80%] rounded-md py-1 px-3 mt-1 border-gray-300"
-              >
-                <option value={country}>{country}</option>
-                {africanCountries.map((country) => (
-                  <option key={country.value} value={country.label}>
-                    {country.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex flex-col flex-grow">
-              <InputField
-                label="Phone Number"
-                name="phoneNumber"
-                type="text"
-                placeholder=""
-                value={phoneNumber}
-                onChange={handleChange}
-                error={errors.phoneNumber}
-              />
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <p className="text-primary-text text-[14px] font-semibold">
-              Short bio
-            </p>
-            <textarea
-              name="shortBio"
-              placeholder=""
-              value={shortBio}
+          <InputField
+            label="Phone Number"
+            name="phoneNumber"
+            type="text"
+            placeholder=""
+            value={phoneNumber}
+            onChange={handleChange}
+            error={errors.phoneNumber}
+          />
+          <div className="flex flex-col flex-grow">
+            <p className="text-gray-700 text-[14px] font-semibold">Country</p>
+            <select
+              name="country"
               onChange={handleChange}
-              className="border max-w-[80%] rounded-md py-1 px-3 mt-1 border-gray-300 placeholder-white-400"
-            />
-          </div>
-
-          <div className="flex flex-col ed:flex-row ed:max-w-[86%]">
-            <div className="flex flex-col flex-grow">
-              <InputField
-                label="University"
-                name="university"
-                type="text"
-                placeholder=""
-                value={university}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col flex-grow">
-              <InputField
-                label="Department"
-                name="department"
-                type="text"
-                placeholder=""
-                value={department}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col flex-grow">
-              <InputField
-                label="Year Of Graduation"
-                name="graduationYear"
-                type="text"
-                placeholder=""
-                value={graduationYear}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col ed:flex-row ed:max-w-[86%]">
-            <div className="flex flex-col flex-grow">
-              <InputField
-                label="Leetcode Username"
-                name="leetCodeHandle"
-                type="text"
-                placeholder=""
-                value={leetCodeHandle}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col flex-grow">
-              <InputField
-                label="Codeforces Username"
-                name="codeforcesHandle"
-                type="text"
-                placeholder=""
-                value={codeforcesHandle}
-                onChange={handleChange}
-                error={errors.codeforcesHandle}
-              />
-            </div>
-            <div className="flex flex-col flex-grow">
-              <InputField
-                label="Hackerrank Username"
-                name="hackerrankHandle"
-                type="text"
-                placeholder=""
-                value={hackerrankHandle}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="flex flex-col ed:flex-row ed:max-w-[89%]">
-            <div className="flex flex-col flex-grow">
-              <InputField
-                label="Github Username"
-                name="gitHubHandle"
-                type="text"
-                placeholder=""
-                value={gitHubHandle}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col flex-grow">
-              <InputField
-                label="Linkedin Url"
-                name="linkedInHandle"
-                type="text"
-                placeholder=""
-                value={linkedInHandle}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="flex flex-col ed:flex-row gap-2 mb-5 ed:max-w-[94%]">
-            <div className="flex flex-col">
-              <p className="text-primary-text text-[14px] font-semibold">Cv</p>
-              <div className="flex flex-row gap-4 items-end">
-                <input
-                  type="file"
-                  name="cv"
-                  placeholder=""
-                  accept="application/pdf"
-                  onChange={handlePdfUpload}
-                  className="border max-h-8 rounded-md mt-1 border-gray-300 placeholder-white-400"
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-col flex-grow ed:ml-16 max-w-[80%]">
-              <p className="text-primary-text text-[14px] font-semibold">
-                Programming Language
-              </p>
-              <select
-                name="favoriteLanguage"
-                onChange={handleChange}
-                className="border max-w-[80%] rounded-md py-1 px-3 mt-1 border-gray-300"
-              >
-                <option value={favoriteLanguage}>{favoriteLanguage}</option>
-                {programmingLanguages.map((language) => (
-                  <option key={language.label} value={language.label}>
-                    {language.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            {errors.fromBackEnd && (
-              <p className="text-red-500 text-[14px] pt-4">
-                {errors.fromBackEnd}
-              </p>
-            )}
-          </div>
-          <hr />
-
-          <div className="flex flex-row justify-end gap-4 max-w-[90%]">
-            <button
-              type="button"
-              onClick={() => router.push("/profile")}
-              className="px-3 py-2 mt-4 text-white font-bold bg-red-400 rounded-md"
+              className="border outline-none h-[2.5rem] focus:border-gray-300 rounded-md py-1 px-3 mt-1 border-gray-300"
             >
-              cancel
-            </button>
-            <button
-              type="submit"
-              className="px-3 py-2 mt-4 text-white bg-primary rounded-md"
-            >
-              {isProfileLoading ? (
-                <ProgressIndicator size={5} color="white" />
-              ) : (
-                "Update"
-              )}
-            </button>
+              <option value={country}>{country}</option>
+              {africanCountries.map((country) => (
+                <option key={country.value} value={country.label}>
+                  {country.label}
+                </option>
+              ))}
+            </select>
           </div>
-        </form>
+          <InputField
+            label="University"
+            name="university"
+            type="text"
+            placeholder=""
+            value={university}
+            onChange={handleChange}
+            error={errors.university}
+          />
+          <InputField
+            label="Department"
+            name="department"
+            type="text"
+            placeholder=""
+            value={department}
+            onChange={handleChange}
+            error={errors.department}
+          />
+          <InputField
+            label="Year Of Graduation"
+            name="graduationYear"
+            type="text"
+            placeholder=""
+            value={graduationYear}
+            onChange={handleChange}
+            error={errors.graduationYear}
+          />
+        </div>
       </div>
-    </div>
+      <div className="border bg-gray-50 m-10 p-10">
+        <h3 className="text-lg uppercase text-gray-600 font-semibold pb-3">
+          User Handles
+        </h3>
+        <div className="grid grid-cols-3 gap-4 gap-y-6 pt-3">
+          <InputField
+            label="Codeforces Username"
+            name="codeforcesHandle"
+            type="text"
+            placeholder=""
+            value={codeforcesHandle}
+            onChange={handleChange}
+            error={errors.codeforcesHandle}
+          />
+          <InputField
+            label="Leetcode Username"
+            name="leetCodeHandle"
+            type="text"
+            placeholder=""
+            value={leetCodeHandle}
+            onChange={handleChange}
+            error={errors.leetCodeHandle}
+          />
+          <InputField
+            label="Hackerrank Username"
+            name="hackerrankHandle"
+            type="text"
+            placeholder=""
+            value={hackerrankHandle}
+            onChange={handleChange}
+            error={errors.hackerrankHandle}
+          />
+          <InputField
+            label="Github Username"
+            name="gitHubHandle"
+            type="text"
+            placeholder=""
+            value={gitHubHandle}
+            onChange={handleChange}
+            error={errors.gitHubHandle}
+          />
+          <InputField
+            label="Linkedin Username"
+            name="linkedInHandle"
+            type="text"
+            placeholder=""
+            value={linkedInHandle}
+            onChange={handleChange}
+            error={errors.linkedInHandle}
+          />
+        </div>
+      </div>
+      <div className="border bg-gray-50 m-10 p-10 grid grid-cols-3 gap-4">
+        <div>
+          <p>Cv</p>
+          <input
+            type="file"
+            name="cv"
+            placeholder=""
+            accept="application/pdf"
+            onChange={handlePdfUpload}
+            className="border outline-none focus:border-gray-300 rounded-md px-3 mt-1 border-gray-300 w-full"
+          />
+        </div>
+        <div className="flex flex-col flex-grow">
+          <p className="text-gray-700 pb-1 text-[14px] font-semibold">
+            Programming Language
+          </p>
+          <select
+            name="favoriteLanguage"
+            onChange={handleChange}
+            className="border outline-none focus:border-gray-300 rounded-md py-1 px-3 mt-1 border-gray-300"
+          >
+            <option value={favoriteLanguage}>{favoriteLanguage}</option>
+            {programmingLanguages.map((language) => (
+              <option key={language.label} value={language.label}>
+                {language.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        {errors.fromBackEnd && (
+          <p className="text-red-500 text-[14px] pt-4">{errors.fromBackEnd}</p>
+        )}
+      </div>
+      <div className="flex justify-end space-x-4 m-10">
+        <button
+          type="button"
+          onClick={() => router.push("/profile")}
+          className="px-3 py-2 mt-4 text-gray-600 font-bold bg-gray-200 rounded-md"
+        >
+          cancel
+        </button>
+        <button
+          type="submit"
+          className="px-3 py-2 mt-4 text-white bg-primary rounded-md"
+        >
+          {isProfileLoading ? (
+            <ProgressIndicator size={5} color="white" />
+          ) : (
+            "Update"
+          )}
+        </button>
+      </div>
+    </form>
   );
 };
 

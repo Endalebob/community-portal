@@ -202,6 +202,7 @@ const Signup = () => {
             label="Full Name"
             name="fullName"
             type="text"
+            width="max-w-[80%]"
             placeholder="Enter your full name"
             value={fullName}
             onChange={handleChange}
@@ -211,6 +212,7 @@ const Signup = () => {
             label="Email"
             name="email"
             type="text"
+            width="max-w-[80%]"
             placeholder="Enter your email"
             value={email}
             onChange={handleChange}
@@ -220,6 +222,7 @@ const Signup = () => {
             label="Phone Number"
             name="phoneNumber"
             type="text"
+            width="max-w-[80%]"
             placeholder="Enter your phone number"
             value={phoneNumber}
             onChange={handleChange}
@@ -230,6 +233,7 @@ const Signup = () => {
             label="Codeforces Handle"
             name="codeforcesHandle"
             type="text"
+            width="max-w-[80%]"
             placeholder="Enter your codeforcesHandle handle"
             value={codeforcesHandle}
             onChange={handleChange}
@@ -240,6 +244,7 @@ const Signup = () => {
             label="Telegram Handle"
             name="telegramUsername"
             type="text"
+            width="max-w-[80%]"
             placeholder="Enter your handle"
             value={telegramUsername}
             onChange={handleChange}
@@ -248,6 +253,7 @@ const Signup = () => {
           <InputField
             label="Password"
             name="password"
+            width="max-w-[80%]"
             type={showPassword ? "text" : "password"}
             placeholder="********"
             value={password}
@@ -260,6 +266,7 @@ const Signup = () => {
           <InputField
             label="Confirm Password"
             name="confirmPassword"
+            width="max-w-[80%]"
             type={showConfirmPassword ? "text" : "password"}
             placeholder="********"
             value={confirmPassword}

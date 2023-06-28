@@ -24,8 +24,8 @@ const InputField: React.FC<InputFieldProps> = ({
   value,
   onChange,
   error,
-  width = "max-w-[80%]",
-  height = "min-h-[2rem]",
+  width = "",
+  height = "min-h-[2.5rem]",
   isPasswordField = false,
   showPassword = false,
   togglePasswordVisibility = () => {},
@@ -36,14 +36,14 @@ const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <div className="flex flex-col relative">
-      <p className="text-primary-text text-[14px] font-semibold">{label}</p>
+      <p className="text-gray-700 text-[14px] font-semibold">{label}</p>
       <input
         name={name}
         type={type}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className={`border ${width} ${height} rounded-md py-1 px-3 mt-1 border-gray-300 placeholder-white-400`}
+        className={`border ${width} ${height} text-gray-600 rounded-md py-1 px-3 mt-1 border-gray-200 focus:border-gray-400 outline-none placeholder-white-400`}
       />
       {isPasswordField && (
         <span
