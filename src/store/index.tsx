@@ -3,15 +3,13 @@ import userSlice from "./auth/user-slice";
 import { authApiSlice } from "./auth/auth-api";
 import authSlice from "./auth/auth-slice";
 import { stepApiSlice } from "./journey/journey-api";
-import contestSlice from "./contest/contest-slice";
 import { announcementApiSlice } from "./announcement/announcement-api";
 import { contestApiSlice } from "./contest/contest-api";
 import { waitListApi } from "./admin/waitlist-api";
 import { userDetailApi } from "./profile/user-detail-api";
 import { notificationApiSlice } from "./notifications/notifications-api";
-import contestSlice from "./journey/contest-slice";
-import { contestsApi } from "./contest/contest-api";
 import { GroupDataApi } from "./groups/groups-api";
+import contestSlice from "./contest/contest-slice";
 
 export const store = configureStore({
   reducer: {
@@ -35,8 +33,8 @@ export const store = configureStore({
       waitListApi.middleware,
       userDetailApi.middleware,
       announcementApiSlice.middleware,
-      notificationApiSlice.middleware
-      contestsApi.middleware,
+      notificationApiSlice.middleware,
+      contestApiSlice.middleware,
       GroupDataApi.middleware
     );
   },
