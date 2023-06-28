@@ -8,7 +8,11 @@ import { announcementApiSlice } from "./announcement/announcement-api";
 import { contestApiSlice } from "./contest/contest-api";
 import { waitListApi } from "./admin/waitlist-api";
 import { userDetailApi } from "./profile/user-detail-api";
+<<<<<<< HEAD
 import { notificationApiSlice } from "./notifications/notifications-api";
+=======
+import { resourceApiSlice } from "./resource/resource-api";
+>>>>>>> fe8ee5c (add create resource)
 
 export const store = configureStore({
   reducer: {
@@ -21,7 +25,11 @@ export const store = configureStore({
     [announcementApiSlice.reducerPath]: announcementApiSlice.reducer,
     [waitListApi.reducerPath]: waitListApi.reducer,
     [userDetailApi.reducerPath]: userDetailApi.reducer,
+<<<<<<< HEAD
     [notificationApiSlice.reducerPath]: notificationApiSlice.reducer,
+=======
+    [resourceApiSlice.reducerPath]: resourceApiSlice.reducer,
+>>>>>>> fe8ee5c (add create resource)
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
@@ -31,7 +39,11 @@ export const store = configureStore({
       waitListApi.middleware,
       userDetailApi.middleware,
       announcementApiSlice.middleware,
+<<<<<<< HEAD
       notificationApiSlice.middleware
+=======
+      resourceApiSlice.middleware
+>>>>>>> fe8ee5c (add create resource)
     );
   },
 });
