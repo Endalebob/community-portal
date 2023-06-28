@@ -30,6 +30,13 @@ export const contestApiSlice = createApi({
       query: (id) => `/Contests/${id}`,
       providesTags: ["Contest"],
     }),
+    fillContestStat: builder.mutation({
+      query: (id) => ({
+        url: `/Contests/fill/${id}`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Contest"],
+    }),
     getContests: builder.query({
       query: () => "/Contests",
       providesTags: ["Contest"],
@@ -65,4 +72,5 @@ export const {
   useDeleteContestMutation,
   useGetRecentContestsQuery,
   useGetUpcomingContestsQuery,
+  useFillContestStatMutation,
 } = contestApiSlice;
