@@ -18,7 +18,7 @@ const StudentDetail = () => {
         {/* Basic Info */}
         <div>
           <div className="flex w-full font-medium text-gray-700 py-2 items-center space-x-10 justify-between">
-            <h3 className="whitespace-nowrap font-light">Basic Info</h3>
+            <h3 className="whitespace-nowrap">Basic Info</h3>
             <div className="w-full">
               <hr />
             </div>
@@ -54,7 +54,7 @@ const StudentDetail = () => {
         {/* Work and Education */}
         <div>
           <div className="flex w-full font-medium text-gray-700 py-2 items-center space-x-10 justify-between">
-            <h3 className="whitespace-nowrap font-light">Work and Education</h3>
+            <h3 className="whitespace-nowrap">Work and Education</h3>
             <div className="w-full">
               <hr />
             </div>
