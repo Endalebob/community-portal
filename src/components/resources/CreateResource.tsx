@@ -11,7 +11,7 @@ import {
 
 interface CreateResourcesProps {
   onClose: () => void;
-  topicId: string;
+  topicId: number;
 }
 
 const CreateResources: React.FC<CreateResourcesProps> = ({
@@ -21,7 +21,7 @@ const CreateResources: React.FC<CreateResourcesProps> = ({
   const [resource, setResource] = useState({
     title: "",
     content: "",
-    topicId: "",
+    topicId: topicId,
   });
   const [resourceError, setResourceError] = useState({
     title: "",
