@@ -8,6 +8,7 @@ import { RootState } from "<@>/store";
 import { useAppDispatch } from "<@>/store/hooks";
 import { clearToken } from "<@>/store/auth/auth-slice";
 import UserAvatar from "../common/UserAvatar";
+import { IoNotificationsSharp } from "react-icons/io5";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -120,7 +121,6 @@ const NavBar: React.FC = () => {
 
   const auth = useSelector((state: RootState) => state.auth);
 
-
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -229,22 +229,27 @@ const NavBar: React.FC = () => {
 
             {/* Logged in user profile icon */}
             {isAuthenticated && (
-              <button
-                className="shadow rounded-full"
-                onClick={() => {
-                  setShowProfile(() => !showProfile);
-                  setShowNav(false);
-                }}
-              >
-                {auth.profilePicture && auth.profilePicture !== "null" ? (
-                  <UserAvatar
-                    fullName={auth.fullName!}
-                    profilePhotoUrl={auth.profilePicture!}
-                  />
-                ) : (
-                  <UserAvatar fullName={auth.fullName!} profilePhotoUrl="" />
-                )}
-              </button>
+              <div className="flex items-center gap-x-2">
+                <Link href={"/notifications"}>
+                  <IoNotificationsSharp className="text-gray-700 text-2xl hover:text-gray-500" />
+                </Link>
+                <button
+                  className="shadow rounded-full"
+                  onClick={() => {
+                    setShowProfile(() => !showProfile);
+                    setShowNav(false);
+                  }}
+                >
+                  {auth.profilePicture && auth.profilePicture !== "null" ? (
+                    <UserAvatar
+                      fullName={auth.fullName!}
+                      profilePhotoUrl={auth.profilePicture!}
+                    />
+                  ) : (
+                    <UserAvatar fullName={auth.fullName!} profilePhotoUrl="" />
+                  )}
+                </button>
+              </div>
             )}
           </div>
 
