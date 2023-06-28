@@ -5,10 +5,11 @@ import ProgressIndicator from "../common/ProgressIndicator";
 import { AiOutlineCheck } from "react-icons/ai";
 import Editor from "../common/TextEditor";
 import { useEditResourceMutation } from "<@>/store/resource/resource-api";
+import IResource from "<@>/types/resources/resourcesType";
 
 interface EditResourcesProps {
   onClose: () => void;
-  resource: Resource;
+  resource: IResource;
 }
 
 const EditResources: React.FC<EditResourcesProps> = ({
