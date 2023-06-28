@@ -66,7 +66,7 @@ const index: React.FC = () => {
       )}
 
       <div className="flex justify-between w-full">
-        <p className="opacity-60 text-lg">Announcements</p>
+        <p className="text-zinc-400 font-medium text-2xl">Announcements</p>
 
         <Button
           onClick={() => {
@@ -74,11 +74,12 @@ const index: React.FC = () => {
             setShowModal(true);
           }}
           startIcon={<AiOutlinePlus></AiOutlinePlus>}
-          label="New Announcements"
+          className="font-bold"
+          label="Announcement"
         />
       </div>
 
-      <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-8 p-4">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-8 py-4">
         {isLoading ? (
           Array.from({ length: 16 }).map((_, index) => (
             <div className="animate-pulse flex flex-col gap-6 rounded-md shadow-md p-4 w-full">
