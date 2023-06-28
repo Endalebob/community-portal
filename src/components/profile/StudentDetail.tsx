@@ -7,39 +7,23 @@ const StudentDetail = () => {
   const applicant = useSelector((state: RootState) => state.user.user);
 
   return (
-    <div className=" bg-white md:col-span-3 xl:col-span-4 p-2 md:p-7">
-      {applicant.country && (
-        <div className="flex justify-end items-center font-light">
-          <CiLocationOn className="mr-4" />
-          {applicant.country || ""}
-        </div>
-      )}
-
-      <div className="px-4 py-6 my-0.5 shadow-sm justify-between  text-gray-500 ">
-        <h2 className="font-bold text-xl capitalize mb-3">
+    <div className=" bg-white md:col-span-3 xl:col-span-4 p-2 md:p-7 shadow-md h-full rounded-md">
+      <div className="px-4 py-2 justify-between">
+        <h2 className="font-medium text-xl capitalize mb-3">
           {applicant.fullName}
         </h2>
         <p className="">{applicant.shortBio || ""}</p>
       </div>
-      <div className="py-4 px-4">
-        <div className="flex w-full font-medium text-gray-700 py-2 space-x-10 items-center">
-          <h3 className="whitespace-nowrap">Personal Info</h3>
-          <div className="w-full">
-            <hr />
-          </div>
-        </div>
-
+      <div className="py-4 px-4 gap-6 flex flex-col">
         {/* Basic Info */}
-        <div className="my-6">
+        <div>
           <div className="flex w-full font-medium text-gray-700 py-2 items-center space-x-10 justify-between">
-            <h3 className="whitespace-nowrap uppercase font-light">
-              Basic Info
-            </h3>
+            <h3 className="whitespace-nowrap font-light">Basic Info</h3>
             <div className="w-full">
               <hr />
             </div>
           </div>
-          <div className="mt-4 grid grid-cols-2 lg:grid-cols-6 ">
+          <div className="mt-4 flex gap-4 ">
             <div className="col-span-1 grid-rows-4 grid-cols-1 space-y-5">
               <p className="whitespace-nowrap">Full Name: </p>
               <p className="whitespace-nowrap">Phone number:</p>
@@ -68,25 +52,21 @@ const StudentDetail = () => {
         </div>
 
         {/* Work and Education */}
-
-        <div className="my-6">
+        <div>
           <div className="flex w-full font-medium text-gray-700 py-2 items-center space-x-10 justify-between">
-            <h3 className="whitespace-nowrap uppercase font-light">
-              Work and Education
-            </h3>
+            <h3 className="whitespace-nowrap font-light">Work and Education</h3>
             <div className="w-full">
               <hr />
             </div>
           </div>
-          <div className="mt-4 grid grid-cols-2 lg:grid-cols-6 ">
-            <div className="col-span-1 grid-rows-4 grid-cols-1 space-y-5">
+          <div className="mt-4 flex gap-6">
+            <div className="col-span-1 space-y-5">
               <p className="whitespace-nowrap">Education Institute: </p>
               <p className="whitespace-nowrap">Department:</p>
               <p className="whitespace-nowrap">Graduation Year: </p>
               <p className="whitespace-nowrap">CV: </p>
             </div>
-
-            <div className="col-span-1 grid-rows-4 grid-cols-1 space-y-5">
+            <div className="col-span-1 space-y-5">
               <span className="block text-gray-500">
                 {applicant?.university || "-"}
               </span>
