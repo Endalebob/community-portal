@@ -132,10 +132,10 @@ const Signin = () => {
       <AuthImage />
 
       <div className="flex flex-col w-full md:w-1/2 justify-center items-center pb-8 rounded-lg">
-        <h1 className="mt-8 pb-2 text-center text-3xl font-bold text-primary-text">
+        <h1 className="mt-8 pb-2 text-center text-3xl font-semibold text-primary-text">
           Log in to your account
         </h1>
-        <h4 className="pb-4">
+        <h4>
           <div className="flex flex-wrap gap-1 text-secondary-text">
             Don't have an account?
             <p
@@ -143,11 +143,11 @@ const Signin = () => {
               style={{ cursor: "pointer" }}
               onClick={handleSignup}
             >
-              Signup
+              Sign up
             </p>
           </div>
         </h4>
-        <form className="flex flex-col space-y-2 w-full sm:w-[70%] ml-10">
+        <form className="flex flex-col space-y-2 w-full sm:w-[70%] ml-10 mt-8">
           {errors.fromBackEnd && (
             <p className="text-red-500 text-[14px]">{errors.fromBackEnd}</p>
           )}
@@ -155,7 +155,6 @@ const Signin = () => {
           <InputField
             label="Email"
             name="email"
-            width="max-w-[80%]"
             type="text"
             placeholder="Enter your email"
             value={email}
@@ -165,7 +164,6 @@ const Signin = () => {
           <InputField
             label="Password"
             name="password"
-            width="max-w-[80%]"
             type={showPassword ? "text" : "password"}
             placeholder="********"
             value={password}
@@ -175,27 +173,23 @@ const Signin = () => {
             togglePasswordVisibility={togglePasswordVisibility}
             showPassword={showPassword}
           />
-          <div className="flex">
+          <div className="flex items-center gap-2 pt-4">
             <input
               type="checkbox"
-              className="mt-1 mr-2"
               name="remember"
               id="remember"
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)}
             />
-            <label
-              htmlFor="remember"
-              className="text-primary-text text-[15px] font-semibold"
-            >
+            <label htmlFor="remember" className="text-primary-text text-[15px]">
               Remember me
             </label>
           </div>
-          <div className="flex">
+          <div className="flex pt-4">
             <button
               type="button"
               onClick={() => handleSignin()}
-              className="text-white max-w-[100px] bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 mb-2"
+              className="text-white w-full bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               disabled={isSigninLoading}
             >
               {isSigninLoading ? (
@@ -204,27 +198,6 @@ const Signin = () => {
                 "Sign in"
               )}
             </button>
-
-            <Link href="/">
-              <button className="flex items-center justify-center px-5 py-2 text-sm text-black transition-colors duration-200 bg-white border rounded-lg gap-x-2 hover:bg-gray-100">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-5 h-5 rtl:rotate-180"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                  />
-                </svg>
-
-                <span>Go back Home</span>
-              </button>
-            </Link>
           </div>
         </form>
       </div>
