@@ -209,7 +209,7 @@ const Edit = () => {
         Edit Profile
       </h1>
 
-      <div className="flex border bg-gray-50 m-10 p-10">
+      <div className="flex bg-gray-50 m-10 p-10">
         <div className="flex w-full space-x-10">
           <div>
             {imagePreview ? (
@@ -286,7 +286,7 @@ const Edit = () => {
         </div>
       </div>
 
-      <div className="border bg-gray-50 m-10 p-10">
+      <div className="bg-gray-50 m-10 p-10">
         <h3 className="text-lg uppercase text-gray-600 font-semibold pb-3">
           BASIC INFO
         </h3>
@@ -353,7 +353,7 @@ const Edit = () => {
           />
         </div>
       </div>
-      <div className="border bg-gray-50 m-10 p-10">
+      <div className="bg-gray-50 m-10 p-10">
         <h3 className="text-lg uppercase text-gray-600 font-semibold pb-3">
           User Handles
         </h3>
@@ -405,7 +405,7 @@ const Edit = () => {
           />
         </div>
       </div>
-      <div className="border bg-gray-50 m-10 p-10 grid grid-cols-3 gap-4">
+      <div className="bg-gray-50 m-10 p-10 grid grid-cols-3 gap-4">
         <div>
           <p>Cv</p>
           <input
