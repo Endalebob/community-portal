@@ -143,7 +143,7 @@ const WaitList: React.FC = () => {
         {userDetailId ? (
           <StudentDetail userId={userDetailId} />
         ) : (
-          <div className="flex py-10 items-center text-gray-500 space-x-2 justify-center">
+          <div className="flex py-10 items-center text-gray-500 space-x-2 justify-center h-full w-full">
             Click on a user to view details
           </div>
         )}
