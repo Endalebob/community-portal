@@ -6,6 +6,10 @@ import { GrAdd } from "react-icons/gr";
 import { BsFillJournalBookmarkFill } from "react-icons/bs";
 import { MdAdd, MdMenu } from "react-icons/md";
 import { useGetResourcesQuery } from "<@>/store/resource/resource-api";
+import Modal from "../common/Modal";
+import CreateResources from "./CreateResource";
+import EditResources from "./EditResource";
+import CreateTopic from "./CreateTopic";
 
 const SideBar: React.FC = () => {
   const [selectedResource, setSelectedResource] = useState<number>(0);
@@ -13,7 +17,9 @@ const SideBar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [resources, setResources] = useState<IResourceTopic[]>([]);
   const { data = [], isSuccess, isLoading } = useGetResourcesQuery("");
-
+  const [createResource, setCreateResouce] = useState(false);
+  const [editResource, setEditResouce] = useState(false);
+  const [createTopic, setCreateTopic] = useState(false);
   useEffect(() => {
     if (isSuccess && data.value) {
       const resource = data.value as unknown as IResourceTopic[];
@@ -50,6 +56,21 @@ const SideBar: React.FC = () => {
           isSidebarOpen ? "block" : "hidden"
         }`}
       >
+        {createResource && (
+          <Modal onClose={() => setCreateResouce(false)}>
+            <CreateResources
+              onClose={() => setCreateResouce(false)}
+              topicId={selectedResource}
+            />
+          </Modal>
+        )}
+
+        {createTopic && (
+          <Modal onClose={() => setCreateTopic(false)}>
+            <CreateTopic onClose={() => setCreateTopic(false)} />
+          </Modal>
+        )}
+
         <div className="flex items-center justify-between p-4">
           <h1 className="text-2xl font-bold">Resources</h1>
           <button className="text-2xl" onClick={handleToggleMenu}>
@@ -98,7 +119,10 @@ const SideBar: React.FC = () => {
                 ))}
               {selectedResource === resource.id && (
                 <div className="flex items-center ml-10">
-                  <button className="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md">
+                  <button
+                    onClick={() => setCreateResouce(true)}
+                    className="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md"
+                  >
                     <MdAdd className="mr-2 text-white" />
                     Add Chapter
                   </button>
@@ -108,7 +132,10 @@ const SideBar: React.FC = () => {
           ))}
         </div>
         <div className="ml-5 my-20">
-          <button className="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md">
+          <button
+            onClick={() => setCreateTopic(true)}
+            className="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md"
+          >
             <MdAdd className="mr-2" />
             Add Topic
           </button>
