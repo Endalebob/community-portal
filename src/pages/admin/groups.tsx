@@ -4,8 +4,8 @@ import { useState } from "react";
 import OverView from "../../components/groups/OverView";
 import { useGetGroupsQuery } from "<@>/store/groups/groups-api";
 import SideBar from "<@>/components/groups/SideBar";
-// import Loading from "<@>/components/common/Loading";
-// import FetchingError from "<@>/components/common/FetchingError";
+import Loading from "<@>/components/common/Loading";
+import FetchingError from "<@>/components/common/FetchingError";
 import Modal from "<@>/components/common/Modal";
 import CreateGroup from "<@>/components/groups/CreateGroup";
 
@@ -22,10 +22,10 @@ const DashBoard: React.FC = () => {
   }
 
   if (isLoading) {
-    // return <Loading />;
+    return <Loading />;
   }
   if (error) {
-    // return <FetchingError />;
+    return <FetchingError />;
   }
   const groupData = data?.value;
 
@@ -79,11 +79,6 @@ const DashBoard: React.FC = () => {
           <SideBar id={selecteGroup} setSelectedGroup={setSelectedGroup} />
         </div>
       )}
-      {/* <div>
-        <Modal
-        onClose = {handleClose}
-        children = {<SideBar id={selecteGroup} setSelectedGroup={setSelectedGroup} />}/>
-      </div> */}
     </div>
   );
 };

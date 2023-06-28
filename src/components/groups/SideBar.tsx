@@ -7,6 +7,8 @@ import {
 import ConfrimationCard from "./ConfirmAutoFill";
 import Modal from "../common/Modal";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import Loading from "../common/Loading";
+import FetchingError from "../common/FetchingError";
 
 interface SidebarProps {
   id: string;
@@ -21,7 +23,6 @@ const Sidebar: React.FC<SidebarProps> = ({ id, setSelectedGroup }) => {
 
   const handleAutofill = async (id: any) => {
     await autoFillGroup({ id });
-    console.log("hey there", autoFillGroup)
   };
 
   const handleClose = () => {
@@ -29,16 +30,15 @@ const Sidebar: React.FC<SidebarProps> = ({ id, setSelectedGroup }) => {
   };
 
   if (isLoading) {
-    return <div>loading...</div>
+    return <Loading/>
   }
   if (error) {
-    return <div>Error</div>;
+    return <FetchingError/>;
   }
   const memberData = data?.value;
-  console.log("hey",data)
 
   return (
-    <div className="flex flex-col sticky top-0 h-screen overflow-scroll waitlist-card-scroll sm:rounded-md border-l ">
+    <div className="flex flex-col sticky top-0 h-screen overflow-scroll waitlist-card-scroll sm:rounded-md border-l border-b">
       <div className=" sticky top-0 bg-white">
         <div className=" flex text-lg leading-6 font-medium p-2 border-b border-gray-100 text-gray-900 text-left ">
           <button onClick={() => setSelectedGroup("")} className="p-2 my-auto">

@@ -5,10 +5,12 @@ interface createProps {
   handleClose: () => void;
 }
 
-const ConfrimationCard: React.FC<createProps> = ({ handleAutoFill, handleClose }) => {
+const ConfrimationCard: React.FC<createProps> = ({
+  handleAutoFill,
+  handleClose,
+}) => {
   const handleConfirm = () => {
     handleAutoFill();
-    console.log("wegen",handleAutoFill)
   };
 
   return (
@@ -21,8 +23,10 @@ const ConfrimationCard: React.FC<createProps> = ({ handleAutoFill, handleClose }
         </p>
       </div>
       <div className="confirmation pt-8 justify-end">
-        <button className="mr-4  text-xl justify-self-end text-light"
-        onClick = {handleClose}>
+        <button
+          className="mr-4  text-xl justify-self-end text-light"
+          onClick={handleClose}
+        >
           Cancel
         </button>
         <button

@@ -1,5 +1,4 @@
 import React from "react";
-// import CardProps from "../../types/group/overview"
 import { PiStudentFill } from "react-icons/pi";
 import { MdGroups2 } from 'react-icons/md';
 import OverViewCard, { CardProps } from "../common/OverViewCard";

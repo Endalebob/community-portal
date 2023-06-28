@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useCreateGroupMutation } from "<@>/store/groups/groups-api";
 import Group from "<@>/types/groups/group-body";
 
-interface CreateGroup{
+interface CreateGroup {
   handleClose: () => void;
 }
 
@@ -20,7 +20,7 @@ const initialError = {
   divisionId: "",
 };
 
-const CreateGroup: React.FC <CreateGroup> = ({handleClose}) => {
+const CreateGroup: React.FC<CreateGroup> = ({ handleClose }) => {
   const [group, setGroup] = useState(initialState);
   const [createData, { isLoading, error }] = useCreateGroupMutation();
   const [errors, setErrors] = useState(initialError);
@@ -79,25 +79,19 @@ const CreateGroup: React.FC <CreateGroup> = ({handleClose}) => {
       }).unwrap();
       setGroup(initialState);
       setErrors(initialError);
-    } catch (errors) {
-    }
+    } catch (errors) {}
   };
 
   const handleCreat = () => {
-    setCreat(true)
-  }
+    setCreat(true);
+  };
 
   return (
     <div className="flex flex-col mb-4 items-center w-[100vw] md:w-[80vw] lg:w-[45vw]">
-      <h1 className="text-2xl font-semibold">
-        Create New Group
-      </h1>
+      <h1 className="text-2xl font-semibold">Create New Group</h1>
       <form className="w-full px-10" onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label
-            htmlFor="group-name"
-            className="text-gray-500 mb-2"
-          >
+          <label htmlFor="group-name" className="text-gray-500 mb-2">
             Group Name
           </label>
           <input
@@ -112,10 +106,7 @@ const CreateGroup: React.FC <CreateGroup> = ({handleClose}) => {
           {errors.name && <p className="text-red-500"> {errors.name}</p>}
         </div>
         <div className="mb-4">
-          <label
-            htmlFor="group-size"
-            className="text-gray-600 mb-1"
-          >
+          <label htmlFor="group-size" className="text-gray-600 mb-1">
             Group Size
           </label>
           <input
@@ -133,10 +124,7 @@ const CreateGroup: React.FC <CreateGroup> = ({handleClose}) => {
           )}
         </div>
         <div className="mb-4">
-          <label
-            htmlFor="group-size"
-            className="text-gray-500"
-          >
+          <label htmlFor="group-size" className="text-gray-500">
             Group Telegram Link
           </label>
           <input
@@ -154,10 +142,7 @@ const CreateGroup: React.FC <CreateGroup> = ({handleClose}) => {
           )}
         </div>
         <div className="mb-4">
-          <label
-            htmlFor="division-level"
-            className="text-gray-500 "
-          >
+          <label htmlFor="division-level" className="text-gray-500 ">
             Select Division
           </label>
           <select
@@ -186,10 +171,7 @@ const CreateGroup: React.FC <CreateGroup> = ({handleClose}) => {
           )}
         </div>
         <div className="flex justify-end items-center py-4">
-          <button
-            className="mr-4"
-            onClick={handleClose}
-          >
+          <button className="mr-4" onClick={handleClose}>
             Cancel
           </button>
           <button
