@@ -209,7 +209,7 @@ const Edit = () => {
         Edit Profile
       </h1>
 
-      <div className="flex bg-gray-50 md:m-10 p-8 m-4 border md:p-10">
+      <div className="flex bg-gray-50 md:m-10 p-8 m-4 rounded-lg border border-gray-100 md:p-10">
         <div className="flex flex-col md:flex-row items-center justify-center w-full md:space-x-10">
           <div>
             {imagePreview ? (
@@ -286,7 +286,7 @@ const Edit = () => {
         </div>
       </div>
 
-      <div className="bg-gray-50 md:m-10 p-8 m-4 border md:p-10">
+      <div className="bg-gray-50 md:m-10 p-8 m-4 rounded-lg border border-gray-100 md:p-10">
         <h3 className="text-lg uppercase text-gray-600 font-semibold pb-3">
           BASIC INFO
         </h3>
@@ -353,7 +353,7 @@ const Edit = () => {
           />
         </div>
       </div>
-      <div className="bg-gray-50 md:m-10 p-8 m-4 border md:p-10">
+      <div className="bg-gray-50 md:m-10 p-8 m-4 rounded-lg border border-gray-100 md:p-10">
         <h3 className="text-lg uppercase text-gray-600 font-semibold pb-3">
           User Handles
         </h3>
@@ -405,7 +405,7 @@ const Edit = () => {
           />
         </div>
       </div>
-      <div className="bg-gray-50 md:m-10 p-8 m-4 border md:p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="bg-gray-50 md:m-10 p-8 m-4 rounded-lg border border-gray-100 md:p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
           <p>Cv</p>
           <input
