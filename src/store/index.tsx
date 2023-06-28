@@ -9,12 +9,16 @@ import { contestApiSlice } from "./contest/contest-api";
 import { waitListApi } from "./admin/waitlist-api";
 import { userDetailApi } from "./profile/user-detail-api";
 import { notificationApiSlice } from "./notifications/notifications-api";
+import contestSlice from "./journey/contest-slice";
+import { contestsApi } from "./contest/contest-api";
+import { GroupDataApi } from "./groups/groups-api";
 
 export const store = configureStore({
   reducer: {
     auth: authSlice,
     user: userSlice,
     selectedContest: contestSlice,
+    [GroupDataApi.reducerPath]: GroupDataApi.reducer,
     [contestApiSlice.reducerPath]: contestApiSlice.reducer,
     [stepApiSlice.reducerPath]: stepApiSlice.reducer,
     [authApiSlice.reducerPath]: authApiSlice.reducer,
@@ -32,6 +36,8 @@ export const store = configureStore({
       userDetailApi.middleware,
       announcementApiSlice.middleware,
       notificationApiSlice.middleware
+      contestsApi.middleware,
+      GroupDataApi.middleware
     );
   },
 });

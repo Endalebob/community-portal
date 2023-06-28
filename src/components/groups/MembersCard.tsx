@@ -1,33 +1,36 @@
-import { FC } from "react";
-import Image from "next/image";
-// import { Education } from "../models/education";
+import React from "react";
+// import UserAvatar from "../common/UserAvatar";
 
-interface CardProps {
-  name: string;
-  email: string;
-  imageUrl: string;
-//   education: Education;
-  date: string;
+interface UserProps {
+  fullName: string;
+  profilePicture: string;
+  telegramUsername: string;
+  university: string;
+  graduationYear: string;
 }
 
-const Card: FC<CardProps> = ({ name, email, imageUrl, date }) => {
+const ProfileCard: React.FC<UserProps> = ({
+  fullName,
+  profilePicture,
+  telegramUsername,
+  university,
+  graduationYear,
+}) => {
   return (
-    <div className="flex items-center space-x-4 p-4 border-b border-gray-300">
-      <div className="flex-shrink-0 h-12 w-12">
-        <Image src={imageUrl} alt={name} layout="responsive" width={48} height={48} />
+    <div className="flex px-6 py-3 w-full border-b border-gray-100 justify-between items-center rounded-sm ">
+      {/* <UserAvatar fullName={fullName} profilePhotoUrl={profilePicture} /> */}
+      <div className="pl-2">
+        <p className="font-medium text-sm text-gray-500">{fullName}</p>
+        <p className="text-sm text-gray-400 ">{telegramUsername}</p>
       </div>
-      <div>
-        <p className="font-medium text-gray-900">{name}</p>
-        <p className="text-gray-500">{email}</p>
-      </div>
-      <div className="flex-1 flex justify-end">
-        {/* <p className="text-gray-500">{education}</p> */}
-        <div className="border-l border-gray-300 pl-4 ml-4">
-          <p className="text-gray-500">{date}</p>
+      <div className="flex-1 flex justify-end text-sm pl-4 text-gray-600">
+        <p className="pr-2">{university}</p>
+        <div className="border-l border-gray-300 pl-2">
+          <p>{graduationYear}</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default Card;
+export default ProfileCard;

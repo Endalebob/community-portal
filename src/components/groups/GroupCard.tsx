@@ -1,24 +1,31 @@
-import React from 'react';
+import React from "react";
 
 interface CardProps {
-  id: string,
-  groupName: string,
-  memberCount: string,
+  groupName: string;
+  memberCount: number;
+  capacity: number;
+  handleCardClick: () => void;
 }
 
-const GroupCard: React.FC<CardProps> = ({ id, groupName, memberCount}) => {
-  
+const GroupCard: React.FC<CardProps> = ({
+  groupName,
+  memberCount,
+  capacity,
+  handleCardClick,
+}) => {
   return (
-
-    <div className="flex items-center p-4 bg-white max-w-xs w-64 shadow-sm rounded-xl border-l border-r border-b">
-    <div className="font-semibold text-xl text-gray-500 text-left p-8"><h1>Groups</h1></div>
-      <div className="p-4">
-        <h2 className="text-primary-text font-bold text-2xl mx-auto">{groupName}</h2>
-        <p className="text-secondary-text text-sm text-left">{memberCount}</p>
+    <div
+      onClick={handleCardClick}
+      className="flex items-center p-4 bg-white max-w-xs w-60 shadow-sm rounded-xl border-l border-r border-b"
+    >
+      <div className="card-item">
+        <h2 className="text-gray-600 font-semibold text-2xl">{groupName}</h2>
+        <p className="text-gray-400 text-sm">
+          {memberCount} / {capacity}
+        </p>
       </div>
     </div>
- 
-    )
+  );
 };
 
 export default GroupCard;
