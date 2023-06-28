@@ -35,7 +35,3 @@ export const resourcesApiSlice = createApi({
     };
   },
 });
-
-export const { useGetResourcesQuery, useGetResourceByIdQuery } =
-  resourcesApiSlice;
-export default resourcesApiSlice.reducer;

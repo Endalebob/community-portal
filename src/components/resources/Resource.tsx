@@ -1,4 +1,4 @@
-import { useGetResourceByIdQuery } from "<@>/store/resources/resources-api";
+import { useGetResourceByIdQuery } from "<@>/store/resource/resource-api";
 import IResourceTopic from "<@>/types/resources/resourceListType";
 import IResource from "<@>/types/resources/resourcesType";
 import React, { useEffect, useState } from "react";
