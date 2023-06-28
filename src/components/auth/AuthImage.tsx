@@ -4,7 +4,7 @@ import React from "react";
 
 const AuthImage = () => {
   return (
-    <div className="hidden md:flex h-screen w-1/2 bg-cover bg-center relative  bg-gray-500 bg-[url('/images/a2Sv.png')] bg-blend-multiply">
+    <div className="hidden md:flex h-screen w-1/2 bg-cover bg-center relative  bg-gray-600 bg-[url('/images/a2Sv.png')] bg-blend-multiply">
       <div className="absolute inset-0 justify-center">
         <div className="mx-5 pt-5 flex flex-col h-full justify-between">
           <Link href="/">
