@@ -59,7 +59,7 @@ const EditAnnouncement: React.FC<EditAnnouncementProps> = ({
   }, [isSuccess]);
   return (
     <div className="w-full h-full p-2 flex flex-col gap-2">
-      <p className="font-bold text-lg">Edit Announcement</p>
+      <p className="font-bold text-lg">Edit announcement</p>
       <div>
         {editError &&
           editError.data?.error?.map((err: any, index: number) => {

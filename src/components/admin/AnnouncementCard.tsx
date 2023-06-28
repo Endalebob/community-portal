@@ -29,7 +29,6 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
         <p className="text-lg font-medium">{title}</p>
 
         <p className="line-clamp-4 max-h-36">
-          {" "}
           <div dangerouslySetInnerHTML={createMarkup(description)} />
         </p>
       </div>
