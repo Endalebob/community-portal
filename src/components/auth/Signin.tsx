@@ -155,6 +155,7 @@ const Signin = () => {
           <InputField
             label="Email"
             name="email"
+            width="max-w-[80%]"
             type="text"
             placeholder="Enter your email"
             value={email}
@@ -164,6 +165,7 @@ const Signin = () => {
           <InputField
             label="Password"
             name="password"
+            width="max-w-[80%]"
             type={showPassword ? "text" : "password"}
             placeholder="********"
             value={password}
