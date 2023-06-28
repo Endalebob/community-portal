@@ -23,7 +23,7 @@ export const resourceApiSlice = createApi({
         query: (id) => `/resource/${id}`,
         providesTags: ["Resource"],
       }),
-      getResources: builder.query<Response, any>({
+      getResources: builder.query({
         query: () => "/resource",
         providesTags: ["Resources"],
       }),
@@ -57,6 +57,13 @@ export const resourceApiSlice = createApi({
         },
         invalidatesTags: ["Resources"],
       }),
+      getResourceById: builder.query({
+        query: (id) => ({
+          url: `/${id}`,
+          method: "GET",
+        }),
+        providesTags: ["Resources"],
+      }),
     };
   },
 });
@@ -69,4 +76,5 @@ export const {
   useCreateResourceMutation,
   useCreateTopicMutation,
   useEditTopicMutation,
+  useGetResourceByIdQuery,
 } = resourceApiSlice;
