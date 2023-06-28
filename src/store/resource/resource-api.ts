@@ -59,7 +59,7 @@ export const resourceApiSlice = createApi({
       }),
       getResourceById: builder.query({
         query: (id) => ({
-          url: `/${id}`,
+          url: `/resource/${id}`,
           method: "GET",
         }),
         providesTags: ["Resources"],
