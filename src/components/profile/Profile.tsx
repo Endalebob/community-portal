@@ -58,19 +58,15 @@ const Profile = () => {
   }
 
   return (
-    <section className="bg-[#F6F6FC]">
-      <h1 className="ml-28 py-8 text-xl md:text-2xl text-gray-500 font-bold font-sans">
-        Profile
-      </h1>
-
+    <section className="py-4">
       <div className="grid grid-cols-1 items-start md:grid-cols-6 md:p-4 xl:px-20 space-y-6 md:space-y-0 lg:space-x-6 mx-2">
         <div className="flex flex-col gap-5 justify-center items-center  md:col-span-3 xl:col-span-2">
           <ProfileCard />
           <div className="w-96 mx-2">
-            <h1 className="font-light font-sans uppercase whitespace-nowrap p-6 bg-white">
-              Programming site handles
-            </h1>
-            <div className="space-y-2 max-w-md rounded overflow-hidden shadow-lg p-10 align-top bg-white">
+            <div className="space-y-2 max-w-md rounded-lg overflow-hidden shadow-md p-8 align-top bg-white">
+              <h1 className="font-medium text-lg font-sans whitespace-nowrap mb-4 bg-white">
+                Programming site handles
+              </h1>
               {programmingSites.map((item, index) => {
                 return item.handle && item.handle != null ? (
                   <ProgrammingHandles key={index} {...item} />

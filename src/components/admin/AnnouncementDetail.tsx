@@ -4,7 +4,6 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Announcement } from "<@>/types/admin/Announcement";
 import { useDeleteAnnouncementMutation } from "<@>/store/announcement/announcement-api";
 import { MdModeEditOutline } from "react-icons/md";
-import DOMPurify from "dompurify";
 import { createMarkup } from "../common/TextEditor";
 
 interface AnnouncementDetailProps {
@@ -28,7 +27,7 @@ const AnnouncementDetail: React.FC<AnnouncementDetailProps> = ({
     }
   }, [isSuccess, data, isDeleting, isError]);
   return (
-    <div className="w-full max-w-5xl h-full p-2 flex flex-col gap-4">
+    <div className="w-screen max-w-5xl h-full p-2 flex flex-col gap-4 min-h-screen">
       <div className="flex justify-between items-start gap-24">
         <p className="font-bold text-lg">
           <ReactMarkdown children={title} />

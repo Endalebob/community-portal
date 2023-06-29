@@ -5,7 +5,6 @@ import React from "react";
 const SigninPage = () => {
   return (
     <>
-      {" "}
       <Head>
         <title>Signin</title>
       </Head>

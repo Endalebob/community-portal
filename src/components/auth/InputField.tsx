@@ -47,7 +47,7 @@ const InputField: React.FC<InputFieldProps> = ({
       />
       {isPasswordField && (
         <span
-          className="absolute inset-y-0 self-end top-1/2 text-gray-500 hover:text-gray-700 pt-1 right-1/4 cursor-pointer"
+          className="absolute inset-y-0 self-end top-1/2 text-gray-500 hover:text-gray-700 pt-1 right-4 cursor-pointer"
           onClick={handleShowHideClick}
         >
           {showPassword ? <FaEyeSlash /> : <FaEye />}

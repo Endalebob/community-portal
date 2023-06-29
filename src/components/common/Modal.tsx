@@ -33,19 +33,11 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
   return (
     <div>
       {
-        <div className="fixed inset-0 bg-opacity-50 bg-gray-900 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-opacity-20 bg-black z-50 flex items-center justify-center">
           <div
             ref={modalRef}
             className="bg-primarybg m-2 p-4 rounded-lg shadow-lg max-h-[80%] overflow-auto"
           >
-            <div className="w-full flex justify-end">
-              <AiOutlineClose
-                onClick={() => {
-                  onClose();
-                }}
-                className=" rounded-full shrink-0 mt-1 hover:bg-secondary  p-1 w-7 h-7 border"
-              />
-            </div>
             {children}
           </div>
         </div>

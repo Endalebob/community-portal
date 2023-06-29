@@ -23,13 +23,12 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
   return (
     <div
       onClick={onClick}
-      className="border rounded-md shadow-md border-gray-50 p-4 flex flex-col justify-between hover:cursor-pointer"
+      className="border rounded-md shadow-md border-gray-50 p-4 flex flex-col justify-between hover:cursor-pointer max-h-60"
     >
       <div className="flex flex-col gap-4">
         <p className="text-lg font-medium">{title}</p>
 
-        <p className="line-clamp-4">
-          {" "}
+        <p className="line-clamp-4 max-h-36">
           <div dangerouslySetInnerHTML={createMarkup(description)} />
         </p>
       </div>
