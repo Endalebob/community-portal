@@ -36,7 +36,6 @@ const Footer: React.FC = () => {
       )}
     >
       <div className="flex items-center gap-4">
-        <Image src="/A2SV-Logo.svg" alt="logo" width={90} height={90} />
         <span className="text-sm text-center text-gray-500">
           © 2023 A2SV Foundation. All rights reserved.
         </span>
