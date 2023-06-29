@@ -4,7 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import DOMPurify from "dompurify";
 
 export const createMarkup = (html: string) => {
-  return { __html: DOMPurify.sanitize(html) };
+  return { __html: html };
 };
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 

@@ -12,6 +12,7 @@ import EditResources from "./EditResource";
 import Modal from "../common/Modal";
 import ProgressIndicator from "../common/ProgressIndicator";
 import Error from "../common/Error";
+import { useAppSelector } from "<@>/store/hooks";
 
 interface ResourceProps {
   selectedChapter: number;
@@ -27,6 +28,8 @@ const Resource: React.FC<ResourceProps> = ({
   const [chapter, setChapter] = useState<IResource>([] as unknown as IResource);
   const [deleteResource, setDeleteResource] = useState(false);
   const [editResource, setEditResource] = useState(false);
+  const { role } = useAppSelector((state) => state.auth);
+  const show = role === "HeadOfEducation" ? true : false;
   let {
     currentData,
     isFetching,
@@ -48,6 +51,7 @@ const Resource: React.FC<ResourceProps> = ({
 
   const handleDeleteTopic = async () => {
     deleteTopic(selectedChapter);
+    selectedChapter = -1;
   };
 
   useEffect(() => {
@@ -98,11 +102,11 @@ const Resource: React.FC<ResourceProps> = ({
   }
 
   if (isError) {
-    return <Error message="Error occurred while fetching content" />;
+    return <p>resource deleted</p>;
   }
   return (
     <div className="flex gap-3 w-full">
-      <div className=" max-w-4xl mt-5">
+      <div className=" w-full mt-5">
         {chapter ? (
           <div className="flex-col items-center justify-center w-full">
             <h1 className="text-2xl font-bold mb-4">{chapter.title}</h1>
@@ -153,22 +157,22 @@ const Resource: React.FC<ResourceProps> = ({
           </div>
         </Modal>
       )}
-      {selectedChapter !== 0 && (
-        <div className="flex flex-col w-full items-end gap-2 mt-5 mr-10">
+      {selectedChapter !== 0 && show &&  (
+        <div className="flex w-full justify-end gap-2 mt-5 mr-10">
           <div>
             <button
               onClick={() => setEditResource(true)}
-              className="flex items-center rounded-full justify-center p-2 mt-5 bg-primary text-white"
+              className="flex items-center rounded-full justify-center"
             >
-              <AiFillEdit className="text-white" />
+              <AiFillEdit className="" />
             </button>
           </div>
           <div>
             <button
               onClick={() => setDeleteResource(true)}
-              className="flex items-center rounded-full justify-center p-2 mt-5 bg-black text-blue-500"
+              className="flex items-center rounded-full justify-center "
             >
-              <AiFillDelete className="text-white" />
+              <AiFillDelete className="" />
             </button>
           </div>
         </div>
