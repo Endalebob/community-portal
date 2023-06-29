@@ -35,10 +35,3 @@ export const resourcesApiSlice = createApi({
     };
   },
 });
-<<<<<<< HEAD
-=======
-
-export const { useGetResourcesQuery, useGetResourceByIdQuery } =
-  resourcesApiSlice;
-export default resourcesApiSlice.reducer;
->>>>>>> a4c3b35 (set the limit for the length of title)

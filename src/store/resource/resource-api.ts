@@ -23,11 +23,7 @@ export const resourceApiSlice = createApi({
         query: (id) => `/resource/${id}`,
         providesTags: ["Resource"],
       }),
-<<<<<<< HEAD
       getResources: builder.query({
-=======
-      getResources: builder.query<Response, any>({
->>>>>>> f6be323 (add create resource)
         query: () => "/resource",
         providesTags: ["Resources"],
       }),
@@ -61,7 +57,6 @@ export const resourceApiSlice = createApi({
         },
         invalidatesTags: ["Resources"],
       }),
-<<<<<<< HEAD
       deleteTopic: builder.mutation({
         query: (id) => {
           return { url: `/resource/topic/${id}`, method: "DELETE" };
@@ -76,8 +71,6 @@ export const resourceApiSlice = createApi({
         }),
         providesTags: ["Resources"],
       }),
-=======
->>>>>>> f6be323 (add create resource)
     };
   },
 });
@@ -90,9 +83,6 @@ export const {
   useCreateResourceMutation,
   useCreateTopicMutation,
   useEditTopicMutation,
-<<<<<<< HEAD
   useGetResourceByIdQuery,
   useDeleteTopicMutation,
-=======
->>>>>>> f6be323 (add create resource)
 } = resourceApiSlice;
