@@ -44,7 +44,7 @@ const EditResources: React.FC<EditResourcesProps> = ({
     } else
       setResourceError({
         title: resource.title ? "" : "Please insert Resource title",
-        content: resource.content ? "" : "please add Resource content",
+        content: resource.content ? "" : "Please add Resource content",
       });
   };
 
