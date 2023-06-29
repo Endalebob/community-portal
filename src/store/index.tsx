@@ -12,12 +12,14 @@ import { notificationApiSlice } from "./notifications/notifications-api";
 import { resourceApiSlice } from "./resource/resource-api";
 import { GroupDataApi } from "./groups/groups-api";
 
+import journeySlice from "./journey/journey-slice";
 
 export const store = configureStore({
   reducer: {
     auth: authSlice,
     user: userSlice,
     selectedContest: contestSlice,
+    applicationStatus: journeySlice,
     [GroupDataApi.reducerPath]: GroupDataApi.reducer,
     [contestApiSlice.reducerPath]: contestApiSlice.reducer,
     [stepApiSlice.reducerPath]: stepApiSlice.reducer,
@@ -27,7 +29,6 @@ export const store = configureStore({
     [userDetailApi.reducerPath]: userDetailApi.reducer,
     [notificationApiSlice.reducerPath]: notificationApiSlice.reducer,
     [resourceApiSlice.reducerPath]: resourceApiSlice.reducer,
-
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
@@ -39,8 +40,7 @@ export const store = configureStore({
       announcementApiSlice.middleware,
       notificationApiSlice.middleware,
       resourceApiSlice.middleware,
-      GroupDataApi.middleware,
-
+      GroupDataApi.middleware
     );
   },
 });

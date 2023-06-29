@@ -14,6 +14,7 @@ import {
 } from "<@>/store/journey/journey-api";
 import { SubSteps } from "<@>/types/Journey/SubSteps";
 import Error from "../common/Error";
+import { setApplicationStatus } from "<@>/store/journey/journey-slice";
 
 const Journey: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -21,6 +22,7 @@ const Journey: React.FC = () => {
   const selectedContest = useSelector(
     (state: RootState) => state.selectedContest.id
   );
+
   const windowWidth = useWindowWidth();
   const largeScreen = 1024;
   const modalOpen = windowWidth! < largeScreen && selectedContest !== null;
@@ -152,7 +154,14 @@ const Journey: React.FC = () => {
                       (index === 0 ||
                         steps[activeStep].subSteps[index - 1].isCompleted) &&
                       stepInprogress;
-
+                    if (
+                      active &&
+                      subStep.subStepName === "Apply to the program"
+                    ) {
+                      dispatch(
+                        setApplicationStatus({ readyForApplication: true })
+                      );
+                    }
                     return (
                       <Task
                         key={index}

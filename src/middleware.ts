@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-const baseUrl = "http://localhost:3001";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
+import { useAppSelector } from "./store/hooks";
+const baseUrl = "http://localhost:3000";
 
 export default function middleware(req: NextRequest) {
   let verify = req.cookies.get("token");

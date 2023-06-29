@@ -6,8 +6,11 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { BiCheck } from "react-icons/bi";
 import { GoArrowUpRight } from "react-icons/go";
+import { useAppSelector } from "<@>/store/hooks";
+import { NextResponse } from "next/server";
 
 const index: React.FC = () => {
+  const baseUrl = "http://localhost:3000";
   const [
     apply,
     {
@@ -18,12 +21,24 @@ const index: React.FC = () => {
       error,
     },
   ] = useApplyMutation();
+  const readyForApplication = useAppSelector(
+    (state) => state.applicationStatus.readyForApplication
+  );
+
   const router = useRouter();
   useEffect(() => {
-    if (!isApplying) {
+    if (!readyForApplication) {
+      router.push("/journey");
+    }
+
+    if (!isApplying && readyForApplication) {
       apply({});
     }
   }, []);
+
+  if (!readyForApplication) {
+    return null;
+  }
   const applicationError = error as any;
   return (
     <div className="w-full h-[80vh] flex items-center justify-center">
