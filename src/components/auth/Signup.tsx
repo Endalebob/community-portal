@@ -129,8 +129,7 @@ const Signup = () => {
     }
     if (isRegisterError && registerError) {
       const customError = registerError as unknown as CustomError;
-      console.log(customError);
-      if (!customError.data) {
+      if (!customError.data){
         setErrors({ ...errors, fromBackEnd: "Something went wrong" });
       } else if (customError.data.error) {
         const error = customError.data.error[0];

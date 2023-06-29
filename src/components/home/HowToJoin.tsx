@@ -6,7 +6,6 @@ import {
   TbCircle1Filled,
   TbCircle2Filled,
   TbCircle3Filled,
-  TbCircle4Filled,
 } from "react-icons/tb";
 
 interface Step {

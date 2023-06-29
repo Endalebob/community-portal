@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   useGetContestsQuery,
   useDeleteContestMutation,
@@ -8,20 +8,38 @@ import { getCookie } from "<@>/utils/cookie";
 import Error from "<@>/components/common/Error";
 import OverViewContests from "<@>/components/contest/OverViewContests";
 import Link from "next/link";
+import Modal from "../common/Modal";
 
 const ContestList: React.FC = () => {
   const { data: contests = [], error, isLoading } = useGetContestsQuery({});
   const [deleteContest, response] = useDeleteContestMutation();
   const router = useRouter();
   const role = getCookie("role");
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [selectedContestId, setSelectedContestId] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleDelete = async (id: any) => {
-    try {
-      await deleteContest(id);
-    } catch (error) {
-      // Handle contest creation error
-      alert(`An error occurred while deleteing the contest:$ {error}`);
-    }
+    setConfirmDelete(true);
+    setSelectedContestId(id);
   };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await deleteContest(selectedContestId);
+    } catch (error) {
+      // Handle contest deletion error
+      alert(`An error occurred while deleting the contest: ${error}`);
+    }
+    setConfirmDelete(false);
+    setSelectedContestId(null);
+  };
+
+  const handleCancelDelete = () => {
+    setConfirmDelete(false);
+    setSelectedContestId(null);
+  };
+
   if (isLoading) {
     return (
       <div className="rounded-md p-4 w-full mx-auto m-12">
@@ -170,6 +188,34 @@ const ContestList: React.FC = () => {
           )}
         </div>
       </div>
+      {confirmDelete && (
+        <Modal
+          onClose={() => setConfirmDelete(false)}
+          children={
+            <div className="bg-white px-8 rounded-lg lg:text-lg">
+              <h1 className="font-bold">Are you sure?</h1>
+              <p className="text-secondary-text">
+                you want to delete this contest
+              </p>
+              <div className="flex justify-end mt-4 font-medium">
+                <button
+                  className="mr-5 hover:underline text-red-600"
+                  onClick={handleConfirmDelete}
+                >
+                  Yes
+                </button>
+                <button
+                  className="text-primary hover:underline"
+                  onClick={handleCancelDelete}
+                >
+                  No
+                </button>
+              </div>
+            </div>
+            // </div>
+          }
+        />
+      )}
     </div>
   );
 };
