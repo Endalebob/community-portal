@@ -162,7 +162,7 @@ const Signup = () => {
   }, [registerData, isRegisterError, isRegisterSuccess]);
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen flex-grow">
       <AuthImage />
 
       <div className="flex flex-col flex-grow items-center p-4 overflow-y-scroll h-screen">

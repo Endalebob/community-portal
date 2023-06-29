@@ -128,7 +128,7 @@ const Signin = () => {
     }
   }, [signinData, isSigninSucces, isSigninError]);
   return (
-    <div className="min-h-screen h-full flex justify-center items-center">
+    <div className="min-h-screen h-full flex justify-center items-center flex-grow">
       <AuthImage />
 
       <div className="flex flex-col w-full md:w-1/2 justify-center items-center pb-8 rounded-lg">
