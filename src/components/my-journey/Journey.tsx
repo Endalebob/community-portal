@@ -8,7 +8,10 @@ import { setSelectedContest } from "<@>/store/contest/contest-slice";
 import Modal from "../common/Modal";
 import ContestDetail from "./ContestDetail";
 import { useWindowWidth } from "../common/WindowWidth";
-import { useGetStepsQuery } from "<@>/store/journey/journey-api";
+import {
+  useApplyMutation,
+  useGetStepsQuery,
+} from "<@>/store/journey/journey-api";
 import { SubSteps } from "<@>/types/Journey/SubSteps";
 import Error from "../common/Error";
 
@@ -28,6 +31,7 @@ const Journey: React.FC = () => {
     isError,
     error,
   } = useGetStepsQuery({});
+
   const stepsError = error as any;
   const steps = response?.value;
 
@@ -142,19 +146,30 @@ const Journey: React.FC = () => {
                       !areAllSubStepsTrue(steps[activeStep]) &&
                       (activeStep === 0 ||
                         areAllSubStepsTrue(steps[activeStep - 1]));
+
+                    const active =
+                      !subStep.isCompleted &&
+                      (index === 0 ||
+                        steps[activeStep].subSteps[index - 1].isCompleted) &&
+                      stepInprogress;
+
                     return (
                       <Task
                         key={index}
                         isCompleted={subStep.isCompleted}
                         title={subStep.subStepName}
                         description={subStep.description}
-                        active={
-                          !subStep.isCompleted &&
-                          (index === 0 ||
-                            steps[activeStep].subSteps[index - 1]
-                              .isCompleted) &&
-                          stepInprogress
+                        action={
+                          subStep.subStepName === "Apply to the program"
+                            ? "Apply"
+                            : ""
                         }
+                        path={
+                          subStep.subStepName === "Apply to the program"
+                            ? "/apply"
+                            : ""
+                        }
+                        active={active}
                       />
                     );
                   }

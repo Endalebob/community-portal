@@ -38,7 +38,7 @@ const ContestDetail: React.FC<ContestDetailProps> = ({
     window.open(contest.link, "_blank");
   };
   return (
-    <div className="flex flex-col items-start w-full max-w-sm p-4 gap-8">
+    <div className="flex flex-col items-start w-full max-w-sm px-4 py-1 gap-8">
       <div className="flex mt-1 w-full justify-between items-start  p-1 gap-6">
         {isFetching && !response ? (
           <div className="w-36 rounded-sm h-4 bg-slate-200"></div>

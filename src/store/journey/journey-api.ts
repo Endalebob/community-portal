@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 const BASE_URL = "https://a2sv-community-portal-api.onrender.com/api";
 export const stepApiSlice = createApi({
   reducerPath: "step",
+  tagTypes: ["Steps"],
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
@@ -18,8 +19,15 @@ export const stepApiSlice = createApi({
       getSteps: builder.query({
         query: () => "/progress/me",
       }),
+      apply: builder.mutation({
+        query: () => ({
+          url: "/profile/apply",
+          method: "POST",
+        }),
+        invalidatesTags: ["Steps"],
+      }),
     };
   },
 });
 
-export const { useGetStepsQuery } = stepApiSlice;
+export const { useGetStepsQuery, useApplyMutation } = stepApiSlice;
