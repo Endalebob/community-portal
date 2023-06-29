@@ -50,8 +50,8 @@ const CreateTopic: React.FC<CreateTopicsProps> = ({ onClose }) => {
 
   return (
     <div className="w-[44rem] h-full p-2 flex flex-col gap-2">
-      <p className="font-bold text-lg">Create new Topic</p>
-      <p className="text-sm opacity-30">Add new Topic to the system.</p>
+      <p className="font-bold text-lg">Create new topic</p>
+      <p className="text-sm opacity-30">Add new topic to the system.</p>
 
       <div>
         {error &&
