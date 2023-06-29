@@ -15,6 +15,13 @@ import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import EditTopic from "./EditTopic";
 import ProgressIndicator from "../common/ProgressIndicator";
 import { useAppSelector } from "<@>/store/hooks";
+import {
+  FiBookOpen,
+  FiChevronDown,
+  FiChevronLeft,
+  FiChevronRight,
+  FiPlus,
+} from "react-icons/fi";
 
 const SideBar: React.FC = () => {
   const [selectedResource, setSelectedResource] = useState<number>(-1);
@@ -75,15 +82,17 @@ const SideBar: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full items-start">
+    <div className="flex min-h-screen w-full items-stretch">
       {!isSidebarOpen && (
-        <button className="text-2xl px-5 py-1" onClick={handleToggleMenu}>
-          <MdMenu size={30} />
-        </button>
+        <div className="flex flex-col px-4 py-4">
+          <button className="text-2xl" onClick={handleToggleMenu}>
+            <FiChevronRight size={30} />
+          </button>
+        </div>
       )}
       <div
-        className={`flex flex-col min-w-[200px] md:w-1/4 min-h-screen bg-gray-100 shadow-xl border-r-2 mr-5 ${
-          isSidebarOpen ? "block" : "hidden"
+        className={`flex-col min-w-[20rem] md:w-1/4 shadow-lg ${
+          isSidebarOpen ? "flex" : "hidden"
         }`}
       >
         {createResource && (
@@ -135,10 +144,10 @@ const SideBar: React.FC = () => {
           </Modal>
         )}
 
-        <div className="flex items-center justify-between p-4">
-          <h1 className="text-2xl font-bold">Resources</h1>
+        <div className="flex items-start justify-between p-4">
+          <h1 className="text-2xl font-medium">Resources</h1>
           <button className="text-2xl" onClick={handleToggleMenu}>
-            <MdMenu />
+            <FiChevronLeft size={30} />
           </button>
         </div>
 
@@ -171,11 +180,11 @@ const SideBar: React.FC = () => {
                     }`}
                   >
                     <div className="flex w-full justify-between items-center">
-                      <h1 className="font-bold  w-full">
-                        {resource.title.length > 30
-                          ? resource.title.substring(0, 30) + "..."
-                          : resource.title}
-                      </h1>
+                      <div className="flex gap-4 justify-end items-center w-full">
+                        <h1 className="font-medium  w-full">
+                          {resource.title}
+                        </h1>
+                      </div>
                       {show && (
                         <div className="flex gap-1">
                           <button
@@ -197,38 +206,33 @@ const SideBar: React.FC = () => {
                   {expand &&
                     selectedResource === resource.id &&
                     resource.resources.map((chapter) => (
-                      <div className="flex items-center ml-10">
-                        <p>
-                          <BsFillJournalBookmarkFill />
-                        </p>
+                      <div className="flex items-start ml-6 mt-1">
+                        <FiBookOpen className="m-1" size={20} />
 
                         <div
                           key={chapter.id}
                           onClick={() =>
                             handleChapterClick(resource.id, chapter.id)
                           }
-                          className={`flex items-center justify-between pl-2 pr-4 py-2 cursor-pointer ${
+                          className={`flex items-center justify-between pl-2 pr-4 cursor-pointer ${
                             selectedChapter === chapter.id
                               ? "text-primary"
                               : "text-gray-700"
                           }`}
                         >
-                          <h1 className="">
-                            {chapter.title.length > 25
-                              ? chapter.title.substring(0, 25) + "..."
-                              : chapter.title}
-                          </h1>
+                          <h1 className="capitalize">{chapter.title}</h1>
                         </div>
                       </div>
                     ))}
                   {expand && selectedResource === resource.id && (
-                    <div className="flex items-center ml-10">
+                    <div className="flex items-center ml-7">
                       {show && (
                         <button
                           onClick={() => setCreateResouce(true)}
-                          className="flex items-center rounded-full justify-center p-2 mt-5 bg-primary text-white"
+                          className="flex items-center justify-center px-4 py-2  text-primary hover:bg-blue-100 rounded-md w-full gap-2 mr-4 mt-2"
                         >
-                          <MdAdd className=" text-white" />
+                          <FiPlus size={24} />
+                          Resource
                         </button>
                       )}
                     </div>
@@ -237,13 +241,13 @@ const SideBar: React.FC = () => {
               ))}
             </div>
             {show && (
-              <div className="ml-5 my-20">
+              <div className="mx-4 my-4">
                 <button
                   onClick={() => setCreateTopic(true)}
-                  className="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md"
+                  className="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md w-full gap-2"
                 >
-                  <MdAdd className="mr-2" />
-                  Add Topic
+                  <FiPlus size={24} />
+                  Topic
                 </button>
               </div>
             )}

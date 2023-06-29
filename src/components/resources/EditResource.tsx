@@ -61,11 +61,7 @@ const EditResources: React.FC<EditResourcesProps> = ({
 
   return (
     <div className="w-full h-full p-2 flex flex-col gap-2">
-      <p className="font-bold text-lg">edit new Resource</p>
-      <p className="text-sm opacity-30">
-        Add new Resource to the system and easily get everyone up to speed.
-      </p>
-
+      <p className="font-bold text-lg">Edit resource</p>
       <div>
         {error &&
           editError.data?.error?.map((err: any, index: number) => {
@@ -127,7 +123,7 @@ const EditResources: React.FC<EditResourcesProps> = ({
           <Button
             onClick={() => validResource()}
             className="font-medium"
-            label="edit"
+            label="Update"
           ></Button>
         )}
       </div>

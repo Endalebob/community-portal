@@ -1,18 +1,18 @@
+import { useAppSelector } from "<@>/store/hooks";
 import {
   useDeleteResourceMutation,
-  useDeleteTopicMutation,
   useGetResourceByIdQuery,
 } from "<@>/store/resource/resource-api";
 import IResourceTopic from "<@>/types/resources/resourceListType";
 import IResource from "<@>/types/resources/resourcesType";
-import React, { use, useEffect, useState } from "react";
-import { createMarkup } from "../common/TextEditor";
+import React, { useEffect, useState } from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
-import EditResources from "./EditResource";
 import Modal from "../common/Modal";
 import ProgressIndicator from "../common/ProgressIndicator";
-import Error from "../common/Error";
-import { useAppSelector } from "<@>/store/hooks";
+import { createMarkup } from "../common/TextEditor";
+import EditResources from "./EditResource";
+import { FiDelete, FiEdit, FiTrash, FiTrash2 } from "react-icons/fi";
+import { MdDelete, MdEdit } from "react-icons/md";
 
 interface ResourceProps {
   selectedChapter: number;
@@ -105,8 +105,8 @@ const Resource: React.FC<ResourceProps> = ({
     return <p>resource deleted</p>;
   }
   return (
-    <div className="flex gap-3 w-full">
-      <div className=" w-full mt-5">
+    <div className="flex gap-3 w-full p-6">
+      <div className=" w-full">
         {chapter ? (
           <div className="flex-col items-center justify-center w-full">
             <h1 className="text-2xl font-bold mb-4">{chapter.title}</h1>
@@ -157,14 +157,14 @@ const Resource: React.FC<ResourceProps> = ({
           </div>
         </Modal>
       )}
-      {selectedChapter !== 0 && show &&  (
-        <div className="flex w-full justify-end gap-2 mt-5 mr-10">
+      {selectedChapter !== 0 && show && (
+        <div className="flex w-full justify-end gap-4">
           <div>
             <button
               onClick={() => setEditResource(true)}
               className="flex items-center rounded-full justify-center"
             >
-              <AiFillEdit className="" />
+              <MdEdit size={24} />
             </button>
           </div>
           <div>
@@ -172,7 +172,7 @@ const Resource: React.FC<ResourceProps> = ({
               onClick={() => setDeleteResource(true)}
               className="flex items-center rounded-full justify-center "
             >
-              <AiFillDelete className="" />
+              <MdDelete size={24} />
             </button>
           </div>
         </div>
