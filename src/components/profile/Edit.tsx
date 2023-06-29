@@ -203,7 +203,7 @@ const Edit = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center flex-grow">
       <form
         onSubmit={handleUpdate}
         className="items-center justify-center max-w-6xl"

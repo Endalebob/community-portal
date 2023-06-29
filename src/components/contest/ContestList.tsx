@@ -57,7 +57,7 @@ const ContestList: React.FC = () => {
   }
   const contestData = contests.value;
   return (
-    <div className="flex flex-col px-8 items-center">
+    <div className="flex flex-col px-8 items-center flex-grow">
       <div className="max-w-7xl w-full">
         <div className="mt-8">
           <h1 className="text-zinc-400 font-medium text-2xl">Overview</h1>
