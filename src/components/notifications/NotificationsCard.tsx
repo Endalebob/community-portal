@@ -9,7 +9,7 @@ interface NotifcationCardProps {
 }
 const NotificationsCard = ({ title, content, date }: NotifcationCardProps) => {
   return (
-    <div className={"bg-white rounded-lg shadow-lg p-6"}>
+    <div className={"bg-white rounded-lg shadow-lg max-w-3xl p-6"}>
       <h2 className="text-xl font-semibold mb-2 text-start">{title}</h2>
       <p
         className="text-start"
