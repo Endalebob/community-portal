@@ -27,10 +27,7 @@ const Landing: React.FC = () => {
         </Link>
         <div className="flex flex-row justify-end items-center gap-6 flex-grow">
           <Link href="/auth/signin">
-            <div className="py-2 px-4 border rounded-md">Log in</div>
-          </Link>
-          <Link href="/auth/sign-up">
-            <div className="py-2 px-4 rounded-md bg-primary">Sign up</div>
+            <div className="py-2 px-4 border rounded-md">Sign In</div>
           </Link>
         </div>
       </div>
