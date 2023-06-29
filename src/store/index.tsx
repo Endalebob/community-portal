@@ -26,6 +26,7 @@ export const store = configureStore({
     [userDetailApi.reducerPath]: userDetailApi.reducer,
     [notificationApiSlice.reducerPath]: notificationApiSlice.reducer,
     [resourceApiSlice.reducerPath]: resourceApiSlice.reducer,
+    [resourceApiSlice.reducerPath]: resourceApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
@@ -37,7 +38,9 @@ export const store = configureStore({
       announcementApiSlice.middleware,
       notificationApiSlice.middleware,
       resourceApiSlice.middleware,
-      GroupDataApi.middleware
+      GroupDataApi.middleware,
+      notificationApiSlice.middleware,
+      resourceApiSlice.middleware
     );
   },
 });
