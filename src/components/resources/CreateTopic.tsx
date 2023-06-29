@@ -1,44 +1,39 @@
 import React, { useEffect, useState } from "react";
 import InputField from "../auth/InputField";
 import Button from "../common/Button";
-import { useCreateAnnouncementMutation } from "<@>/store/announcement/announcement-api";
 import ProgressIndicator from "../common/ProgressIndicator";
 import { AiOutlineCheck } from "react-icons/ai";
 import Editor from "../common/TextEditor";
+import { useCreateTopicMutation } from "<@>/store/resource/resource-api";
 
-interface CreateAnnouncementProps {
+interface CreateTopicsProps {
   onClose: () => void;
 }
-const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
-  const [announcement, setAnnouncement] = useState({
+
+const CreateTopic: React.FC<CreateTopicsProps> = ({ onClose }) => {
+  const [topic, setTopic] = useState({
     title: "",
-    description: "",
   });
-  const [announcementError, setAnnouncementError] = useState({
+  const [topicError, setTopicError] = useState({
     title: "",
-    description: "",
   });
   const handleChange = (e: any) => {
-    setAnnouncement({ ...announcement, [e.target.name]: e.target.value });
+    setTopic({ ...topic, [e.target.name]: e.target.value });
   };
 
-  let [createAnnouncement, { data, isSuccess, isError, isLoading, error }] =
-    useCreateAnnouncementMutation();
+  let [createTopic, { data, isSuccess, isError, isLoading, error }] =
+    useCreateTopicMutation();
 
   const createError = error as any;
-  const validAnnouncement = () => {
-    if (announcement.title != "" && announcement.description != "") {
-      setAnnouncementError({
+  const validTopic = () => {
+    if (topic.title != "") {
+      setTopicError({
         title: "",
-        description: "",
       });
-      createAnnouncement(announcement);
+      createTopic(topic);
     } else
-      setAnnouncementError({
-        title: announcement.title ? "" : "Please insert Announcement title",
-        description: announcement.description
-          ? ""
-          : "please add announcement description",
+      setTopicError({
+        title: topic.title ? "" : "Please insert Topic title",
       });
   };
 
@@ -54,11 +49,9 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
   }, [isSuccess]);
 
   return (
-    <div className="w-full h-full p-2 flex flex-col gap-2">
-      <p className="font-bold text-lg">Create new announcement</p>
-      <p className="text-sm opacity-30">
-        Add new Announcement to the system and easily get everyone up to speed.
-      </p>
+    <div className="w-[44rem] h-full p-2 flex flex-col gap-2">
+      <p className="font-bold text-lg">Create new Topic</p>
+      <p className="text-sm opacity-30">Add new Topic to the system.</p>
 
       <div>
         {error &&
@@ -70,29 +63,19 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
         )}
       </div>
 
-      <form className="flex flex-col gap-2">
+      <form className="flex flex-col gap-2 mb-4">
+        <p className="text-xs text-red-500">
+          {topicError.title !== "" && topicError.title}
+        </p>
+
         <InputField
           label=""
           name="title"
           placeholder="Title"
           type="text"
-          value={announcement.title}
+          value={topic.title}
           onChange={handleChange}
         />
-        <p className="text-xs text-red-500">
-          {announcementError.title !== "" && announcementError.title}
-        </p>
-
-        <Editor
-          value={announcement.description}
-          setValue={(value: string) =>
-            setAnnouncement({ ...announcement, description: value })
-          }
-        />
-        <p className="text-xs text-red-500">
-          {announcementError.description !== "" &&
-            announcementError.description}
-        </p>
       </form>
 
       <div className="flex justify-end gap-2">
@@ -109,7 +92,7 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
           ></Button>
         ) : isError ? (
           <Button
-            onClick={() => validAnnouncement()}
+            onClick={() => validTopic()}
             className="font-medium"
             label="Retry"
           ></Button>
@@ -120,7 +103,7 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
           ></Button>
         ) : (
           <Button
-            onClick={() => validAnnouncement()}
+            onClick={() => validTopic()}
             className="font-medium"
             label="Create"
           ></Button>
@@ -130,4 +113,4 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
   );
 };
 
-export default CreateAnnouncement;
+export default CreateTopic;

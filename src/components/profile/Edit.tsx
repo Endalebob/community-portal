@@ -1,20 +1,19 @@
+import { africanCountries } from "<@>/constants/african-countries";
+import { programmingLanguages } from "<@>/constants/programming-languages";
 import {
   useGetUserapiQuery,
   useUpdateUserMutation,
 } from "<@>/store/auth/auth-api";
-import { useAppDispatch } from "<@>/store/hooks";
+import { CustomError } from "<@>/types/auth/custom-error";
+import User from "<@>/types/auth/user";
+import Image from "next/image";
 import router from "next/router";
 import React, { useEffect, useState } from "react";
+import { FiEdit2 } from "react-icons/fi";
 import InputField from "../auth/InputField";
-import { africanCountries } from "<@>/constants/african-countries";
-import { programmingLanguages } from "<@>/constants/programming-languages";
-import Image from "next/image";
-import User from "<@>/types/auth/user";
-import ProgressIndicator from "../common/ProgressIndicator";
-import { CustomError } from "<@>/types/auth/custom-error";
-import CustomSuccess from "<@>/types/auth/custom-success";
-import Redirect from "../common/Redirect";
 import Loading from "../common/Loading";
+import ProgressIndicator from "../common/ProgressIndicator";
+import Redirect from "../common/Redirect";
 
 interface FormValues {
   fromBackEnd: string;
@@ -204,260 +203,266 @@ const Edit = () => {
   }
 
   return (
-    <form onSubmit={handleUpdate} className="items-center justify-center">
-      <h1 className="text-2xl m-10 my-6 text-gray-700 font-semibold">
-        Edit Profile
-      </h1>
+    <div className="flex flex-col justify-center items-center flex-grow">
+      <form
+        onSubmit={handleUpdate}
+        className="items-center justify-center max-w-6xl"
+      >
+        <h1 className="text-2xl m-10 my-4 text-gray-700 font-semibold">
+          Edit Profile
+        </h1>
 
-      <div className="flex bg-gray-50 md:m-10 p-8 m-4 rounded-lg border border-gray-100 md:p-10">
-        <div className="flex flex-col md:flex-row items-center justify-center w-full md:space-x-10">
-          <div>
-            {imagePreview ? (
-              <Image
-                width={80}
-                height={40}
-                src={imagePreview}
-                alt={fullName + "preview"}
-                className="w-44 h-44 border object-cover"
-              />
-            ) : (
-              <Image
-                className="w-44 h-44 border object-cover"
-                src={profilePicture || ""}
-                width={200}
-                height={200}
-                alt={fullName + "avatar"}
-              />
-            )}
+        <div className="flex shadow md:m-10 p-8 rounded-lg md:p-10">
+          <div className="flex flex-col md:flex-row items-center justify-center w-full md:space-x-10">
+            <div className="relative">
+              {imagePreview ? (
+                <Image
+                  width={80}
+                  height={40}
+                  src={imagePreview}
+                  alt={fullName + "preview"}
+                  className="w-56 border object-cover  aspect-square rounded-full"
+                />
+              ) : (
+                <Image
+                  className="w-56 border object-cover  aspect-square rounded-full"
+                  src={profilePicture || ""}
+                  width={200}
+                  height={200}
+                  alt={fullName + "avatar"}
+                />
+              )}
 
-            <div className="flex justify-center items-center">
-              <label className="mt-2 border px-4 rounded-full hover:bg-gray-100 border-gray-100 hover:border-gray-300">
-                <span className="text-base text-gray-600 leading-normal">
-                  Update picture
-                </span>
-                <input
-                  onChange={handleImageUpload}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                />
-              </label>
-            </div>
-          </div>
-          <div className="flex flex-col justify-between w-full">
-            <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
-              <div className="basis-1/2">
-                <InputField
-                  label="Full Name"
-                  height="min-h-[2.5rem]"
-                  name="fullName"
-                  type="text"
-                  placeholder=""
-                  value={fullName}
-                  onChange={handleChange}
-                  error={errors.fullName}
-                />
-              </div>
-              <div className="flex flex-col flex-grow">
-                <InputField
-                  label="Telegram Username"
-                  name="telegramUsername"
-                  type="text"
-                  height="min-h-[2.5rem]"
-                  placeholder=""
-                  value={telegramUsername}
-                  onChange={handleChange}
-                  error={errors.telegramUsername}
-                />
+              <div className="absolute p-2 flex justify-center items-center gap-2 bg-primary rounded-full text-white right-2 bottom-2 z-10">
+                <label className=" cursor-pointer">
+                  <FiEdit2 />
+                  <input
+                    onChange={handleImageUpload}
+                    name="profilePicture"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                  />
+                </label>
               </div>
             </div>
-            <div className="mt-2">
-              <p className="text-gray-600 text-sm font-semibold">Short bio</p>
-              <textarea
-                rows={4}
-                name="shortBio"
-                placeholder=""
-                value={shortBio}
-                onChange={handleChange}
-                className="border text-gray-700 w-full outline-none px-2 focus:border-gray-300 rounded-md border-gray-200 placeholder-white-400"
-              />
+            <div className="flex flex-col justify-between w-full">
+              <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
+                <div className="basis-1/2">
+                  <InputField
+                    label="Full Name"
+                    height="min-h-[2.5rem]"
+                    name="fullName"
+                    type="text"
+                    placeholder=""
+                    value={fullName}
+                    onChange={handleChange}
+                    error={errors.fullName}
+                  />
+                </div>
+                <div className="flex flex-col flex-grow">
+                  <InputField
+                    label="Telegram Username"
+                    name="telegramUsername"
+                    type="text"
+                    height="min-h-[2.5rem]"
+                    placeholder=""
+                    value={telegramUsername}
+                    onChange={handleChange}
+                    error={errors.telegramUsername}
+                  />
+                </div>
+              </div>
+              <div className="mt-2">
+                <p className="text-gray-600 text-sm font-semibold">Short bio</p>
+                <textarea
+                  rows={4}
+                  name="shortBio"
+                  placeholder=""
+                  value={shortBio}
+                  onChange={handleChange}
+                  className="border text-gray-700 w-full outline-none px-2 focus:border-gray-300 rounded-md border-gray-200 placeholder-white-400 mt-1"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="bg-gray-50 md:m-10 p-8 m-4 rounded-lg border border-gray-100 md:p-10">
-        <h3 className="text-lg uppercase text-gray-600 font-semibold pb-3">
-          BASIC INFO
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-6">
-          <InputField
-            label="Email"
-            name="email"
-            type="email"
-            placeholder=""
-            value={email}
-            onChange={handleChange}
-            error={errors.email}
-          />
-          <InputField
-            label="Phone Number"
-            name="phoneNumber"
-            type="text"
-            placeholder=""
-            value={phoneNumber}
-            onChange={handleChange}
-            error={errors.phoneNumber}
-          />
-          <div className="flex flex-col flex-grow">
-            <p className="text-gray-700 text-[14px] font-semibold">Country</p>
-            <select
-              name="country"
+        <div className="shadow md:m-10 p-8 m-4 rounded-lg md:p-10">
+          <h3 className="text-lg text-gray-600 font-semibold pb-3">
+            Basic Info
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-6">
+            <InputField
+              label="Email"
+              name="email"
+              type="email"
+              placeholder=""
+              value={email}
               onChange={handleChange}
-              className="border outline-none h-[2.5rem] focus:border-gray-300 rounded-md py-1 px-3 mt-1 border-gray-300"
+              error={errors.email}
+            />
+            <InputField
+              label="Phone Number"
+              name="phoneNumber"
+              type="text"
+              placeholder=""
+              value={phoneNumber}
+              onChange={handleChange}
+              error={errors.phoneNumber}
+            />
+            <div className="flex flex-col flex-grow">
+              <p className="text-gray-700 text-[14px] font-semibold">Country</p>
+              <select
+                name="country"
+                onChange={handleChange}
+                className="border outline-none h-[2.5rem] focus:border-gray-300 rounded-md py-1 px-3 mt-1 border-gray-300"
+              >
+                <option value={country}>{country}</option>
+                {africanCountries.map((country) => (
+                  <option key={country.value} value={country.label}>
+                    {country.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <InputField
+              label="University"
+              name="university"
+              type="text"
+              placeholder=""
+              value={university}
+              onChange={handleChange}
+              error={errors.university}
+            />
+            <InputField
+              label="Department"
+              name="department"
+              type="text"
+              placeholder=""
+              value={department}
+              onChange={handleChange}
+              error={errors.department}
+            />
+            <InputField
+              label="Graduation Year"
+              name="graduationYear"
+              type="text"
+              placeholder=""
+              value={graduationYear}
+              onChange={handleChange}
+              error={errors.graduationYear}
+            />
+          </div>
+        </div>
+        <div className="shadow md:m-10 p-8 m-4 rounded-lg  md:p-10">
+          <h3 className="text-lg text-gray-600 font-semibold pb-3">
+            User Handles
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-6 pt-3">
+            <InputField
+              label="Codeforces Username"
+              name="codeforcesHandle"
+              type="text"
+              placeholder=""
+              value={codeforcesHandle}
+              onChange={handleChange}
+              error={errors.codeforcesHandle}
+            />
+            <InputField
+              label="LeetCode Username"
+              name="leetCodeHandle"
+              type="text"
+              placeholder=""
+              value={leetCodeHandle}
+              onChange={handleChange}
+              error={errors.leetCodeHandle}
+            />
+            <InputField
+              label="HackerRank Username"
+              name="hackerrankHandle"
+              type="text"
+              placeholder=""
+              value={hackerrankHandle}
+              onChange={handleChange}
+              error={errors.hackerrankHandle}
+            />
+            <InputField
+              label="GitHub Username"
+              name="gitHubHandle"
+              type="text"
+              placeholder=""
+              value={gitHubHandle}
+              onChange={handleChange}
+              error={errors.gitHubHandle}
+            />
+            <InputField
+              label="LinkedIn Username"
+              name="linkedInHandle"
+              type="text"
+              placeholder=""
+              value={linkedInHandle}
+              onChange={handleChange}
+              error={errors.linkedInHandle}
+            />
+          </div>
+        </div>
+        <div className="shadow md:m-10 p-8 m-4 rounded-lg md:p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div>
+            <p>Résumé</p>
+            <input
+              type="file"
+              name="cv"
+              placeholder=""
+              accept="application/pdf"
+              onChange={handlePdfUpload}
+              className="border outline-none focus:border-gray-300 rounded-md px-3 mt-1 border-gray-300 w-full"
+            />
+          </div>
+          <div className="flex flex-col flex-grow">
+            <p className="text-gray-700 pb-1 text-[14px] font-semibold">
+              Programming Language
+            </p>
+            <select
+              name="favoriteLanguage"
+              onChange={handleChange}
+              className="border outline-none focus:border-gray-300 rounded-md py-1 px-3 mt-1 border-gray-300"
             >
-              <option value={country}>{country}</option>
-              {africanCountries.map((country) => (
-                <option key={country.value} value={country.label}>
-                  {country.label}
+              <option value={favoriteLanguage}>{favoriteLanguage}</option>
+              {programmingLanguages.map((language) => (
+                <option key={language.label} value={language.label}>
+                  {language.label}
                 </option>
               ))}
             </select>
           </div>
-          <InputField
-            label="University"
-            name="university"
-            type="text"
-            placeholder=""
-            value={university}
-            onChange={handleChange}
-            error={errors.university}
-          />
-          <InputField
-            label="Department"
-            name="department"
-            type="text"
-            placeholder=""
-            value={department}
-            onChange={handleChange}
-            error={errors.department}
-          />
-          <InputField
-            label="Year Of Graduation"
-            name="graduationYear"
-            type="text"
-            placeholder=""
-            value={graduationYear}
-            onChange={handleChange}
-            error={errors.graduationYear}
-          />
-        </div>
-      </div>
-      <div className="bg-gray-50 md:m-10 p-8 m-4 rounded-lg border border-gray-100 md:p-10">
-        <h3 className="text-lg uppercase text-gray-600 font-semibold pb-3">
-          User Handles
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-6 pt-3">
-          <InputField
-            label="Codeforces Username"
-            name="codeforcesHandle"
-            type="text"
-            placeholder=""
-            value={codeforcesHandle}
-            onChange={handleChange}
-            error={errors.codeforcesHandle}
-          />
-          <InputField
-            label="Leetcode Username"
-            name="leetCodeHandle"
-            type="text"
-            placeholder=""
-            value={leetCodeHandle}
-            onChange={handleChange}
-            error={errors.leetCodeHandle}
-          />
-          <InputField
-            label="Hackerrank Username"
-            name="hackerrankHandle"
-            type="text"
-            placeholder=""
-            value={hackerrankHandle}
-            onChange={handleChange}
-            error={errors.hackerrankHandle}
-          />
-          <InputField
-            label="Github Username"
-            name="gitHubHandle"
-            type="text"
-            placeholder=""
-            value={gitHubHandle}
-            onChange={handleChange}
-            error={errors.gitHubHandle}
-          />
-          <InputField
-            label="Linkedin Username"
-            name="linkedInHandle"
-            type="text"
-            placeholder=""
-            value={linkedInHandle}
-            onChange={handleChange}
-            error={errors.linkedInHandle}
-          />
-        </div>
-      </div>
-      <div className="bg-gray-50 md:m-10 p-8 m-4 rounded-lg border border-gray-100 md:p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div>
-          <p>Cv</p>
-          <input
-            type="file"
-            name="cv"
-            placeholder=""
-            accept="application/pdf"
-            onChange={handlePdfUpload}
-            className="border outline-none focus:border-gray-300 rounded-md px-3 mt-1 border-gray-300 w-full"
-          />
-        </div>
-        <div className="flex flex-col flex-grow">
-          <p className="text-gray-700 pb-1 text-[14px] font-semibold">
-            Programming Language
-          </p>
-          <select
-            name="favoriteLanguage"
-            onChange={handleChange}
-            className="border outline-none focus:border-gray-300 rounded-md py-1 px-3 mt-1 border-gray-300"
-          >
-            <option value={favoriteLanguage}>{favoriteLanguage}</option>
-            {programmingLanguages.map((language) => (
-              <option key={language.label} value={language.label}>
-                {language.label}
-              </option>
-            ))}
-          </select>
-        </div>
-        {errors.fromBackEnd && (
-          <p className="text-red-500 text-[14px] pt-4">{errors.fromBackEnd}</p>
-        )}
-      </div>
-      <div className="flex justify-end space-x-4 m-10">
-        <button
-          type="button"
-          onClick={() => router.push("/profile")}
-          className="px-3 py-2 mt-4 text-gray-600 font-bold bg-gray-200 rounded-md"
-        >
-          cancel
-        </button>
-        <button
-          type="submit"
-          className="px-3 py-2 mt-4 text-white bg-primary rounded-md"
-        >
-          {isProfileLoading ? (
-            <ProgressIndicator size={5} color="white" />
-          ) : (
-            "Update"
+          {errors.fromBackEnd && (
+            <p className="text-red-500 text-[14px] pt-4">
+              {errors.fromBackEnd}
+            </p>
           )}
-        </button>
-      </div>
-    </form>
+        </div>
+        <div className="flex justify-end space-x-4 m-10">
+          <button
+            type="button"
+            onClick={() => router.push("/profile")}
+            className="px-3 py-2 mt-4 text-gray-600 font-bold bg-gray-200 rounded-md"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="px-3 py-2 mt-4 text-white bg-primary rounded-md"
+          >
+            {isProfileLoading ? (
+              <ProgressIndicator size={5} color="white" />
+            ) : (
+              "Update"
+            )}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

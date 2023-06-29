@@ -1,44 +1,50 @@
 import React, { useEffect, useState } from "react";
 import InputField from "../auth/InputField";
 import Button from "../common/Button";
-import { useCreateAnnouncementMutation } from "<@>/store/announcement/announcement-api";
 import ProgressIndicator from "../common/ProgressIndicator";
 import { AiOutlineCheck } from "react-icons/ai";
 import Editor from "../common/TextEditor";
+import { useEditResourceMutation } from "<@>/store/resource/resource-api";
+import IResource from "<@>/types/resources/resourcesType";
 
-interface CreateAnnouncementProps {
+interface EditResourcesProps {
   onClose: () => void;
+  resource: IResource;
 }
-const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
-  const [announcement, setAnnouncement] = useState({
-    title: "",
-    description: "",
+
+const EditResources: React.FC<EditResourcesProps> = ({
+  onClose,
+  resource: { id, title, content, topicId },
+}) => {
+  const [resource, setResource] = useState({
+    id: id,
+    title: title,
+    content: content,
+    topicId: topicId,
   });
-  const [announcementError, setAnnouncementError] = useState({
+  const [resourceError, setResourceError] = useState({
     title: "",
-    description: "",
+    content: "",
   });
   const handleChange = (e: any) => {
-    setAnnouncement({ ...announcement, [e.target.name]: e.target.value });
+    setResource({ ...resource, [e.target.name]: e.target.value });
   };
 
-  let [createAnnouncement, { data, isSuccess, isError, isLoading, error }] =
-    useCreateAnnouncementMutation();
+  let [editResource, { data, isSuccess, isError, isLoading, error }] =
+    useEditResourceMutation();
 
-  const createError = error as any;
-  const validAnnouncement = () => {
-    if (announcement.title != "" && announcement.description != "") {
-      setAnnouncementError({
+  const editError = error as any;
+  const validResource = () => {
+    if (resource.title != "" && resource.content != "") {
+      setResourceError({
         title: "",
-        description: "",
+        content: "",
       });
-      createAnnouncement(announcement);
+      editResource(resource);
     } else
-      setAnnouncementError({
-        title: announcement.title ? "" : "Please insert Announcement title",
-        description: announcement.description
-          ? ""
-          : "please add announcement description",
+      setResourceError({
+        title: resource.title ? "" : "Please insert Resource title",
+        content: resource.content ? "" : "Please add Resource content",
       });
   };
 
@@ -55,17 +61,17 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
 
   return (
     <div className="w-full h-full p-2 flex flex-col gap-2">
-      <p className="font-bold text-lg">Create new announcement</p>
+      <p className="font-bold text-lg">edit new Resource</p>
       <p className="text-sm opacity-30">
-        Add new Announcement to the system and easily get everyone up to speed.
+        Add new Resource to the system and easily get everyone up to speed.
       </p>
 
       <div>
         {error &&
-          createError.data?.error?.map((err: any, index: number) => {
+          editError.data?.error?.map((err: any, index: number) => {
             return <p className="text-xs text-red-500">{err.errorMessage}</p>;
           })}{" "}
-        {error && !createError.data && (
+        {error && !editError.data && (
           <p className="text-xs text-red-500">Unknown Error</p>
         )}
       </div>
@@ -76,22 +82,21 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
           name="title"
           placeholder="Title"
           type="text"
-          value={announcement.title}
+          value={resource.title}
           onChange={handleChange}
         />
         <p className="text-xs text-red-500">
-          {announcementError.title !== "" && announcementError.title}
+          {resourceError.title !== "" && resourceError.title}
         </p>
 
         <Editor
-          value={announcement.description}
+          value={resource.content}
           setValue={(value: string) =>
-            setAnnouncement({ ...announcement, description: value })
+            setResource({ ...resource, content: value })
           }
         />
         <p className="text-xs text-red-500">
-          {announcementError.description !== "" &&
-            announcementError.description}
+          {resourceError.content !== "" && resourceError.content}
         </p>
       </form>
 
@@ -109,7 +114,7 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
           ></Button>
         ) : isError ? (
           <Button
-            onClick={() => validAnnouncement()}
+            onClick={() => validResource()}
             className="font-medium"
             label="Retry"
           ></Button>
@@ -120,9 +125,9 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
           ></Button>
         ) : (
           <Button
-            onClick={() => validAnnouncement()}
+            onClick={() => validResource()}
             className="font-medium"
-            label="Create"
+            label="edit"
           ></Button>
         )}
       </div>
@@ -130,4 +135,4 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
   );
 };
 
-export default CreateAnnouncement;
+export default EditResources;

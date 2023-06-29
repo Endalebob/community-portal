@@ -12,6 +12,8 @@ import { IoNotificationsSharp } from "react-icons/io5";
 import { useGetNotificationsQuery } from "<@>/store/notifications/notifications-api";
 import { Notification } from "<@>/types/notifications/notifications";
 import { MdNotificationAdd } from "react-icons/md";
+import { FaSignOutAlt } from "react-icons/fa";
+import { PiSignOut } from "react-icons/pi";
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -43,6 +45,11 @@ const NavBar: React.FC = () => {
         to: "/journey",
         current: false,
       },
+      {
+        name: "Resources",
+        to: "/resources",
+        current: false,
+      },
     ],
     admin: [
       {
@@ -63,6 +70,11 @@ const NavBar: React.FC = () => {
       {
         name: "Wait list",
         to: "/admin/waitlist",
+        current: false,
+      },
+      {
+        name: "Resources",
+        to: "/resources",
         current: false,
       },
     ],
@@ -285,14 +297,14 @@ const NavBar: React.FC = () => {
             <>
               {showProfile && (
                 <div
-                  className="absolute right-0 z-20 top-16 w-60 border border-r-0 bg-white shadow-2xl text-gray-500"
+                  className="absolute right-4 z-20 top-16 w-60 rounded-lg shadow-lg flex flex-col p-2 bg-primarybg"
                   ref={showProfileRef}
                 >
-                  <div className="text-start p-2">
-                    <p className="font-bold">{auth.fullName}</p>
-                    <span>{auth.email}</span>
+                  <div className="flex flex-col p-2">
+                    <span className="font-medium">{auth.fullName}</span>
+                    <span className="text-gray-400">{auth.email}</span>
                   </div>
-                  <div className="border border-y-2 border-x-0 flex flex-col text-sm gap-y-2">
+                  <div className="border border-y-1 border-x-0 flex flex-col gap-y-2">
                     <Link href="/profile">
                       <button className="p-2 hover:bg-gray-100 w-full text-start">
                         My Profile
@@ -300,10 +312,10 @@ const NavBar: React.FC = () => {
                     </Link>
                   </div>
                   <button
-                    className="p-2 hover:bg-gray-100 w-full text-start"
+                    className="p-2 hover:bg-gray-100 w-full text-start flex gap-2 items-center"
                     onClick={handleLogout}
                   >
-                    Signout
+                    Sign Out
                   </button>
                 </div>
               )}

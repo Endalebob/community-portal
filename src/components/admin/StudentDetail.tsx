@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  SiCodeforces,
-  SiGithub,
-  SiLeetcode,
-  SiTelegram,
-} from "react-icons/si";
+import { SiCodeforces, SiGithub, SiLeetcode, SiTelegram } from "react-icons/si";
 import {
   FaGraduationCap,
   FaHackerrank,
@@ -26,7 +21,6 @@ interface StudentDetailProps {
 }
 
 const StudentDetail: React.FC<StudentDetailProps> = ({ userId }) => {
-
   const { data, isLoading, error } = useGetUserDetailQuery({ userId });
 
   if (isLoading) {
@@ -48,10 +42,12 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ userId }) => {
     {
       data: applicant?.email,
       icon: MdEmail,
+      link: `mailto:${applicant?.email}`,
     },
     {
       data: applicant?.phoneNumber,
       icon: FaPhone,
+      link: `tel:${applicant?.phoneNumber}`,
     },
     {
       data: applicant?.linkedInHandle,
@@ -63,7 +59,12 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ userId }) => {
       icon: FaSchool,
     },
     {
-      data: `${applicant?.department || ""}  | ${applicant?.graduationYear || ""}`,
+      data:
+        applicant?.department || applicant?.graduationYear
+          ? `${applicant?.department || "Unknown"}  | ${
+              applicant?.graduationYear
+            }` || "Unknown"
+          : null,
       icon: FaGraduationCap,
     },
   ];
@@ -78,7 +79,7 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ userId }) => {
     {
       platform: "CodeForces",
       handle: applicant?.codeforcesHandle,
-      link: `https://codeforces.com/profile/${applicant?.gitHubHandle}`,
+      link: `https://codeforces.com/profile/${applicant?.codeforcesHandle}`,
       icon: SiCodeforces,
     },
     {
@@ -128,14 +129,18 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ userId }) => {
         <div className="border border-gray-100 rounded px-6 py-4">
           <h3 className="mb-4 font-medium text-gray-500">Basic Info</h3>
           <div className="grid grid-cols-3 pb-3">
-            {basicInfos.map((info, index) => (
-              <BasicInfoCard
-                key={index}
-                data={info.data}
-                link={info.link}
-                icon={info.icon}
-              />
-            ))}
+            {basicInfos.map((info, index) => {
+              if (info.data) {
+                return (
+                  <BasicInfoCard
+                    key={index}
+                    data={info.data}
+                    link={info.link}
+                    icon={info.icon}
+                  />
+                );
+              }
+            })}
           </div>
         </div>
 
@@ -156,7 +161,7 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ userId }) => {
                       icon={site.icon}
                     />
                   );
-                }  
+                }
               })}
             </div>
           </div>
