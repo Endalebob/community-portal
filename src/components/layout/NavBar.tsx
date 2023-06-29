@@ -31,17 +31,12 @@ const NavBar: React.FC = () => {
   const navData: NavDataType = {
     student: [
       {
-        name: "Home",
-        to: "/",
-        current: true,
-      },
-      {
         name: "Contests",
         to: "/contests",
         current: false,
       },
       {
-        name: "Your Progress",
+        name: "Progress",
         to: "/journey",
         current: false,
       },
@@ -119,7 +114,8 @@ const NavBar: React.FC = () => {
 
   useEffect(() => {
     // remove navbar from pages certain pages
-    if (["/", "/auth/signin", "/auth/signup"].includes(asPath)) {
+    const urls = ["/", "/auth/signin", "/auth/signup"];
+    if (urls.includes(asPath) || router.pathname === "/404") {
       setHideNav(true);
     } else {
       setHideNav(false);
@@ -200,11 +196,17 @@ const NavBar: React.FC = () => {
           "px-4 py-2 border-b-2 items-center"
         )}
       >
-        <Link className="z-50" href="/">
+        {isAuthenticated ? (
           <div className="w-28 lg:w-52">
             <Image src="/A2SV-Logo.svg" width={105} height={30} alt="logo" />
           </div>
-        </Link>
+        ) : (
+          <Link className="z-50" href="/">
+            <div className="w-28 lg:w-52">
+              <Image src="/A2SV-Logo.svg" width={105} height={30} alt="logo" />
+            </div>
+          </Link>
+        )}
 
         <div className="w-full absolute -right-0 flex flex-col md:flex-row md:ml-8 md:static">
           {/* Navigation Links*/}

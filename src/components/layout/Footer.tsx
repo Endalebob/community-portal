@@ -15,13 +15,16 @@ function classNames(...classes: string[]) {
 }
 
 const Footer: React.FC = () => {
+  const router = useRouter();
   const { asPath } = useRouter();
 
   const [hideNav, setHideNav] = useState<Boolean>(false);
 
   useEffect(() => {
-    // remove navbar from pages certain pages
-    if (["/auth/signin", "/auth/signup"].includes(asPath)) {
+    const urls = ["/auth/signin", "/auth/signup"];
+
+    // remove footer from pages certain pages
+    if (urls.includes(asPath) || router.pathname === "/404") {
       setHideNav(true);
     } else {
       setHideNav(false);
