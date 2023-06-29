@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
     <div
       className={classNames(
         hideNav ? "hidden" : "flex",
-        "flex-col gap-y-10 items-center md:flex-row justify-between md:items-center py-6 px-20 mt-auto bg-zinc-100"
+        "flex-col gap-y-10 items-center md:flex-row justify-between md:items-center py-6 px-20 bg-zinc-100"
       )}
     >
       <div className="flex items-center gap-4">
