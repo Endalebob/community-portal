@@ -1,5 +1,9 @@
 import React from "react";
-import { PiStudentFill } from "react-icons/pi";
+import {
+  BsCalendar2Week,
+  BsArrowRepeat,
+  BsPersonWorkspace,
+} from "react-icons/bs";
 import { useGetContestsStatQuery } from "<@>/store/contest/contest-api";
 import Error from "../common/Error";
 import OverViewCard, { CardProps } from "../common/OverViewCard";
@@ -23,17 +27,17 @@ const OverViewContests: React.FC = () => {
 
   const overViewData: CardProps[] = [
     {
-      icon: PiStudentFill,
+      icon: BsPersonWorkspace,
       title: "Total Contests Held",
       number: status?.value.totalContest,
     },
     {
-      icon: PiStudentFill,
+      icon: BsCalendar2Week,
       title: "Upcoming Contest",
       number: status?.value.upcomingContests,
     },
     {
-      icon: PiStudentFill,
+      icon: BsArrowRepeat,
       title: "current Contest",
       number: status?.value.currentContests,
     },
