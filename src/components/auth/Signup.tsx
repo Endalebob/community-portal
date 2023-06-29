@@ -162,11 +162,11 @@ const Signup = () => {
   }, [registerData, isRegisterError, isRegisterSuccess]);
 
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div className="flex justify-center items-center h-screen">
       <AuthImage />
 
-      <div className="flex flex-col w-full md:w-1/2 justify-center items-center pb-8 rounded-lg">
-        <h1 className="mt-8 pb-2 text-center text-3xl font-bold text-primary-text">
+      <div className="flex flex-col flex-grow items-center p-4 overflow-y-scroll h-screen">
+        <h1 className="mt-8 pb-2 text-center text-3xl font-bold text-primary-text w-full">
           Sign up to A2SV Community
         </h1>
         <h4 className="pb-4">
@@ -181,7 +181,7 @@ const Signup = () => {
             </p>
           </div>
         </h4>
-        <form className="flex flex-col space-y-2 w-full sm:w-[70%] ml-5 mt-4">
+        <form className="flex flex-col space-y-2 w-full sm:w-[70%]">
           {errors.fromBackEnd && (
             <p className="text-red-500 text-[14px]">{errors.fromBackEnd}</p>
           )}
