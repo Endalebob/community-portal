@@ -10,7 +10,6 @@ import { useAppSelector } from "<@>/store/hooks";
 import { NextResponse } from "next/server";
 
 const index: React.FC = () => {
-  const baseUrl = "http://localhost:3000";
   const [
     apply,
     {
