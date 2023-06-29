@@ -29,7 +29,7 @@ const AnnouncementDetail: React.FC<AnnouncementDetailProps> = ({
     }
   }, [isSuccess, data, isDeleting, isError]);
   return (
-    <div className="w-screen max-w-5xl h-full p-2 flex flex-col gap-4 min-h-screen">
+    <div className="w-screen max-w-5xl h-full p-2 flex flex-col gap-4 min-h-[60vh]">
       {deleteResource && (
         <Modal onClose={() => setDeleteResource(false)}>
           <div className="flex flex-col items-center justify-center gap-4">
