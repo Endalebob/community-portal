@@ -12,12 +12,12 @@ export default function Home() {
       <Head>
         <title>home</title>
       </Head>
-      <main className="flex flex-col bg-primarybg">
+      <main className="flex flex-col bg-primarybg justify-center items-center">
         <Landing />
+        <Partners />
         <Welcome />
         <HowToJoin />
-        <Partners />
-        <GetStarted />
+        {/* <GetStarted /> */}
       </main>
     </>
   );
