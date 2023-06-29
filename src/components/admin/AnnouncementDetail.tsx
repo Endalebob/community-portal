@@ -5,6 +5,8 @@ import { Announcement } from "<@>/types/admin/Announcement";
 import { useDeleteAnnouncementMutation } from "<@>/store/announcement/announcement-api";
 import { MdModeEditOutline } from "react-icons/md";
 import { createMarkup } from "../common/TextEditor";
+import Modal from "../common/Modal";
+import ProgressIndicator from "../common/ProgressIndicator";
 
 interface AnnouncementDetailProps {
   announcement: Announcement;
@@ -20,7 +22,7 @@ const AnnouncementDetail: React.FC<AnnouncementDetailProps> = ({
     deleteAnnouncement,
     { data, isError, isSuccess, isLoading: isDeleting },
   ] = useDeleteAnnouncementMutation();
-
+  const [deleteResource, setDeleteResource] = useState(false);
   useEffect(() => {
     if (isSuccess) {
       onClose();
@@ -28,6 +30,31 @@ const AnnouncementDetail: React.FC<AnnouncementDetailProps> = ({
   }, [isSuccess, data, isDeleting, isError]);
   return (
     <div className="w-screen max-w-5xl h-full p-2 flex flex-col gap-4 min-h-screen">
+      {deleteResource && (
+        <Modal onClose={() => setDeleteResource(false)}>
+          <div className="flex flex-col items-center justify-center gap-4">
+            <p className="text-lg font-bold">Are you sure?</p>
+            <div className="flex gap-4">
+              <button
+                onClick={() => setDeleteResource(false)}
+                className="bg-primary text-white rounded-md px-4 py-2"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => !isDeleting && deleteAnnouncement(id)}
+                className="bg-primary text-white rounded-md px-4 py-2"
+              >
+                {isDeleting ? (
+                  <ProgressIndicator size={5} color="white" />
+                ) : (
+                  "Delete"
+                )}
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
       <div className="flex justify-between items-start gap-24">
         <p className="font-bold text-lg">
           <ReactMarkdown children={title} />
@@ -36,9 +63,7 @@ const AnnouncementDetail: React.FC<AnnouncementDetailProps> = ({
         <div className="flex gap-2">
           <MdModeEditOutline onClick={onEdit} className="w-5 h-5" />
           <AiFillDelete
-            onClick={() => {
-              !isDeleting && deleteAnnouncement(id);
-            }}
+            onClick={() => setDeleteResource(true)}
             className="w-5 h-5"
           />
         </div>
