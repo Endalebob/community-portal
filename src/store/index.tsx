@@ -12,6 +12,7 @@ import { notificationApiSlice } from "./notifications/notifications-api";
 import { resourceApiSlice } from "./resource/resource-api";
 import { GroupDataApi } from "./groups/groups-api";
 
+
 export const store = configureStore({
   reducer: {
     auth: authSlice,
@@ -26,7 +27,7 @@ export const store = configureStore({
     [userDetailApi.reducerPath]: userDetailApi.reducer,
     [notificationApiSlice.reducerPath]: notificationApiSlice.reducer,
     [resourceApiSlice.reducerPath]: resourceApiSlice.reducer,
-    [resourceApiSlice.reducerPath]: resourceApiSlice.reducer,
+
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
@@ -39,8 +40,7 @@ export const store = configureStore({
       notificationApiSlice.middleware,
       resourceApiSlice.middleware,
       GroupDataApi.middleware,
-      notificationApiSlice.middleware,
-      resourceApiSlice.middleware
+
     );
   },
 });
