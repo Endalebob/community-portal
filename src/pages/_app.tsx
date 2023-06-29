@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <RootLayout>
-        <main className={"flex-grow flex flex-col" + inter.className}>
+        <main className={"flex-grow flex flex-col " + inter.className}>
           <Component {...pageProps} />
         </main>
       </RootLayout>
