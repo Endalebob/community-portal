@@ -117,6 +117,7 @@ const WaitList: React.FC = () => {
           ) : error ? (
             <FetchingError />
           ) : (
+            !applicants.length ? <div className="mx-auto text-gray-400 mt-10">No user in the waitlist</div>:
             applicants.map((applicant, index) => (
               <WaitListCard
                 key={index}

@@ -10,12 +10,15 @@ import { waitListApi } from "./admin/waitlist-api";
 import { userDetailApi } from "./profile/user-detail-api";
 import { notificationApiSlice } from "./notifications/notifications-api";
 import { resourceApiSlice } from "./resource/resource-api";
+import { GroupDataApi } from "./groups/groups-api";
+
 
 export const store = configureStore({
   reducer: {
     auth: authSlice,
     user: userSlice,
     selectedContest: contestSlice,
+    [GroupDataApi.reducerPath]: GroupDataApi.reducer,
     [contestApiSlice.reducerPath]: contestApiSlice.reducer,
     [stepApiSlice.reducerPath]: stepApiSlice.reducer,
     [authApiSlice.reducerPath]: authApiSlice.reducer,
@@ -24,6 +27,7 @@ export const store = configureStore({
     [userDetailApi.reducerPath]: userDetailApi.reducer,
     [notificationApiSlice.reducerPath]: notificationApiSlice.reducer,
     [resourceApiSlice.reducerPath]: resourceApiSlice.reducer,
+
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(
@@ -34,7 +38,9 @@ export const store = configureStore({
       userDetailApi.middleware,
       announcementApiSlice.middleware,
       notificationApiSlice.middleware,
-      resourceApiSlice.middleware
+      resourceApiSlice.middleware,
+      GroupDataApi.middleware,
+
     );
   },
 });
