@@ -238,6 +238,7 @@ const Edit = () => {
                   <FiEdit2 />
                   <input
                     onChange={handleImageUpload}
+                    name="profilePicture"
                     type="file"
                     accept="image/*"
                     className="hidden"
