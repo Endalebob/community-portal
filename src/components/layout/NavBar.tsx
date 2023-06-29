@@ -45,6 +45,11 @@ const NavBar: React.FC = () => {
         to: "/journey",
         current: false,
       },
+      {
+        name: "Resources",
+        to: "/resources",
+        current: false,
+      },
     ],
     admin: [
       {
@@ -65,6 +70,11 @@ const NavBar: React.FC = () => {
       {
         name: "Wait list",
         to: "/admin/waitlist",
+        current: false,
+      },
+      {
+        name: "Resources",
+        to: "/resources",
         current: false,
       },
     ],
