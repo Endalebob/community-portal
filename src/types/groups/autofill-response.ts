@@ -1,6 +1,6 @@
 export interface AutoFillResponse {
     isSuccess: boolean;
-    error: null | string;
+    error: any;
     value: object;
     message: null | string;
   }

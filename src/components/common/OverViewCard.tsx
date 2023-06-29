@@ -4,7 +4,7 @@ import { IconType } from "react-icons";
 export interface CardProps {
   icon: IconType;
   title: string;
-  number: number;
+  number: number | undefined;
 }
 const OverViewCard: React.FC<CardProps> = ({ icon: Icon, title, number }) => {
   return (

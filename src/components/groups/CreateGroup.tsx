@@ -24,7 +24,6 @@ const CreateGroup: React.FC<CreateGroup> = ({ handleClose }) => {
   const [group, setGroup] = useState(initialState);
   const [createData, { isLoading, error }] = useCreateGroupMutation();
   const [errors, setErrors] = useState(initialError);
-  const [onCreate, setCreat] = useState<boolean>(false);
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
@@ -70,20 +69,14 @@ const CreateGroup: React.FC<CreateGroup> = ({ handleClose }) => {
       return;
     }
 
-    try {
-      await createData({
-        name,
-        capacity: capacity as number,
-        telegramLink,
-        divisionId: divisionId as number,
-      }).unwrap();
-      setGroup(initialState);
-      setErrors(initialError);
-    } catch (errors) {}
-  };
-
-  const handleCreat = () => {
-    setCreat(true);
+    await createData({
+      name,
+      capacity: capacity as number,
+      telegramLink,
+      divisionId: divisionId as number,
+    }).unwrap();
+    setGroup(initialState);
+    setErrors(initialError);
   };
 
   return (

@@ -9,6 +9,7 @@ import Modal from "../common/Modal";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Loading from "../common/Loading";
 import FetchingError from "../common/FetchingError";
+import { FaSearch } from "react-icons/fa";
 
 interface SidebarProps {
   id: string;
@@ -17,7 +18,8 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ id, setSelectedGroup }) => {
   const { data, isLoading, error } = useGetGroupByIdQuery(id);
-  const [autoFillGroup, { isLoading: isFilling }] = useAutoFillGroupMutation();
+  const [autoFillGroup, { error: autoFillError, isLoading: isFilling }] =
+    useAutoFillGroupMutation();
   const [showPopup, setShowPopup] = useState<Boolean>(false);
   const [searchValue, setSearchValue] = useState("");
 
@@ -30,28 +32,33 @@ const Sidebar: React.FC<SidebarProps> = ({ id, setSelectedGroup }) => {
   };
 
   if (isLoading) {
-    return <Loading/>
+    return <Loading />;
   }
   if (error) {
-    return <FetchingError/>;
+    return <FetchingError />;
   }
   const memberData = data?.value;
 
   return (
-    <div className="flex flex-col sticky top-0 h-screen overflow-scroll waitlist-card-scroll sm:rounded-md border-l border-b">
+    <div className="flex flex-col sticky top-0 h-screen overflow-y-scroll waitlist-card-scroll sm:rounded-md border-l border-b">
       <div className=" sticky top-0 bg-white">
-        <div className=" flex text-lg leading-6 font-medium p-2 border-b border-gray-100 text-gray-900 text-left ">
-          <button onClick={() => setSelectedGroup("")} className="p-2 my-auto">
-            <AiOutlineCloseCircle />
-          </button>
-          <div className="justify-between items-center">
-            <h3 className="p-2 text-gray-500">{memberData?.name}</h3>
+        <div className=" flex justify-between text-lg leading-6 font-medium p-2 border-b border-gray-100 text-gray-900 text-left ">
+          <div className="flex text-gray-500 justify-between items-center">
+            <button onClick={() => setSelectedGroup("")} className="pr-2">
+              <AiOutlineCloseCircle />
+            </button>
+
+            <h3>{memberData?.name}</h3>
           </div>
-          <div className="p-2">
+          <div className="flex items-center border border-gray-200 rounded-md px-3 py-2">
+            <span className="text-gray-300 mr-2">
+              <FaSearch />
+            </span>
             <input
               type="text"
               placeholder="Search"
               value={searchValue}
+              className="w-full focus:outline-none placeholder:font-normal"
               onChange={(e) => setSearchValue(e.target.value)}
             />
           </div>
@@ -75,7 +82,7 @@ const Sidebar: React.FC<SidebarProps> = ({ id, setSelectedGroup }) => {
               <MembersCard
                 key={index}
                 fullName={member.fullName}
-                profilePicture={member?.profilePicture }
+                profilePicture={member?.profilePicture}
                 telegramUsername={member?.telegramUsername}
                 university={member?.university}
                 graduationYear={member.graduationYear}
@@ -88,10 +95,20 @@ const Sidebar: React.FC<SidebarProps> = ({ id, setSelectedGroup }) => {
           <Modal
             onClose={handleClose}
             children={
-              <ConfrimationCard
-                handleAutoFill={() => handleAutofill(id)}
-                handleClose={handleClose}
-              />
+              autoFillError ? (
+                <div className="flex flex-col w-full items-center mb-4  w-[50vw] md:w-[40vw] lg:w-[30vw] justify-center text-gray-500">
+                  No user in the waitlist
+                </div>
+              ) : data?.value?.capacity !== data?.value?.membersCount ? (
+                <ConfrimationCard
+                  handleAutoFill={() => handleAutofill(id)}
+                  handleClose={handleClose}
+                />
+              ) : (
+                <div className="flex flex-col text-center mb-4 text-gray-500 w-[50vw] md:w-[40vw] lg:w-[30vw]">
+                  This group is full!
+                </div>
+              )
             }
           />
         )}

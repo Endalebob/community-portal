@@ -12,14 +12,14 @@ import CreateGroup from "<@>/components/groups/CreateGroup";
 const DashBoard: React.FC = () => {
   const { data, isLoading, error } = useGetGroupsQuery();
   const [selecteGroup, setSelectedGroup] = useState("");
-  const [ showPopup, setShowPopup] = useState<Boolean>(false);
+  const [showPopup, setShowPopup] = useState<Boolean>(false);
   const handleCardClick = (id: any) => {
     setSelectedGroup(id);
   };
 
   const handleClose = () => {
     setShowPopup(false);
-  }
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -30,8 +30,10 @@ const DashBoard: React.FC = () => {
   const groupData = data?.value;
 
   return (
-    <div className={`grid ${selecteGroup ? "grid-cols-6" : "grid-cols-1"} `}>
-      <div className={`${selecteGroup ? "col-span-4" : "col-span-1"}`}>
+    <div
+      className={`grid ${selecteGroup ?  "grid-cols-6 mb-16" : "grid-cols-1"} `}
+    >
+      <div className={`${selecteGroup ? "col-span-6 md:col-span-4" : "col-span-1"}`}>
         <div className="flex pb-8 border-shadow">
           <OverView />
         </div>
@@ -41,15 +43,11 @@ const DashBoard: React.FC = () => {
               Groups
             </h1>
           </div>
-          <div className="pb-4 col-span-1 justify-self-end">
+          <div className="pb-4 col-span-1 justify-self-end mb-8">
             {showPopup && (
               <Modal
-              onClose={handleClose}
-              
-              children = {
-                <CreateGroup
-                handleClose = {handleClose}/>
-              }
+                onClose={handleClose}
+                children={<CreateGroup handleClose={handleClose} />}
               />
             )}
             <button
@@ -61,16 +59,15 @@ const DashBoard: React.FC = () => {
           </div>
         </div>
         <div className={`col-span-4 flex flex-wrap gap-4 ml-6`}>
-            {groupData?.map((data: any) => (
-              <GroupsCard
-                key={data.id}
-                handleCardClick={() => handleCardClick(data.id)}
-                groupName={data.name}
-                memberCount={data.membersCount}
-                capacity={data.capacity}
-              />
-            ))}
-          
+          {groupData?.map((data: any) => (
+            <GroupsCard
+              key={data.id}
+              handleCardClick={() => handleCardClick(data.id)}
+              groupName={data.name}
+              memberCount={data.membersCount}
+              capacity={data.capacity}
+            />
+          ))}
         </div>
       </div>
 

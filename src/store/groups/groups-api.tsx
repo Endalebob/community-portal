@@ -4,6 +4,7 @@ import { GroupsResponse } from "<@>/types/groups/group-response";
 import GroupBody from "<@>/types/groups/group-body";
 import { GroupByIdResponse } from "<@>/types/groups/group-id-response";
 import { AutoFillResponse } from "<@>/types/groups/autofill-response";
+import OverViewType from "<@>/types/groups/over-view";
 const BASE_URL = "https://a2sv-community-portal-api.onrender.com/api";
 
 export const GroupDataApi = createApi({
@@ -51,6 +52,27 @@ export const GroupDataApi = createApi({
       }),
       invalidatesTags: ["Group"],
     }),
+
+    getGroupTotalStudent: builder.query<OverViewType, void>({
+      query: () => ({
+        url: "/Groups/total-students",
+      }),
+      providesTags: ["Group"],
+    }),
+
+    getTotalGroups: builder.query<OverViewType, void>({
+      query: () => ({
+        url: "/Groups/total-group",
+      }),
+      providesTags: ["Group"],
+    }),
+
+    getGroupMeanSize: builder.query<OverViewType, void>({
+      query: () => ({
+        url: "/Groups/mean-capacity",
+      }),
+      providesTags: ["Group"],
+    }),
   }),
 });
 
@@ -59,4 +81,7 @@ export const {
   useCreateGroupMutation,
   useGetGroupByIdQuery,
   useAutoFillGroupMutation,
+  useGetGroupTotalStudentQuery,
+  useGetTotalGroupsQuery,
+  useGetGroupMeanSizeQuery,
 } = GroupDataApi;
