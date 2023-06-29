@@ -287,7 +287,7 @@ const NavBar: React.FC = () => {
             <>
               {showProfile && (
                 <div
-                  className="absolute right-4 z-20 top-16 w-60 rounded-lg shadow-lg flex flex-col p-2"
+                  className="absolute right-4 z-20 top-16 w-60 rounded-lg shadow-lg flex flex-col p-2 bg-primarybg"
                   ref={showProfileRef}
                 >
                   <div className="flex flex-col p-2">
