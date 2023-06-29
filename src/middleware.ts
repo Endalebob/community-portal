@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
+<<<<<<< HEAD
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
 import { useAppSelector } from "./store/hooks";
 const baseUrl = "https://t-web-project.vercel.app";
+=======
+const baseUrl = "http://localhost:3001";
+>>>>>>> 85b8f12 (add apply)
 
 export default function middleware(req: NextRequest) {
   let verify = req.cookies.get("token");

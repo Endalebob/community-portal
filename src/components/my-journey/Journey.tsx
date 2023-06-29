@@ -154,6 +154,7 @@ const Journey: React.FC = () => {
                       (index === 0 ||
                         steps[activeStep].subSteps[index - 1].isCompleted) &&
                       stepInprogress;
+<<<<<<< HEAD
                     if (
                       active &&
                       subStep.subStepName === "Apply to the program"
@@ -162,6 +163,9 @@ const Journey: React.FC = () => {
                         setApplicationStatus({ readyForApplication: true })
                       );
                     }
+=======
+
+>>>>>>> 85b8f12 (add apply)
                     return (
                       <Task
                         key={index}
