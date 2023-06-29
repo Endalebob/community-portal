@@ -5,6 +5,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { Notification } from "<@>/types/notifications/notifications";
+import { createMarkup } from "<@>/components/common/TextEditor";
+import { Modak } from "next/font/google";
+import Modal from "<@>/components/common/Modal";
+import NotificationsCard from "<@>/components/notifications/NotificationsCard";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -13,6 +17,9 @@ const Notifications = () => {
 
   const { data, isLoading, isError, refetch } = useGetNotificationsQuery();
   const [readAllNotifications] = useReadAllNotificationsMutation();
+  const [currNotification, setCurrNotification] = useState<Notification | null>(
+    null
+  );
 
   useEffect(() => {
     if (data?.isSuccess) {
@@ -47,6 +54,8 @@ const Notifications = () => {
 
     return `${date} ${month} ${year}`;
   };
+
+  // notifications card popup
 
   return (
     <section className="w-3/4 lg:w-1/2 mx-auto mt-5 mb-10">
@@ -87,21 +96,37 @@ const Notifications = () => {
           {notifications && notifications.length != 0 ? (
             notifications.map(
               ({ title, content, dateCreated, isRead }, index) => (
-                <div
+                <button
                   key={index}
-                  className={
-                    isRead
-                      ? "bg-white rounded-lg shadow-lg p-6"
-                      : "bg-white rounded-lg shadow-lg p-6 border border-red-400"
+                  onClick={() =>
+                    setCurrNotification({
+                      title,
+                      content,
+                      dateCreated,
+                      isRead,
+                    })
                   }
                 >
-                  <h2 className="text-xl font-semibold mb-2">{title}</h2>
-                  <p className="text-gray-700 mb-4">{content}</p>
-                  <div className="flex items-center text-gray-600">
-                    <FaRegCalendarAlt className="mr-2" />
-                    <span>{getDate(dateCreated)}</span>
+                  <div
+                    key={index}
+                    className={
+                      isRead
+                        ? "bg-white rounded-lg shadow-lg p-6 hover:scale-100"
+                        : "bg-white rounded-lg shadow-lg p-6 hover:scale-100 border border-red-400 "
+                    }
+                  >
+                    <h2 className="text-xl font-semibold mb-2 text-start">
+                      {title}
+                    </h2>
+
+                    <p className="text-primary text-start my-5">details</p>
+                    {/* <p className="text-gray-700 mb-4">{content}</p> */}
+                    <div className="flex items-center text-gray-600">
+                      <FaRegCalendarAlt className="mr-2" />
+                      <span>{getDate(dateCreated)}</span>
+                    </div>
                   </div>
-                </div>
+                </button>
               )
             )
           ) : (
@@ -110,6 +135,20 @@ const Notifications = () => {
             </p>
           )}
         </div>
+      )}
+      {currNotification && (
+        <Modal
+          onClose={() => {
+            setCurrNotification(null);
+          }}
+          children={
+            <NotificationsCard
+              title={currNotification.title}
+              content={currNotification.content}
+              date={getDate(currNotification.dateCreated)}
+            />
+          }
+        />
       )}
     </section>
   );
