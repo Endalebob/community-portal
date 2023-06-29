@@ -61,7 +61,7 @@ const SideBar: React.FC = () => {
     setSelectedChapter(chapterId);
   };
 
-  const handleResourceClick = (resourceId: number,title:string) => {
+  const handleResourceClick = (resourceId: number, title: string) => {
     if (selectedResource !== resourceId) {
       setExpand(true);
     } else {
@@ -161,7 +161,9 @@ const SideBar: React.FC = () => {
               {resources.map((resource) => (
                 <div key={resource.id} className="flex flex-col">
                   <div
-                    onClick={() => handleResourceClick(resource.id,resource.title)}
+                    onClick={() =>
+                      handleResourceClick(resource.id, resource.title)
+                    }
                     className={`flex items-cent rounded-md justify-between px-4 py-2 cursor-pointer ${
                       selectedResource === resource.id
                         ? "text-primary"
@@ -174,20 +176,22 @@ const SideBar: React.FC = () => {
                           ? resource.title.substring(0, 30) + "..."
                           : resource.title}
                       </h1>
-                      {show && (<div className="flex gap-1">
-                        <button
-                          onClick={() => setEditResouce(true)}
-                          className="flex items-center rounded-full justify-center "
-                        >
-                          <AiFillEdit className="" />
-                        </button>
-                        <button
-                          onClick={() => setDeleteResource(true)}
-                          className="flex items-center rounded-full justify-center p-1 "
-                        >
-                          <AiFillDelete className="" />
-                        </button>
-                      </div>)}
+                      {show && (
+                        <div className="flex gap-1">
+                          <button
+                            onClick={() => setEditResouce(true)}
+                            className="flex items-center rounded-full justify-center "
+                          >
+                            <AiFillEdit className="" />
+                          </button>
+                          <button
+                            onClick={() => setDeleteResource(true)}
+                            className="flex items-center rounded-full justify-center p-1 "
+                          >
+                            <AiFillDelete className="" />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                   {expand &&
@@ -219,26 +223,30 @@ const SideBar: React.FC = () => {
                     ))}
                   {expand && selectedResource === resource.id && (
                     <div className="flex items-center ml-10">
-                      {show && (<button
-                        onClick={() => setCreateResouce(true)}
-                        className="flex items-center rounded-full justify-center p-2 mt-5 bg-primary text-white"
-                      >
-                        <MdAdd className=" text-white" />
-                      </button>)}
+                      {show && (
+                        <button
+                          onClick={() => setCreateResouce(true)}
+                          className="flex items-center rounded-full justify-center p-2 mt-5 bg-primary text-white"
+                        >
+                          <MdAdd className=" text-white" />
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
               ))}
             </div>
-            {show &&(<div className="ml-5 my-20">
-              <button
-                onClick={() => setCreateTopic(true)}
-                className="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md"
-              >
-                <MdAdd className="mr-2" />
-                Add Topic
-              </button>
-            </div>)}
+            {show && (
+              <div className="ml-5 my-20">
+                <button
+                  onClick={() => setCreateTopic(true)}
+                  className="flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md"
+                >
+                  <MdAdd className="mr-2" />
+                  Add Topic
+                </button>
+              </div>
+            )}
           </>
         ) : (
           <Error message="Error occurred while fetching resources" />
