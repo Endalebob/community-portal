@@ -9,15 +9,16 @@ interface NotifcationCardProps {
 }
 const NotificationsCard = ({ title, content, date }: NotifcationCardProps) => {
   return (
-    <div className={"bg-white rounded-lg shadow-lg max-w-3xl p-6"}>
-      <h2 className="text-xl font-semibold mb-2 text-start">{title}</h2>
-      <p
-        className="text-start"
-        dangerouslySetInnerHTML={createMarkup(content)}
-      />
+    <div className=" border rounded-md shadow-md border-gray-50 max-w-[90%] md:max-w-[80%] lg:max-w-5xl w-screen p-4 flex flex-col justify-between mx-auto hover:cursor-pointer">
+      <div className="flex flex-col gap-4">
+        <p className="text-lg font-medium">{title}</p>
+        <div
+          className="line-clamp-4"
+          dangerouslySetInnerHTML={createMarkup(content)}
+        />
+      </div>
 
-      {/* <p className="text-gray-700 mb-4">{content}</p> */}
-      <div className="flex items-center text-gray-600">
+      <div className="flex justify-end w-full mt-10 text-sm ">
         <FaRegCalendarAlt className="mr-2" />
         <span>{date}</span>
       </div>
