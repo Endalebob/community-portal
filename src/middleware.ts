@@ -15,9 +15,9 @@ export default function middleware(req: NextRequest) {
       url.includes("/contests") ||
       url.includes("/journey") ||
       url.includes("/profile") ||
-      url.includes("/profile/edit")||
+      url.includes("/profile/edit") ||
       url.includes("/resources"))
-       ) {
+  ) {
     return NextResponse.redirect(baseUrl + "/auth/signin");
   }
 
