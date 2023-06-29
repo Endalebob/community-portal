@@ -33,10 +33,10 @@ const ProfileCard = () => {
     setCookie("profilePicture", applicant.profilePicture);
   }
   return (
-    <div className="w-96  mx-2 rounded overflow-hidden bg-white shadow-lg p-10">
+    <div className="w-96  mx-2 rounded-lg overflow-hidden bg-white shadow-md p-8">
       {applicant.profilePicture ? (
         <Image
-          className="w-full rounded-lg"
+          className="w-full rounded-lg aspect-square object-center"
           src={applicant.profilePicture}
           alt="profile-picture"
           width={317}
@@ -47,7 +47,7 @@ const ProfileCard = () => {
           <BiSolidUserCircle color="gray" size={300} />
         </div>
       )}
-      <div className="px-6 py-4">
+      <div className="py-4">
         <div className="font-bold text-xl mb-2">{applicant.fullName}</div>
       </div>
 
@@ -64,7 +64,7 @@ const ProfileCard = () => {
       </div>
 
       <button
-        className="bg-primary mt-10 hover:bg-white text-white hover:text-black border hover:border-primary font-bold py-2 px-4 rounded-full w-full transition-colors duration-300"
+        className=" hover:bg-[rgb(36,95,150)] bg-primary mt-10 text-white font-bold py-2 px-4 rounded-md w-full transition-colors duration-300"
         onClick={() => router.push("/profile/edit")}
       >
         Edit

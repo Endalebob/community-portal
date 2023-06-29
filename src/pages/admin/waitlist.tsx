@@ -72,9 +72,9 @@ const WaitList: React.FC = () => {
   };
 
   return (
-    <section className="grid md:grid-cols-12 grid-cols-1">
-      <div className="col-span-4 border-r border-r-gray-100 overflow-y-scroll max-h-screen waitlist-card-scroll">
-        <div className="flex items-center justify-between space-x-4 sticky px-6 py-4 top-0 bg-white">
+    <section className="grid md:grid-cols-12 grid-cols-1 flex-grow">
+      <div className="col-span-4 border-r border-r-gray-100 max-h-full h-full flex flex-col">
+        <div className="flex items-center justify-between space-x-4 px-6 py-4 top-0 bg-white">
           <h2 className="text-lg font-medium text-gray-700">Members</h2>
           <div className="flex items-center border border-gray-200 rounded-md px-3 py-2">
             <span className="text-gray-400 mr-2">
@@ -90,7 +90,7 @@ const WaitList: React.FC = () => {
           </div>
         </div>
 
-        <div className="mb-6 h-[70vh] flex flex-col">
+        <div className="flex-grow flex flex-col overflow-y-scroll ">
           <div className="text-sm flex items-center text-gray-700 bg-gray-100 justify-between p-4 px-6">
             <div className="flex items-center justify-between space-x-2">
               <input
@@ -127,15 +127,14 @@ const WaitList: React.FC = () => {
               />
             ))
           )}
-
-          <div className="mt-auto">
-            <Pagination
-              onPageChange={onPageChange}
-              currentPage={params.pageNumber || 1}
-              totalCount={totalCount}
-              pageSize={params.pageSize || 10}
-            />
-          </div>
+        </div>
+        <div>
+          <Pagination
+            onPageChange={onPageChange}
+            currentPage={params.pageNumber || 1}
+            totalCount={totalCount}
+            pageSize={params.pageSize || 10}
+          />
         </div>
       </div>
 
@@ -143,7 +142,7 @@ const WaitList: React.FC = () => {
         {userDetailId ? (
           <StudentDetail userId={userDetailId} />
         ) : (
-          <div className="flex py-10 items-center text-gray-500 space-x-2 justify-center">
+          <div className="flex py-10 items-center text-gray-500 space-x-2 justify-center h-full w-full">
             Click on a user to view details
           </div>
         )}
@@ -154,7 +153,7 @@ const WaitList: React.FC = () => {
             <AddToGroup
               setShowModal={setShowModal}
               selectedApplicants={selectedApplicants}
-              setSelectedApplicants = {setSelectedApplicants}
+              setSelectedApplicants={setSelectedApplicants}
             />
           }
           onClose={() => setShowModal(false)}

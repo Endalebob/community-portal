@@ -91,7 +91,7 @@ const Signup = () => {
       validationErrors.codeforcesHandle = "Codeforces handle is required";
     } else if (!telegramUsername) {
       validationErrors.telegramUsername = "Telegram handle is required";
-    } 
+    }
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -124,62 +124,49 @@ const Signup = () => {
   useEffect(() => {
     if (isRegisterSuccess) {
       const authData = registerData as unknown as AuthResponse;
-      dispatch(
-        setToken(authData)
-      );
+      dispatch(setToken(authData));
       router.push("/journey");
     }
     if (isRegisterError && registerError) {
       const customError = registerError as unknown as CustomError;
       console.log(customError);
-      if (!customError.data){
+      if (!customError.data) {
         setErrors({ ...errors, fromBackEnd: "Something went wrong" });
-      }
-      else if (customError.data.error) {
+      } else if (customError.data.error) {
         const error = customError.data.error[0];
         const propertyName =
           error.propertyName.charAt(0).toLowerCase() +
           error.propertyName.slice(1);
         if (propertyName === "confirmPassword") {
           setErrors({ ...errors, confirmPassword: error.errorMessage });
-        }
-        else if (propertyName === "password") {
+        } else if (propertyName === "password") {
           setErrors({ ...errors, password: error.errorMessage });
-        }
-        else if (propertyName === "email") {
+        } else if (propertyName === "email") {
           setErrors({ ...errors, email: error.errorMessage });
-        }
-        else if (propertyName === "phoneNumber") {
+        } else if (propertyName === "phoneNumber") {
           setErrors({ ...errors, phoneNumber: error.errorMessage });
-        }
-        else if (propertyName === "codeforcesHandle") {
+        } else if (propertyName === "codeforcesHandle") {
           setErrors({ ...errors, codeforcesHandle: error.errorMessage });
-        }
-        else if (propertyName === "telegramUsername") {
+        } else if (propertyName === "telegramUsername") {
           setErrors({ ...errors, telegramUsername: error.errorMessage });
-        }
-        else if (propertyName === "fullName") {
+        } else if (propertyName === "fullName") {
           setErrors({ ...errors, fullName: error.errorMessage });
-        }
-        else {
+        } else {
           setErrors({ ...errors, fromBackEnd: error.errorMessage });
         }
-      }
-
-        
-      else if (customError.data.message) {
+      } else if (customError.data.message) {
         setErrors({ ...errors, fromBackEnd: customError.data.message });
-      } 
+      }
       isSignupLoading = false;
     }
   }, [registerData, isRegisterError, isRegisterSuccess]);
 
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div className="flex justify-center items-center h-screen flex-grow">
       <AuthImage />
 
-      <div className="flex flex-col w-full md:w-1/2 justify-center items-center pb-8 rounded-lg">
-        <h1 className="mt-8 pb-2 text-center text-3xl font-bold text-primary-text">
+      <div className="flex flex-col flex-grow items-center p-4 overflow-y-scroll h-screen">
+        <h1 className="mt-8 pb-2 text-center text-3xl font-bold text-primary-text w-full">
           Sign up to A2SV Community
         </h1>
         <h4 className="pb-4">
@@ -194,7 +181,7 @@ const Signup = () => {
             </p>
           </div>
         </h4>
-        <form className="flex flex-col space-y-2 w-full sm:w-[70%] ml-5">
+        <form className="flex flex-col space-y-2 w-full sm:w-[70%]">
           {errors.fromBackEnd && (
             <p className="text-red-500 text-[14px]">{errors.fromBackEnd}</p>
           )}
@@ -202,8 +189,7 @@ const Signup = () => {
             label="Full Name"
             name="fullName"
             type="text"
-            width="max-w-[80%]"
-            placeholder="Enter your full name"
+            placeholder="John Doe"
             value={fullName}
             onChange={handleChange}
             error={errors.fullName}
@@ -212,8 +198,7 @@ const Signup = () => {
             label="Email"
             name="email"
             type="text"
-            width="max-w-[80%]"
-            placeholder="Enter your email"
+            placeholder="john.doe@gmail.com"
             value={email}
             onChange={handleChange}
             error={errors.email}
@@ -222,19 +207,16 @@ const Signup = () => {
             label="Phone Number"
             name="phoneNumber"
             type="text"
-            width="max-w-[80%]"
-            placeholder="Enter your phone number"
+            placeholder="+251912345678"
             value={phoneNumber}
             onChange={handleChange}
             error={errors.phoneNumber}
           />
-          {/* codeforcesHandle input field */}
           <InputField
             label="Codeforces Handle"
             name="codeforcesHandle"
             type="text"
-            width="max-w-[80%]"
-            placeholder="Enter your codeforcesHandle handle"
+            placeholder="john_doe"
             value={codeforcesHandle}
             onChange={handleChange}
             error={errors.codeforcesHandle}
@@ -244,8 +226,7 @@ const Signup = () => {
             label="Telegram Handle"
             name="telegramUsername"
             type="text"
-            width="max-w-[80%]"
-            placeholder="Enter your handle"
+            placeholder="john_doe"
             value={telegramUsername}
             onChange={handleChange}
             error={errors.telegramUsername}
@@ -253,7 +234,6 @@ const Signup = () => {
           <InputField
             label="Password"
             name="password"
-            width="max-w-[80%]"
             type={showPassword ? "text" : "password"}
             placeholder="********"
             value={password}
@@ -266,7 +246,6 @@ const Signup = () => {
           <InputField
             label="Confirm Password"
             name="confirmPassword"
-            width="max-w-[80%]"
             type={showConfirmPassword ? "text" : "password"}
             placeholder="********"
             value={confirmPassword}
@@ -276,7 +255,7 @@ const Signup = () => {
             togglePasswordVisibility={toggleConfirmPasswordVisibility}
             showPassword={showConfirmPassword}
           />
-          <div className="flex">
+          <div className="flex py-4">
             <input
               type="checkbox"
               className="mt-1 mr-2"
@@ -295,7 +274,7 @@ const Signup = () => {
           <button
             type="button"
             onClick={() => handleRegister()}
-            className="text-white max-w-[100px] bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 mb-2"
+            className="text-white bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             disabled={isSignupLoading}
           >
             {isSignupLoading ? (

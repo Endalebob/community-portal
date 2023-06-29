@@ -1,7 +1,6 @@
 import React from "react";
-import OverViewCard, { CardProps } from "../common/OverViewCard";
 import { PiStudentFill } from "react-icons/pi";
-import { FaUserGraduate } from "react-icons/fa";
+import OverViewCard, { CardProps } from "../common/OverViewCard";
 
 const overViewData: CardProps[] = [
   {
@@ -11,24 +10,21 @@ const overViewData: CardProps[] = [
   },
   {
     icon: PiStudentFill,
-    title: "Upcoming Contest",
+    title: "Upcoming Contests",
     number: 5,
   },
   {
     icon: PiStudentFill,
-    title: "current Contest",
+    title: "Current Contests",
     number: 2,
   },
 ];
 
 const OverViewContests: React.FC = () => {
   return (
-    <div className="flex flex-row flex-wrap">
+    <div className="flex flex-row flex-wrap gap-4">
       {overViewData.map((data, index) => (
-        <div
-          key={index}
-          className="ml-4 sm:ml-6 mt-4 hover:scale-110 transition duration-500"
-        >
+        <div key={index} className="mt-4">
           <OverViewCard
             icon={data.icon}
             title={data.title}

@@ -55,7 +55,7 @@ const CreateAnnouncement: React.FC<CreateAnnouncementProps> = ({ onClose }) => {
 
   return (
     <div className="w-full h-full p-2 flex flex-col gap-2">
-      <p className="font-bold text-lg">Create new Announcement</p>
+      <p className="font-bold text-lg">Create new announcement</p>
       <p className="text-sm opacity-30">
         Add new Announcement to the system and easily get everyone up to speed.
       </p>
