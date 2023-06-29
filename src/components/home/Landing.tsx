@@ -41,11 +41,11 @@ const Landing: React.FC = () => {
         </span>
         <div className="flex gap-4 mt-10">
           <Link href="/auth/signin">
-            <div className="py-2 px-8 w-40 bg-primary rounded-full font-medium cursor-pointer flex justify-center items-center">
+            <div className="py-2 px-8 w-40 h-10 border-primary border-2 bg-primary rounded-full font-medium cursor-pointer flex justify-center items-center">
               Get Started
             </div>
           </Link>
-          <div className="py-2 px-8 w-40 rounded-full font-medium cursor-pointer border-2 flex justify-center items-center">
+          <div className="py-2 px-8 w-40 h-10 rounded-full font-medium cursor-pointer border-2 flex justify-center items-center">
             Learn More
           </div>
         </div>
