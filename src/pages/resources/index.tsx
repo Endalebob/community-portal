@@ -7,4 +7,8 @@ const index = () => {
   )
 }
 
+<<<<<<< HEAD
 export default index
+=======
+export default index
+>>>>>>> a4c3b35 (set the limit for the length of title)
