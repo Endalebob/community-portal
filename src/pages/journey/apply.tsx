@@ -6,11 +6,8 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { BiCheck } from "react-icons/bi";
 import { GoArrowUpRight } from "react-icons/go";
-<<<<<<< HEAD
 import { useAppSelector } from "<@>/store/hooks";
 import { NextResponse } from "next/server";
-=======
->>>>>>> 85b8f12 (add apply)
 
 const index: React.FC = () => {
   const [
@@ -23,7 +20,6 @@ const index: React.FC = () => {
       error,
     },
   ] = useApplyMutation();
-<<<<<<< HEAD
   const readyForApplication = useAppSelector(
     (state) => state.applicationStatus.readyForApplication
   );
@@ -42,14 +38,6 @@ const index: React.FC = () => {
   if (!readyForApplication) {
     return null;
   }
-=======
-  const router = useRouter();
-  useEffect(() => {
-    if (!isApplying) {
-      apply({});
-    }
-  }, []);
->>>>>>> 85b8f12 (add apply)
   const applicationError = error as any;
   return (
     <div className="w-full h-[80vh] flex items-center justify-center">
