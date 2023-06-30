@@ -78,15 +78,18 @@ const index: React.FC = () => {
               setCreateAnnouncement(true);
               setShowModal(true);
             }}
-            startIcon={<AiOutlinePlus></AiOutlinePlus>}
-            label="New Announcements"
+            startIcon={<AiOutlinePlus />}
+            label="New Announcement"
           />
         </div>
 
         <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-8 p-4">
           {isLoading ? (
             Array.from({ length: 16 }).map((_, index) => (
-              <div className="animate-pulse flex flex-col gap-6 rounded-md shadow-md p-4 w-full">
+              <div
+                key={index}
+                className="animate-pulse flex flex-col gap-6 rounded-md shadow-md p-4 w-full"
+              >
                 <div className="flex flex-col gap-2">
                   <div className="w-[90%] rounded-sm h-4 bg-slate-200"></div>
                   <div className="w-[45%] rounded-sm h-4 bg-slate-200"></div>

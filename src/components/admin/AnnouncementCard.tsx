@@ -25,9 +25,9 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
       <div className="flex flex-col gap-4">
         <p className="text-lg font-medium">{title}</p>
 
-        <p className="line-clamp-4 max-h-36">
+        <div className="line-clamp-4 max-h-36">
           <div dangerouslySetInnerHTML={createMarkup(description)} />
-        </p>
+        </div>
       </div>
 
       <div className="flex justify-end w-full ">

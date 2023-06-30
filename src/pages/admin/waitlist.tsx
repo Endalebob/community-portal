@@ -121,6 +121,10 @@ const WaitList: React.FC = () => {
               <Loading />
             ) : error ? (
               <FetchingError />
+            ) : applicants.length == 0 ? (
+              <div className="mx-auto my-8 text-gray-500">
+                No user in the waitlist{" "}
+              </div>
             ) : (
               applicants.map((applicant, index) => (
                 <WaitListCard
