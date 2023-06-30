@@ -188,16 +188,16 @@ const NavBar: React.FC = () => {
       <section
         className={classNames(
           hideNav ? "hidden" : "flex",
-          "px-4 py-2 border-b-2 items-center"
+          "px-4 py-2 border-b items-center"
         )}
       >
         {isAuthenticated ? (
-          <div className="w-28 lg:w-52">
+          <div>
             <Image src="/A2SV-Logo.svg" width={105} height={30} alt="logo" />
           </div>
         ) : (
           <Link className="z-30" href="/">
-            <div className="w-28 lg:w-52">
+            <div>
               <Image src="/A2SV-Logo.svg" width={105} height={30} alt="logo" />
             </div>
           </Link>
@@ -222,8 +222,8 @@ const NavBar: React.FC = () => {
                     key={index}
                     href={to}
                     className={classNames(
-                      current ? "text-blue-700" : "text-primary-text",
-                      "text-sm md:text-base"
+                      current ? "text-primary" : "text-primary-text",
+                      "text-sm md:text-base font-medium"
                     )}
                   >
                     {name}
