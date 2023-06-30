@@ -125,7 +125,12 @@ const Signup = () => {
     if (isRegisterSuccess) {
       const authData = registerData as unknown as AuthResponse;
       dispatch(setToken(authData));
-      router.push("/journey");
+      if (authData.value.user.role === "HeadOfEducation") {
+        router.push("/admin/groups");
+      }
+      else{
+        router.push("/journey");
+      }
     }
     if (isRegisterError && registerError) {
       const customError = registerError as unknown as CustomError;
