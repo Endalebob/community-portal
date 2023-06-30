@@ -6,7 +6,7 @@ const SigninPage = () => {
   return (
     <>
       <Head>
-        <title>Signin</title>
+        <title>Sign in</title>
       </Head>
       <Signin />
     </>
