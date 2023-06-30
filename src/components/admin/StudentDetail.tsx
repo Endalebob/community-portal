@@ -110,7 +110,7 @@ const StudentDetail: React.FC<StudentDetailProps> = ({ userId }) => {
             <Image
               width={640}
               height={640}
-              className="rounded-xl bg-gray-100 w-32 h-32"
+              className="rounded-xl bg-gray-100 w-32 h-32 object-cover"
               src={applicant?.profilePicture}
               alt={applicant?.fullName + " avatar"}
             />

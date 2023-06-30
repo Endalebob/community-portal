@@ -9,6 +9,7 @@ import Modal from "../common/Modal";
 import ProgressIndicator from "../common/ProgressIndicator";
 import "react-quill/dist/quill.bubble.css";
 import dynamic from "next/dynamic";
+import { getCookie } from "<@>/utils/cookie";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface AnnouncementDetailProps {
@@ -63,13 +64,15 @@ const AnnouncementDetail: React.FC<AnnouncementDetailProps> = ({
           <ReactMarkdown children={title} />
         </p>
 
-        <div className="flex gap-2">
-          <MdModeEditOutline onClick={onEdit} className="w-5 h-5" />
-          <AiFillDelete
-            onClick={() => setDeleteResource(true)}
-            className="w-5 h-5"
-          />
-        </div>
+        {getCookie("role") === "HeadOfEducation" && (
+          <div className="flex gap-2">
+            <MdModeEditOutline onClick={onEdit} className="w-5 h-5" />
+            <AiFillDelete
+              onClick={() => setDeleteResource(true)}
+              className="w-5 h-5"
+            />
+          </div>
+        )}
       </div>
       <ReactQuill value={description} readOnly={true} theme="bubble" />
     </div>
