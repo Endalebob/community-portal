@@ -31,11 +31,6 @@ const NavBar: React.FC = () => {
   const navData: NavDataType = {
     student: [
       {
-        name: "Contests",
-        to: "/contests",
-        current: false,
-      },
-      {
         name: "Progress",
         to: "/journey",
         current: false,
