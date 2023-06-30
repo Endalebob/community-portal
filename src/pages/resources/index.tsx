@@ -1,10 +1,16 @@
-import SideBar from '<@>/components/resources/Sidebar'
-import React from 'react'
+import SideBar from "<@>/components/resources/Sidebar";
+import Head from "next/head";
+import React from "react";
 
 const index = () => {
   return (
-    <SideBar/>
-  )
-}
+    <>
+      <Head>
+        <title>Resources</title>
+      </Head>
+      <SideBar />
+    </>
+  );
+};
 
-export default index
+export default index;

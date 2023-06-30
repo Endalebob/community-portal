@@ -6,7 +6,7 @@ const EditProfilePage = () => {
   return (
     <>
       <Head>
-        <title>edit profile</title>
+        <title>Edit profile</title>
       </Head>
       <Edit />
     </>

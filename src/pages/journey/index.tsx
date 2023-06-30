@@ -8,7 +8,7 @@ const index: React.FC = () => {
   return (
     <div>
       <Head>
-        <title>my journey</title>
+        <title>My journey</title>
       </Head>
       <Journey />
     </div>
