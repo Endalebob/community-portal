@@ -12,7 +12,6 @@ export default function middleware(req: NextRequest) {
     (url.includes("/admin/announcements") ||
       url.includes("/admin/waitlist") ||
       url.includes("/admin/groups") ||
-      url.includes("/contests") ||
       url.includes("/journey") ||
       url.includes("/profile") ||
       url.includes("/profile/edit") ||
@@ -21,7 +20,10 @@ export default function middleware(req: NextRequest) {
     return NextResponse.redirect(baseUrl + "/auth/signin");
   }
 
-  if (role && role.value === "Student" && url.includes("/admin")) {
+  if (
+    (role && role.value === "Student" && url.includes("/admin")) ||
+    url.includes("/contests")
+  ) {
     return NextResponse.redirect(baseUrl + "/journey");
   }
 
@@ -31,7 +33,9 @@ export default function middleware(req: NextRequest) {
 
   if (
     verify &&
-    (url.includes("/auth/signin") || url.includes("/auth/signup") || url === baseUrl+"/")
+    (url.includes("/auth/signin") ||
+      url.includes("/auth/signup") ||
+      url === baseUrl + "/")
   ) {
     return NextResponse.redirect(baseUrl + "/journey");
   }

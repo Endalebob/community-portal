@@ -9,7 +9,7 @@ interface NotifcationCardProps {
 }
 const NotificationsCard = ({ title, content, date }: NotifcationCardProps) => {
   return (
-    <div className=" border rounded-md shadow-md border-gray-50 max-w-[90%] md:max-w-[80%] lg:max-w-5xl w-screen p-4 flex flex-col justify-between mx-auto hover:cursor-pointer">
+    <div className=" border rounded-md border-gray-50 max-w-[90%] md:max-w-[80%] lg:max-w-5xl w-screen p-4 flex flex-col justify-between mx-auto hover:cursor-pointer">
       <div className="flex flex-col gap-4">
         <p className="text-lg font-bold capitalize">{title}</p>
         <div
