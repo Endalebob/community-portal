@@ -7,6 +7,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { createMarkup } from "../common/TextEditor";
 import Modal from "../common/Modal";
 import ProgressIndicator from "../common/ProgressIndicator";
+import ReactQuill from "react-quill";
 
 interface AnnouncementDetailProps {
   announcement: Announcement;
@@ -68,7 +69,7 @@ const AnnouncementDetail: React.FC<AnnouncementDetailProps> = ({
           />
         </div>
       </div>
-      <div dangerouslySetInnerHTML={createMarkup(description)} />
+      <ReactQuill value={description} readOnly={true} theme="snow" />{" "}
     </div>
   );
 };
