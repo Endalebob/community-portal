@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
+import { useAppSelector } from "./store/hooks";
 const baseUrl = "https://t-web-project.vercel.app";
 
 export default function middleware(req: NextRequest) {
@@ -20,10 +23,7 @@ export default function middleware(req: NextRequest) {
     return NextResponse.redirect(baseUrl + "/auth/signin");
   }
 
-  if (
-    (role && role.value === "Student" && url.includes("/admin")) ||
-    url.includes("/contests")
-  ) {
+  if (role && role.value === "Student" && url.includes("/admin")) {
     return NextResponse.redirect(baseUrl + "/journey");
   }
 

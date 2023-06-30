@@ -127,14 +127,13 @@ const Signup = () => {
       dispatch(setToken(authData));
       if (authData.value.user.role === "HeadOfEducation") {
         router.push("/admin/groups");
-      }
-      else{
+      } else {
         router.push("/journey");
       }
     }
     if (isRegisterError && registerError) {
       const customError = registerError as unknown as CustomError;
-      if (!customError.data){
+      if (!customError.data) {
         setErrors({ ...errors, fromBackEnd: "Something went wrong" });
       } else if (customError.data.error) {
         const error = customError.data.error[0];

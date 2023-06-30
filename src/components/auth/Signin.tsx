@@ -107,8 +107,7 @@ const Signin = () => {
       dispatch(setToken(authData));
       if (authData.value.user.role === "HeadOfEducation") {
         router.push("/admin/groups");
-      }
-      else{
+      } else {
         router.push("/journey");
       }
     }

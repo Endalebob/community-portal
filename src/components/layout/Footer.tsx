@@ -76,7 +76,7 @@ const Footer: React.FC = () => {
 
         <Link
           className="text-gray-500 hover:text-primary text-xl"
-          href={"/https://www.facebook.com/profile.php?id=100085473798621"}
+          href={"https://www.facebook.com/profile.php?id=100085473798621"}
           target="_blank"
         >
           <FaFacebook />

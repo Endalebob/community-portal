@@ -119,7 +119,7 @@ const Notifications = () => {
                       {title}
                     </h2>
 
-                    <p className="text-primary text-start my-5">details</p>
+                    <p className="text-primary text-start my-5">Details</p>
                     {/* <p className="text-gray-700 mb-4">{content}</p> */}
                     <div className="flex items-center text-gray-600">
                       <FaRegCalendarAlt className="mr-2" />

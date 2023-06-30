@@ -47,7 +47,7 @@ const EditContestForm: React.FC = () => {
   }, [response.value, id]);
 
   const handleCancel = () => {
-    router.push("/contests");
+    router.push("/admin/contests");
   };
 
   const handleChange = (
@@ -124,7 +124,7 @@ const EditContestForm: React.FC = () => {
     try {
       await updateContest(updatedContest).unwrap();
       // Contest update successful, redirect to contest details
-      router.push(`/contests`);
+      router.push(`/admin/contests`);
     } catch (error) {
       alert(`An error occurred while updating the contest:, ${error}`);
     }

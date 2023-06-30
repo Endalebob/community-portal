@@ -97,7 +97,7 @@ const EditAnnouncement: React.FC<EditAnnouncementProps> = ({
       <div className="flex justify-end gap-2">
         <Button
           onClick={() => onClose()}
-          className=" bg-secondary text-gray-800 font-medium "
+          className=" bg-secondary !text-gray-800 font-medium "
           label="Cancel"
         ></Button>
 
