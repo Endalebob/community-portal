@@ -1,6 +1,7 @@
 import Contest from "<@>/types/contest";
 import { getCookie } from "<@>/utils/cookie";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { Response } from "<@>/types/response";
 
 const BASE_URL = "https://a2sv-community-portal-api.onrender.com/api";
 
@@ -61,6 +62,10 @@ export const contestApiSlice = createApi({
     getRecentContests: builder.query({
       query: () => "/Contests/recent",
     }),
+    getContestsStat: builder.query<Response, void>({
+      query: () => "/Contests/contest-stat",
+      providesTags: ["Contest"],
+    }),
   }),
 });
 
@@ -73,4 +78,5 @@ export const {
   useGetRecentContestsQuery,
   useGetUpcomingContestsQuery,
   useFillContestStatMutation,
+  useGetContestsStatQuery,
 } = contestApiSlice;

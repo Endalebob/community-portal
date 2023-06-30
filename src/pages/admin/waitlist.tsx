@@ -8,6 +8,7 @@ import Loading from "<@>/components/common/Loading";
 import Modal from "<@>/components/common/Modal";
 import AddToGroup from "<@>/components/admin/AddToGroup";
 import { useApplicantsWaitlistQuery } from "<@>/store/admin/applicant-api";
+import Head from "next/head";
 
 const WaitList: React.FC = () => {
   const [params, setParams] = useState({
@@ -72,95 +73,100 @@ const WaitList: React.FC = () => {
   };
 
   return (
-    <section className="grid md:grid-cols-12 grid-cols-1 flex-grow">
-      <div className="col-span-4 border-r border-r-gray-100 max-h-full h-full flex flex-col">
-        <div className="flex items-center justify-between space-x-4 px-6 py-4 top-0 bg-white">
-          <h2 className="text-lg font-medium text-gray-700">Members</h2>
-          <div className="flex items-center border border-gray-200 rounded-md px-3 py-2">
-            <span className="text-gray-400 mr-2">
-              <FaSearch />
-            </span>
-            <input
-              type="text"
-              id="email"
-              className="w-full focus:outline-none"
-              placeholder="Search"
-              onChange={handleSearch}
-            />
+    <>
+      <Head>
+        <title>Wait List</title>
+      </Head>
+      <section className="grid md:grid-cols-12 grid-cols-1">
+        <div className="col-span-4 border-r border-r-gray-100 overflow-y-scroll max-h-screen waitlist-card-scroll">
+          <div className="flex items-center justify-between space-x-4 sticky px-6 py-4 top-0 bg-white">
+            <h2 className="text-lg font-medium text-gray-700">Members</h2>
+            <div className="flex items-center border border-gray-200 rounded-md px-3 py-2">
+              <span className="text-gray-400 mr-2">
+                <FaSearch />
+              </span>
+              <input
+                type="text"
+                id="email"
+                className="w-full focus:outline-none"
+                placeholder="Search"
+                onChange={handleSearch}
+              />
+            </div>
+          </div>
+
+          <div className="mb-6 h-[70vh] flex flex-col">
+            <div className="text-sm flex items-center text-gray-700 bg-gray-100 justify-between p-4 px-6">
+              <div className="flex items-center justify-between space-x-2">
+                <input
+                  type="checkbox"
+                  checked={selectAll}
+                  onChange={handleSelectAll}
+                  className="accent-primary"
+                />
+                <h4>Name</h4>
+                {selectedApplicants.length > 0 && (
+                  <button
+                    onClick={handleAddToGroup}
+                    className="text-gray-500 hover:text-gray-800 underline"
+                  >
+                    Add To Group ({selectedApplicants.length})
+                  </button>
+                )}
+              </div>
+              <h4>Application Date</h4>
+            </div>
+
+            {isFetching ? (
+              <Loading />
+            ) : error ? (
+              <FetchingError />
+            ) : (
+              applicants.map((applicant, index) => (
+                <WaitListCard
+                  key={index}
+                  applicant={applicant}
+                  selected={selectedApplicants.includes(applicant.userId)}
+                  onSelect={() => handleSelect(applicant.userId)}
+                  getUserById={() => getUserById(applicant.userId)}
+                />
+              ))
+            )}
+
+            <div className="mt-auto">
+              <Pagination
+                onPageChange={onPageChange}
+                currentPage={params.pageNumber || 1}
+                totalCount={totalCount}
+                pageSize={params.pageSize || 10}
+              />
+            </div>
           </div>
         </div>
 
-        <div className="flex-grow flex flex-col overflow-y-scroll ">
-          <div className="text-sm flex items-center text-gray-700 bg-gray-100 justify-between p-4 px-6">
-            <div className="flex items-center justify-between space-x-2">
-              <input
-                type="checkbox"
-                checked={selectAll}
-                onChange={handleSelectAll}
-                className="accent-primary"
-              />
-              <h4>Name</h4>
-              {selectedApplicants.length > 0 && (
-                <button
-                  onClick={handleAddToGroup}
-                  className="text-gray-500 hover:text-gray-800 underline"
-                >
-                  Add To Group ({selectedApplicants.length})
-                </button>
-              )}
-            </div>
-            <h4>Application Date</h4>
-          </div>
-
-          {isFetching ? (
-            <Loading />
-          ) : error ? (
-            <FetchingError />
+        <div className="col-span-8 overflow-y-scroll max-h-screen waitlist-card-scroll">
+          {userDetailId ? (
+            <StudentDetail userId={userDetailId} />
           ) : (
-            !applicants.length ? <div className="mx-auto text-gray-400 mt-10">No user in the waitlist</div>:
-            applicants.map((applicant, index) => (
-              <WaitListCard
-                key={index}
-                applicant={applicant}
-                selected={selectedApplicants.includes(applicant.userId)}
-                onSelect={() => handleSelect(applicant.userId)}
-                getUserById={() => getUserById(applicant.userId)}
-              />
-            ))
+            <div className="flex py-10 items-center text-gray-500 space-x-2 justify-center">
+              Click on a user to view details
+            </div>
           )}
         </div>
-        <div>
-          <Pagination
-            onPageChange={onPageChange}
-            currentPage={params.pageNumber || 1}
-            totalCount={totalCount}
-            pageSize={params.pageSize || 10}
+        {showModal && (
+          <Modal
+            children={
+              <AddToGroup
+                setShowModal={setShowModal}
+                selectedApplicants={selectedApplicants}
+                setSelectedApplicants={setSelectedApplicants}
+              />
+            }
+            onClose={() => setShowModal(false)}
           />
-        </div>
-      </div>
-
-      <div className="col-span-8 overflow-y-scroll max-h-screen waitlist-card-scroll">
-        {userDetailId ? (
-          <StudentDetail userId={userDetailId} />
-        ) : (
-          <div className="flex py-10 items-center text-gray-500 space-x-2 justify-center h-full w-full">
-            Click on a user to view details
-          </div>
         )}
-      </div>
-      {showModal && (
-        <Modal
-          children={
-            <AddToGroup
-              setShowModal={setShowModal}
-              selectedApplicants={selectedApplicants}
-              setSelectedApplicants={setSelectedApplicants}
-            />
-          }
-          onClose={() => setShowModal(false)}
-        />
-      )}
-    </section>
+      </section>
+    </>
   );
 };
 

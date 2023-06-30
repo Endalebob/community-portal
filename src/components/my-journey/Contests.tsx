@@ -1,11 +1,6 @@
 import React from "react";
 import ContestCard from "./ContestCard";
 import { Contest } from "<@>/types/Journey/Contest";
-import { setSelectedContest } from "<@>/store/contest/contest-slice";
-import { RootState } from "<@>/store";
-import { useSelector } from "react-redux";
-import Modal from "../common/Modal";
-import ContestDetail from "./ContestDetail";
 import Error from "../common/Error";
 import {
   useGetRecentContestsQuery,

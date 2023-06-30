@@ -113,7 +113,7 @@ const ContestStats: React.FC<ContestStatsProps> = ({ id }) => {
               onClick={() => {
                 !isFillingContestStat && fillContestStat(id);
               }}
-              className="text-gray-800 bg-primary text-secondary shadow-sm"
+              className="bg-primary text-secondary shadow-sm"
               startIcon={
                 isFillingContestStat ? (
                   <ProgressIndicator size={5} />

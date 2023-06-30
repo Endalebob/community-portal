@@ -53,7 +53,6 @@ const Profile = () => {
     return <ProfileLoadingSkeleton />;
   }
   if (isSuccess) {
-    console.log(data);
     dispatch(setUser(data.value));
   }
 

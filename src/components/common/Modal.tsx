@@ -1,6 +1,4 @@
 import { useEffect, useRef } from "react";
-import { MdClose } from "react-icons/md";
-import { useWindowWidth } from "./WindowWidth";
 import { AiOutlineClose } from "react-icons/ai";
 type ModalProps = {
   onClose: () => void;
