@@ -13,6 +13,7 @@ import { createMarkup } from "../common/TextEditor";
 import EditResources from "./EditResource";
 import { FiDelete, FiEdit, FiTrash, FiTrash2 } from "react-icons/fi";
 import { MdDelete, MdEdit } from "react-icons/md";
+import ReactQuill from "react-quill";
 
 interface ResourceProps {
   selectedChapter: number;
@@ -110,7 +111,7 @@ const Resource: React.FC<ResourceProps> = ({
         {chapter ? (
           <div className="flex-col items-center justify-center w-full">
             <h1 className="text-2xl font-bold mb-4">{chapter.title}</h1>
-            <div dangerouslySetInnerHTML={createMarkup(chapter.content)} />
+            <ReactQuill value={chapter.content} readOnly={true} theme="snow" />
           </div>
         ) : (
           <div>
