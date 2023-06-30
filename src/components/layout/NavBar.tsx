@@ -49,7 +49,7 @@ const NavBar: React.FC = () => {
       },
       {
         name: "Contests",
-        to: "/contests",
+        to: "/admin/contests",
         current: false,
       },
       {
@@ -58,7 +58,7 @@ const NavBar: React.FC = () => {
         current: false,
       },
       {
-        name: "Wait list",
+        name: "Waitlist",
         to: "/admin/waitlist",
         current: false,
       },

@@ -20,7 +20,7 @@ const ContestForm: React.FC = () => {
   const router = useRouter();
   const handleCancel = () => {
     // Todo
-    router.push("/contests");
+    router.push("/admin/contests");
   };
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -101,7 +101,7 @@ const ContestForm: React.FC = () => {
         link,
       }).unwrap();
       // Contest creation successful, reset form fields
-      router.push("/contests");
+      router.push("/admin/contests");
     } catch (error: any) {
       // Handle contest creation error
       setBackendError(`An error occurred : ${error.data.title}`);

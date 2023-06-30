@@ -92,7 +92,7 @@ const ContestList: React.FC = () => {
               <div className="pb-4 col-span-1 justify-self-end">
                 <button
                   className="px-4 py-1 bg-primary text-white rounded-md justify-self-end"
-                  onClick={() => router.push("/contests/create-contest")}
+                  onClick={() => router.push("/admin/contests/create-contest")}
                 >
                   <span className="font-bold">+</span> New Contest
                 </button>
@@ -158,7 +158,7 @@ const ContestList: React.FC = () => {
                           <div></div>
                           <div className="mx-auto my-auto mt-4 md:mt-0 text-center">
                             <a
-                              href={`/contests/${contest.id}`}
+                              href={`/admin/contests/${contest.id}`}
                               className="text-primary hover:underline"
                             >
                               Edit

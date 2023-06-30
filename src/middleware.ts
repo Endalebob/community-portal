@@ -23,10 +23,7 @@ export default function middleware(req: NextRequest) {
     return NextResponse.redirect(baseUrl + "/auth/signin");
   }
 
-  if (
-    (role && role.value === "Student" && url.includes("/admin")) ||
-    url.includes("/contests")
-  ) {
+  if (role && role.value === "Student" && url.includes("/admin")) {
     return NextResponse.redirect(baseUrl + "/journey");
   }
 

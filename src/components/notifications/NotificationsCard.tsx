@@ -1,7 +1,8 @@
 import React from "react";
 import { createMarkup } from "../common/TextEditor";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface NotifcationCardProps {
   title: string;
@@ -14,7 +15,7 @@ const NotificationsCard = ({ title, content, date }: NotifcationCardProps) => {
       <div className="flex flex-col gap-4">
         <p className="text-lg font-bold capitalize">{title}</p>
         <div className="line-clamp-4" />
-        <ReactQuill value={content} readOnly={true} theme="snow" />
+        <ReactQuill value={content} readOnly={true} theme="bubble" />
       </div>
 
       <div className="flex justify-end w-full mt-10 text-sm ">
