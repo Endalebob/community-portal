@@ -7,8 +7,6 @@ import { MdModeEditOutline } from "react-icons/md";
 import { createMarkup } from "../common/TextEditor";
 import Modal from "../common/Modal";
 import ProgressIndicator from "../common/ProgressIndicator";
-import dynamic from "next/dynamic";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface AnnouncementDetailProps {
   announcement: Announcement;
@@ -70,7 +68,7 @@ const AnnouncementDetail: React.FC<AnnouncementDetailProps> = ({
           />
         </div>
       </div>
-      <ReactQuill value={description} readOnly={true} theme="bubble" />{" "}
+      <div dangerouslySetInnerHTML={createMarkup(description)} />
     </div>
   );
 };

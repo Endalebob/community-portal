@@ -196,7 +196,7 @@ const NavBar: React.FC = () => {
             <Image src="/A2SV-Logo.svg" width={105} height={30} alt="logo" />
           </div>
         ) : (
-          <Link className="z-50" href="/">
+          <Link className="z-30" href="/">
             <div className="w-28 lg:w-52">
               <Image src="/A2SV-Logo.svg" width={105} height={30} alt="logo" />
             </div>
@@ -215,7 +215,7 @@ const NavBar: React.FC = () => {
             >
               <div
                 ref={showNavRef}
-                className="flex flex-col gap-5 z-20 md:m-0 bg-white content-between md:flex-row md:items-center md:w-full justify-between"
+                className="flex flex-col gap-5 z-20 md:m-0 content-between md:flex-row md:items-center md:w-full justify-between"
               >
                 {navigation!.map(({ name, to, current }, index) => (
                   <Link

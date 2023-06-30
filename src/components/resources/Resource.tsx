@@ -13,8 +13,6 @@ import { createMarkup } from "../common/TextEditor";
 import EditResources from "./EditResource";
 import { FiDelete, FiEdit, FiTrash, FiTrash2 } from "react-icons/fi";
 import { MdDelete, MdEdit } from "react-icons/md";
-import dynamic from "next/dynamic";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface ResourceProps {
   selectedChapter: number;
@@ -112,11 +110,7 @@ const Resource: React.FC<ResourceProps> = ({
         {chapter ? (
           <div className="flex-col items-center justify-center w-full">
             <h1 className="text-2xl font-bold mb-4">{chapter.title}</h1>
-            <ReactQuill
-              value={chapter.content}
-              readOnly={true}
-              theme="bubble"
-            />
+            <div dangerouslySetInnerHTML={createMarkup(chapter.content)} />
           </div>
         ) : (
           <div>
