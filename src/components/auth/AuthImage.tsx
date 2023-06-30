@@ -20,7 +20,7 @@ const AuthImage = () => {
           Start making your dreams come true
         </h1>
         <p className="text-white max-w-[439px] mt-5">
-          Create an account and join africa's digital revolution.
+          Create an account and join Africa's digital revolution.
         </p>
       </div>
 

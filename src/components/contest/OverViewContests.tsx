@@ -38,7 +38,7 @@ const OverViewContests: React.FC = () => {
     },
     {
       icon: BsArrowRepeat,
-      title: "current Contest",
+      title: "Current Contest",
       number: status?.value.currentContests,
     },
   ];

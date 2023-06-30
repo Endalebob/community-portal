@@ -36,7 +36,7 @@ const ProfileCard = () => {
     <div className="w-96  mx-2 rounded-lg overflow-hidden bg-white shadow-md p-8">
       {applicant.profilePicture ? (
         <Image
-          className="w-full rounded-lg aspect-square object-center"
+          className="w-full rounded-lg aspect-square object-center object-contain"
           src={applicant.profilePicture}
           alt="profile-picture"
           width={317}

@@ -7,6 +7,7 @@ import Error from "<@>/components/common/Error";
 import Modal from "<@>/components/common/Modal";
 import { useGetAnnouncementsQuery } from "<@>/store/announcement/announcement-api";
 import { Announcement } from "<@>/types/admin/Announcement";
+import { getCookie } from "<@>/utils/cookie";
 import Head from "next/head";
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -73,14 +74,16 @@ const index: React.FC = () => {
         <div className="flex justify-between w-full">
           <p className="opacity-60 text-lg">Announcements</p>
 
-          <Button
-            onClick={() => {
-              setCreateAnnouncement(true);
-              setShowModal(true);
-            }}
-            startIcon={<AiOutlinePlus />}
-            label="New Announcement"
-          />
+          {getCookie("role") === "HeadOfEducation" && (
+            <Button
+              onClick={() => {
+                setCreateAnnouncement(true);
+                setShowModal(true);
+              }}
+              startIcon={<AiOutlinePlus />}
+              label="New Announcement"
+            />
+          )}
         </div>
 
         <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-8 p-4">

@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
 import { useAppSelector } from "./store/hooks";
-const baseUrl = "https://t-web-project.vercel.app";
+const baseUrl = "http://localhost:3000";
 
 export default function middleware(req: NextRequest) {
   let verify = req.cookies.get("token");
@@ -12,7 +12,7 @@ export default function middleware(req: NextRequest) {
 
   if (
     !verify &&
-    (url.includes("/admin/announcements") ||
+    (url.includes("/announcements") ||
       url.includes("/admin/waitlist") ||
       url.includes("/admin/groups") ||
       url.includes("/journey") ||
