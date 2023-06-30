@@ -31,7 +31,7 @@ export default function middleware(req: NextRequest) {
 
   if (
     verify &&
-    (url.includes("/auth/signin") || url.includes("/auth/signup"))
+    (url.includes("/auth/signin") || url.includes("/auth/signup") || url === baseUrl+"/")
   ) {
     return NextResponse.redirect(baseUrl + "/journey");
   }

@@ -105,7 +105,12 @@ const Signin = () => {
       const authData = signinData as unknown as AuthResponse;
       console.log(authData);
       dispatch(setToken(authData));
-      router.push("/journey");
+      if (authData.value.user.role === "HeadOfEducation") {
+        router.push("/admin/groups");
+      }
+      else{
+        router.push("/journey");
+      }
     }
     if (isSigninError && signInError) {
       const customError = signInError as unknown as CustomError;
