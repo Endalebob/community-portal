@@ -1,6 +1,7 @@
 import React from "react";
 import { createMarkup } from "../common/TextEditor";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface AnnouncementCardProps {
   title: string;
@@ -27,7 +28,7 @@ const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
         <p className="text-lg font-medium">{title}</p>
 
         <div className="line-clamp-4 max-h-36">
-          <ReactQuill value={description} readOnly={true} theme="snow" />
+          <ReactQuill value={description} readOnly={true} theme="bubble" />
         </div>
       </div>
 

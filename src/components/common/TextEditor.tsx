@@ -1,7 +1,5 @@
-import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
-import DOMPurify from "dompurify";
 
 export const createMarkup = (html: string) => {
   return { __html: html };
@@ -31,7 +29,7 @@ const Editor: React.FC<EditorProps> = ({ value, setValue }) => {
   return (
     <ReactQuill
       modules={modules}
-      theme="snow"
+      theme="bubble"
       value={value}
       onChange={setValue}
       placeholder="Content goes here..."
