@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
 import { useAppSelector } from "./store/hooks";
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://t-web-project.vercel.app";
 
 export default function middleware(req: NextRequest) {
   let verify = req.cookies.get("token");
