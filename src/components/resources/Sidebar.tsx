@@ -91,7 +91,7 @@ const SideBar: React.FC = () => {
         </div>
       )}
       <div
-        className={`flex-col h-screen overflow-y-scroll sticky top-0 min-w-[20rem] md:w-1/4 shadow-lg waitlist-card-scroll ${
+        className={`flex-col h-screen overflow-y-scroll sticky top-0 min-w-[20rem] md:w-1/4 shadow-lg waitlist-card-scroll z-50 ${
           isSidebarOpen ? "flex" : "hidden"
         }`}
       >
