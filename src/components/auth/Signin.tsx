@@ -28,7 +28,6 @@ const Signin = () => {
   const [formValue, setFormValue] = useState(initialState);
   const [errors, setErrors] = useState<Partial<FormValues>>({});
   const { email, password } = formValue;
-  const [rememberMe, setRememberMe] = useState(false);
   const handleChange = (e: any) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
@@ -75,28 +74,6 @@ const Signin = () => {
       });
     }
   };
-  useEffect(() => {
-    const storedEmail = getCookie("rememberMeEmail");
-    const storedPassword = getCookie("rememberMePassword");
-
-    if (storedEmail && storedPassword) {
-      setFormValue({
-        ...formValue,
-        email: storedEmail,
-        password: storedPassword,
-      });
-      setRememberMe(true);
-    }
-  }, []);
-  useEffect(() => {
-    if (rememberMe) {
-      setCookie("rememberMeEmail", email, { expires: 20 });
-      setCookie("rememberMePassword", password, { expires: 20 });
-    } else {
-      removeCookie("rememberMeEmail");
-      removeCookie("rememberMePassword");
-    }
-  }, [email, password, rememberMe]);
   const handleSignup = () => {
     router.push("/auth/signup");
   };
@@ -177,18 +154,6 @@ const Signin = () => {
             togglePasswordVisibility={togglePasswordVisibility}
             showPassword={showPassword}
           />
-          <div className="flex items-center gap-2 pt-4">
-            <input
-              type="checkbox"
-              name="remember"
-              id="remember"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-            />
-            <label htmlFor="remember" className="text-primary-text text-[15px]">
-              Remember me
-            </label>
-          </div>
           <div className="flex pt-4">
             <button
               type="button"

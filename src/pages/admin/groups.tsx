@@ -9,6 +9,8 @@ import FetchingError from "<@>/components/common/FetchingError";
 import Modal from "<@>/components/common/Modal";
 import CreateGroup from "<@>/components/groups/CreateGroup";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { getCookie } from "<@>/utils/cookie";
 
 const DashBoard: React.FC = () => {
   const { data, isLoading, error } = useGetGroupsQuery();
@@ -21,6 +23,11 @@ const DashBoard: React.FC = () => {
   const handleClose = () => {
     setShowPopup(false);
   };
+  const router = useRouter();
+  const role = getCookie("role");
+  if (role && role === "Student") {
+    router.push("/journey");
+  }
 
   if (isLoading) {
     return <Loading />;
