@@ -33,7 +33,6 @@ const Signup = () => {
   const dispatch = useAppDispatch();
   const [formValue, setFormValue] = useState(initialState);
   const [errors, setErrors] = useState<Partial<FormValues>>({});
-  const [rememberMe, setRememberMe] = useState(false);
   const {
     fullName,
     phoneNumber,
@@ -111,15 +110,6 @@ const Signup = () => {
   const handleLogin = () => {
     router.push("/auth/signin");
   };
-  useEffect(() => {
-    if (rememberMe) {
-      setCookie("rememberMeEmail", email, { expires: 20 });
-      setCookie("rememberMePassword", password, { expires: 20 });
-    } else {
-      removeCookie("rememberMeEmail");
-      removeCookie("rememberMePassword");
-    }
-  }, [email, password, rememberMe]);
 
   useEffect(() => {
     if (isRegisterSuccess) {
@@ -258,22 +248,6 @@ const Signup = () => {
             togglePasswordVisibility={toggleConfirmPasswordVisibility}
             showPassword={showConfirmPassword}
           />
-          <div className="flex py-4">
-            <input
-              type="checkbox"
-              className="mt-1 mr-2"
-              name="remember"
-              id="remember"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-            />
-            <label
-              htmlFor="remember"
-              className="text-primary-text text-[15px] font-semibold"
-            >
-              Remember me
-            </label>
-          </div>
           <button
             type="button"
             onClick={() => handleRegister()}

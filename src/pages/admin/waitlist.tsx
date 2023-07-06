@@ -9,6 +9,8 @@ import Modal from "<@>/components/common/Modal";
 import AddToGroup from "<@>/components/admin/AddToGroup";
 import { useApplicantsWaitlistQuery } from "<@>/store/admin/applicant-api";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { getCookie } from "<@>/utils/cookie";
 
 const WaitList: React.FC = () => {
   const [params, setParams] = useState({
@@ -71,6 +73,11 @@ const WaitList: React.FC = () => {
   const getUserById = (userId: string) => {
     setUserDetailId(userId);
   };
+  const router = useRouter();
+  const role = getCookie("role");
+  if (role && role === "Student") {
+    router.push("/journey");
+  }
 
   return (
     <>
