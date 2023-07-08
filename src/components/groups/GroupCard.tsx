@@ -13,6 +13,8 @@ const GroupCard: React.FC<CardProps> = ({
   capacity,
   handleCardClick,
 }) => {
+  
+
   return (
     <div
       onClick={handleCardClick}

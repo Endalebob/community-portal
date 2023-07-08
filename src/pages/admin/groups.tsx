@@ -28,7 +28,7 @@ const DashBoard: React.FC = () => {
     return <FetchingError />;
   }
   const groupData = data?.value;
-
+  
   return (
     <div
       className={`grid ${selecteGroup ?  "grid-cols-6 mb-16" : "grid-cols-1"} `}

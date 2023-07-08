@@ -24,12 +24,12 @@ const GroupOverView: React.FC = () => {
     },
     {
       icon: MdGroups2,
-      title: "TotalStudent",
+      title: "Number of Groups",
       number: groups?.value,
     },
     {
       icon: PiStudentFill,
-      title: "TotalStudent",
+      title: "Group Mean Size",
       number: meanSize?.value,
     },
   ];
