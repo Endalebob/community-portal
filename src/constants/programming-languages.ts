@@ -20,5 +20,4 @@ export const programmingLanguages = [
     {label: 'Dart'},
     {label: 'TypeScript'},
     {label: 'Fortran'},
-]
-    
+] 
