@@ -7,3 +7,4 @@ export default interface CustomSuccess {
     value: User;
     message: null;}
   }
+  

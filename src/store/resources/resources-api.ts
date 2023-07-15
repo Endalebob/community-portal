@@ -1,6 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import IResource from "<@>/types/resources/resourcesType";
-import IResourceTopic from "<@>/types/resources/resourceListType";
 import { getCookie } from "<@>/utils/cookie";
 
 export const resourcesApiSlice = createApi({
