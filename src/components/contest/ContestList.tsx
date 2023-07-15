@@ -223,3 +223,4 @@ const ContestList: React.FC = () => {
 };
 
 export default ContestList;
+

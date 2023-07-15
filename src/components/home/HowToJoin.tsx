@@ -87,3 +87,4 @@ const HowToJoin = () => {
 };
 
 export default HowToJoin;
+

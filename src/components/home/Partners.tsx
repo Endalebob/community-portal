@@ -29,3 +29,4 @@ const Partners: React.FC = () => {
 };
 
 export default Partners;
+

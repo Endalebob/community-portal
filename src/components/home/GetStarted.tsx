@@ -38,3 +38,4 @@ const GetStarted: React.FC = () => {
 };
 
 export default GetStarted;
+
