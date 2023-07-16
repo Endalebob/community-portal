@@ -12,6 +12,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { getCookie } from "<@>/utils/cookie";
 
+
 const WaitList: React.FC = () => {
   const [params, setParams] = useState({
     pageNumber: 1,

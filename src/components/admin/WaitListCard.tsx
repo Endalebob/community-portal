@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { WaitListItem } from "<@>/types/admin/wait-list-item";
 import UserAvatar from "../common/UserAvatar";
 
@@ -9,6 +8,7 @@ interface ApplicantProps {
   onSelect: () => void;
   getUserById: () => void;
 }
+
 
 const WaitListCard: React.FC<ApplicantProps> = ({
   applicant,
@@ -34,7 +34,7 @@ const WaitListCard: React.FC<ApplicantProps> = ({
     getUserById();
   };
 
-  return (
+  return (  
     <div
       onClick={handleCardClick}
       className="flex px-6 py-3 w-full border-b border-gray-100 justify-between items-center rounded-sm hover:bg-gray-50"
@@ -67,3 +67,5 @@ const WaitListCard: React.FC<ApplicantProps> = ({
 };
 
 export default WaitListCard;
+
+

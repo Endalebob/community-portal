@@ -3,3 +3,4 @@ export interface GetWaitlistParams {
     pageNumber?: number;
     pageSize?: number;
   }
+  

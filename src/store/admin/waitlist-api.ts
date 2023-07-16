@@ -1,6 +1,7 @@
 import { getCookie } from "<@>/utils/cookie";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+
 export const waitListApi = createApi({
   reducerPath: "waitListApi",
   tagTypes: ["Waitlist", "Group"],
