@@ -58,7 +58,7 @@ const Profile = () => {
 
   return (
     <section className="py-4">
-      <div className="grid grid-cols-1 items-start md:grid-cols-6 md:p-4 xl:px-20 space-y-6 md:space-y-0 lg:space-x-6 mx-2">
+      <div className="grid grid-cols-1 items-start md:grid-cols-6 md:p-4 xl:px-20 space-y-6 md:space-y-0 lg:space-x-6 mx-2 ">
         <div className="flex flex-col gap-5 justify-center items-center  md:col-span-3 xl:col-span-2">
           <ProfileCard />
           <div className="w-96 mx-2">

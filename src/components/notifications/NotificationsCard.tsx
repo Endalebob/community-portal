@@ -18,7 +18,7 @@ const NotificationsCard = ({ title, content, date }: NotifcationCardProps) => {
         <ReactQuill value={content} readOnly={true} theme="bubble" />
       </div>
 
-      <div className="flex justify-end w-full mt-10 text-sm ">
+      <div className="flex justify-end w-full mt-10 text-sm">
         <FaRegCalendarAlt className="mr-2" />
         <span>{date}</span>
       </div>

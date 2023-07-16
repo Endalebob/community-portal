@@ -4,3 +4,5 @@ export interface Notification {
   dateCreated: Date;
   isRead: boolean;
 }
+
+("");

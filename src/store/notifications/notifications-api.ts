@@ -1,6 +1,7 @@
 import { Response } from "<@>/types/response";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
+
 export const notificationApiSlice = createApi({
   reducerPath: "notifications",
   baseQuery: fetchBaseQuery({

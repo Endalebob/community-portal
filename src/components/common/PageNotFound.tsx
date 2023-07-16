@@ -14,7 +14,7 @@ function PageNotFound() {
 
   return (
     <section className="bg-white mx-auto">
-      <div className="flex items-center justify-center min-h-screen px-6 py-12 mx-auto ">
+      <div className="flex items-center justify-center min-h-screen px-6 py-12 mx-auto">
         <div className="flex flex-col items-center max-w-sm mx-auto text-center">
           <p className="p-3 text-sm font-medium text-blue-500 rounded-full bg-blue-50">
             <svg

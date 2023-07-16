@@ -115,7 +115,7 @@ const Notifications = () => {
                     >
                       <div
                         key={index}
-                        className={isRead ? "bg-white p-6" : "bg-blue-50 p-6 "}
+                        className={isRead ? "bg-white p-6" : "bg-blue-50 p-6"}
                       >
                         <h2 className="text-xl font-semibold mb-2 text-start">
                           {title}

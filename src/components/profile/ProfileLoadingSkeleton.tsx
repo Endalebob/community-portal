@@ -46,7 +46,6 @@ const ProfileLoadingSkeleton = () => {
         </div>
 
         {/* <StudentDetailSkeleton */}
-
         <div className=" bg-white md:col-span-3 xl:col-span-4 p-2 md:p-7 animate-pulse">
           <div className="flex justify-end items-center font-light bg-gray-300 h-6 rounded-lg animate-pulse"></div>
 
