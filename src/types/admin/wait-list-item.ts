@@ -5,3 +5,4 @@ export interface WaitListItem {
   waitlistCreationDate?: Date | string;
   telegramUsername?: string;
 }
+

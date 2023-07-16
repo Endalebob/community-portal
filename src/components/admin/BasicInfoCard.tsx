@@ -8,6 +8,7 @@ interface BasicInfoCardProps {
   icon: IconType;
 }
 
+
 const BasicInfoCard: React.FC<BasicInfoCardProps> = ({
   data,
   link = "",

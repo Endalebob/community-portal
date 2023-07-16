@@ -1,5 +1,6 @@
 import React from "react";
 
+
 interface PaginationProps {
   onPageChange: (pageNumber: number) => void;
   totalCount: number;

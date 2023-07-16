@@ -6,6 +6,7 @@ interface ProgrammingHandlesProps {
   handle: string;
   link?: string;
   icon: IconType;
+  
 }
 
 const ProgrammingHandles: React.FC<ProgrammingHandlesProps> = ({
