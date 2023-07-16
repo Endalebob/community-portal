@@ -7,7 +7,7 @@ const StudentDetail = () => {
   const applicant = useSelector((state: RootState) => state.user.user);
 
   return (
-    <div className=" bg-white md:col-span-3 xl:col-span-4 p-2 md:p-7 shadow-md h-full rounded-md">
+    <div className="bg-white md:col-span-3 xl:col-span-4 p-2 md:p-7 shadow-md h-full rounded-md">
       <div className="px-4 py-2 justify-between">
         <h2 className="font-medium text-xl capitalize mb-3">
           {applicant.fullName}

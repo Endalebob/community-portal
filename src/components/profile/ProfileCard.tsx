@@ -33,7 +33,7 @@ const ProfileCard = () => {
     setCookie("profilePicture", applicant.profilePicture);
   }
   return (
-    <div className="w-96  mx-2 rounded-lg overflow-hidden bg-white shadow-md p-8">
+    <div className="w-96 mx-2 rounded-lg overflow-hidden bg-white shadow-md p-8">
       {applicant.profilePicture ? (
         <Image
           className="w-full rounded-lg aspect-square object-center object-cover"

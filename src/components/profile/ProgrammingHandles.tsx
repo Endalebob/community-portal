@@ -18,7 +18,7 @@ const ProgrammingHandles: React.FC<ProgrammingHandlesProps> = ({
   return (
     <div className="bg-white flex justify-between items-center w-full">
       <div className="flex justify-center items-center space-x-4">
-        <div className="bg-blue-100 p-3 text-blue-500 rounded-full">
+        <div className="bg-blue-100 p-3 text-blue-500 rounded-full ">
           <Icon />
         </div>
         <div>

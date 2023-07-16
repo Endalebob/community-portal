@@ -193,12 +193,17 @@ const NavBar: React.FC = () => {
       <section
         className={classNames(
           hideNav ? "hidden" : "flex",
-          "px-4 py-2 border-b items-center"
+          "px-4 py-2 border-b items-center "
         )}
       >
         {isAuthenticated ? (
           <div>
-            <Image src="/A2SV-Logo.svg" width={105} height={30} alt="logo" />
+            <Image
+              src="/A2SV-Logo.svg"
+              width={105}
+              height={30}
+              alt="a2sv logo"
+            />
           </div>
         ) : (
           <Link className="z-30" href="/">
