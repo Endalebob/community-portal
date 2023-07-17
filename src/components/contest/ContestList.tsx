@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   useGetContestsQuery,
@@ -224,4 +223,3 @@ const ContestList: React.FC = () => {
 };
 
 export default ContestList;
-
