@@ -1,3 +1,4 @@
+
 import React from "react";
 import ContestCard from "./ContestCard";
 import { Contest } from "<@>/types/Journey/Contest";

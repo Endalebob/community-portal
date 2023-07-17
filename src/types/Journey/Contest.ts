@@ -1,3 +1,4 @@
+
 export interface Contest {
   id: string;
   date: string;
