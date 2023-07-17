@@ -37,6 +37,7 @@ const ConfrimationCard: React.FC<createProps> = ({
         </button>
       </div>
     </div>
+    
   );
 };
 

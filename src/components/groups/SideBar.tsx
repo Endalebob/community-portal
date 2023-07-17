@@ -121,6 +121,7 @@ const Sidebar: React.FC<SidebarProps> = ({ id, setSelectedGroup }) => {
         </button>
       </div>
     </div>
+    
   );
 };
 

@@ -27,6 +27,7 @@ const GroupCard: React.FC<CardProps> = ({
         </p>
       </div>
     </div>
+    
   );
 };
 

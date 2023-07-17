@@ -21,6 +21,7 @@ export const GroupDataApi = createApi({
       return headers;
     },
   }),
+  
   endpoints: (builder) => ({
     createGroup: builder.mutation<GroupsResponse, GroupBody>({
       query: (group) => ({
@@ -74,6 +75,7 @@ export const GroupDataApi = createApi({
       providesTags: ["Group"],
     }),
   }),
+
 });
 
 export const {

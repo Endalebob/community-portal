@@ -37,6 +37,7 @@ const DashBoard: React.FC = () => {
         <div className="flex pb-8 border-shadow">
           <OverView />
         </div>
+        
         <div className="grid grid-cols-2 ml-8">
           <div>
             <h1 className="text-secondary-text font-semibold text-lg col-span-1">
@@ -77,6 +78,7 @@ const DashBoard: React.FC = () => {
         </div>
       )}
     </div>
+
   );
 };
 

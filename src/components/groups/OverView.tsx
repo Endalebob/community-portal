@@ -1,6 +1,7 @@
 import React from "react";
 import { PiStudentFill } from "react-icons/pi";
 import { MdGroups2 } from "react-icons/md";
+import { SiZenn } from "react-icons/si";
 import OverViewCard, { CardProps } from "../common/OverViewCard";
 import {
   useGetGroupTotalStudentQuery,
@@ -19,17 +20,17 @@ const GroupOverView: React.FC = () => {
   const GroupOverViewData: CardProps[] = [
     {
       icon: PiStudentFill,
-      title: "TotalStudent",
+      title: "Total Students",
       number: students?.value,
     },
     {
       icon: MdGroups2,
-      title: "Number of Groups",
+      title: "Total Groups",
       number: groups?.value,
     },
     {
-      icon: PiStudentFill,
-      title: "Group Mean Size",
+      icon: SiZenn,
+      title: "Mean Group Size",
       number: meanSize?.value,
     },
   ];
@@ -56,6 +57,7 @@ const GroupOverView: React.FC = () => {
         ))}
       </div>
     </div>
+    
   );
 };
 

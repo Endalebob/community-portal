@@ -30,6 +30,7 @@ const ProfileCard: React.FC<UserProps> = ({
         </div>
       </div>
     </div>
+    
   );
 };
 

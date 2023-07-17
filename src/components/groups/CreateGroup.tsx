@@ -178,6 +178,7 @@ const CreateGroup: React.FC<CreateGroup> = ({ handleClose }) => {
         </div>
       </form>
     </div>
+    
   );
 };
 
