@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useCreateGroupMutation } from "<@>/store/groups/groups-api";
 import Group from "<@>/types/groups/group-body";
 
-interface CreateGroup {
+interface CreateGroupProps {
   handleClose: () => void;
 }
 
@@ -20,7 +20,7 @@ const initialError = {
   divisionId: "",
 };
 
-const CreateGroup: React.FC<CreateGroup> = ({ handleClose }) => {
+const CreateGroup: React.FC<CreateGroupProps> = ({ handleClose }) => {
   const [group, setGroup] = useState(initialState);
   const [createData, { isLoading, error }] = useCreateGroupMutation();
   const [errors, setErrors] = useState(initialError);
@@ -40,7 +40,7 @@ const CreateGroup: React.FC<CreateGroup> = ({ handleClose }) => {
     if (!name) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        name: "group name is required",
+        name: "Group name is required",
       }));
       return;
     }
@@ -48,7 +48,7 @@ const CreateGroup: React.FC<CreateGroup> = ({ handleClose }) => {
     if (!capacity) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        capacity: "group size is required",
+        capacity: "Group size is required",
       }));
       return;
     }
@@ -56,7 +56,7 @@ const CreateGroup: React.FC<CreateGroup> = ({ handleClose }) => {
     if (!telegramLink) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        telegramLink: "telegram link is required",
+        telegramLink: "Telegram link is required",
       }));
       return;
     }
@@ -64,7 +64,7 @@ const CreateGroup: React.FC<CreateGroup> = ({ handleClose }) => {
     if (!divisionId) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        divisionId: "division level is required",
+        divisionId: "Division level is required",
       }));
       return;
     }
@@ -147,7 +147,7 @@ const CreateGroup: React.FC<CreateGroup> = ({ handleClose }) => {
             required
           >
             <option value="" className="text-sm sm:text-base md:text-lg">
-              -select-
+              --select--
             </option>
             <option value="1" className="text-sm sm:text-base md:text-lg">
               Div 1

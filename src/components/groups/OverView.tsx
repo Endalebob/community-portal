@@ -2,7 +2,8 @@ import React from "react";
 import { PiStudentFill } from "react-icons/pi";
 import { MdGroups2 } from "react-icons/md";
 import { SiZenn } from "react-icons/si";
-import OverViewCard, { CardProps } from "../common/OverViewCard";
+import OverViewCard from "../common/OverViewCard";
+import OverView from "../../types/groups/over-view-props"
 import {
   useGetGroupTotalStudentQuery,
   useGetTotalGroupsQuery,
@@ -17,7 +18,7 @@ const GroupOverView: React.FC = () => {
   const { data: meanSize, isLoading: isLoadingMeanSize } =
     useGetGroupMeanSizeQuery();
     
-  const GroupOverViewData: CardProps[] = [
+  const GroupOverViewData: OverView[] = [
     {
       icon: PiStudentFill,
       title: "Total Students",

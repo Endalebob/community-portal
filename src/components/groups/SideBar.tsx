@@ -113,7 +113,7 @@ const Sidebar: React.FC<SidebarProps> = ({ id, setSelectedGroup }) => {
           />
         )}
         <button
-          className="px-4 py-1  bg-primary text-white rounded-md justify-self-end "
+          className="px-4 py-1 bg-primary text-white rounded-md"
           disabled={isFilling}
           onClick={() => setShowPopup(true)}
         >

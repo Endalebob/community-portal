@@ -18,7 +18,7 @@ const GroupCard: React.FC<CardProps> = ({
       onClick={handleCardClick}
       className="flex items-center p-4 bg-white max-w-xs w-60 shadow-sm rounded-xl border-l border-r border-b"
     >
-      <div className="card-item">
+      <div className="">
         <h2 className="text-gray-600 font-semibold text-2xl">{groupName}</h2>
         <p className="text-gray-400 text-sm">
           {memberCount} / {capacity}
