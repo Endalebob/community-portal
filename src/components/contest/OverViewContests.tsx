@@ -7,22 +7,15 @@ import {
 import { useGetContestsStatQuery } from "<@>/store/contest/contest-api";
 import Error from "../common/Error";
 import OverViewCard, { CardProps } from "../common/OverViewCard";
+import IsOverviewLoading from "./IsOverviewLoading";
 const OverViewContests: React.FC = () => {
   const { data: status, isLoading, error } = useGetContestsStatQuery();
 
   if (isLoading) {
-    return (
-      <div className="rounded-md p-4 w-full mx-auto m-12">
-        <div className="animate-pulse flex flex-row flex-wrap">
-          <div className="h-20 bg-slate-200 mt-8 w-64 rounded-xl ml-4 sm:ml-6"></div>
-          <div className="h-20 bg-slate-200 rounded-xl mt-8 w-64 ml-4 sm:ml-6"></div>
-          <div className="h-20 bg-slate-200 rounded mt-8 w-64 ml-4 sm:ml-6"></div>
-        </div>
-      </div>
-    );
+    return <IsOverviewLoading />;
   }
   if (error) {
-    return <Error message={"Error occured while fetching contests status"} />;
+    return <Error message={"Error occurred while fetching contests status"} />;
   }
 
   const overViewData: CardProps[] = [
@@ -59,4 +52,3 @@ const OverViewContests: React.FC = () => {
 };
 
 export default OverViewContests;
-

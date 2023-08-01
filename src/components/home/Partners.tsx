@@ -10,16 +10,15 @@ const Partners: React.FC = () => {
       </p>
       <div
         id="partners"
-        className="grid grid-cols-2 ml-8 mr-8 gap-x-8 md:grid-cols-3 lg:grid-cols-5"
+        className="grid grid-cols-2 mx-8 gap-x-8 md:grid-cols-3 lg:grid-cols-5"
       >
-        {images.map((url, index) => (
-          <div key={index} className="pt-8 pb-8">
+        {images.map((name, index) => (
+          <div key={index} className="py-8">
             <Image
-              src={`/images/home/partners/${url}.png`}
-              alt={`${index}`}
+              src={`/images/home/partners/${name}.png`}
+              alt={`${name} partner image`}
               width={250}
               height={500}
-              className=""
             />
           </div>
         ))}
@@ -29,4 +28,3 @@ const Partners: React.FC = () => {
 };
 
 export default Partners;
-

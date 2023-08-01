@@ -15,11 +15,10 @@ const initialState = {
 const ContestForm: React.FC = () => {
   const [contest, setContest] = useState(initialState);
   const [errors, setErrors] = useState(initialState);
-  const [createContest, { isLoading }] = useCreateContestMutation();
+  const [createContest, { isLoading, error }] = useCreateContestMutation();
   const [backEndError, setBackendError] = useState("");
   const router = useRouter();
   const handleCancel = () => {
-    // Todo
     router.push("/admin/contests");
   };
   const handleChange = (e: any) => {
@@ -47,7 +46,7 @@ const ContestForm: React.FC = () => {
     if (!title) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        title: "title is required",
+        title: "Title is required",
       }));
       return;
     }
@@ -63,7 +62,7 @@ const ContestForm: React.FC = () => {
     if (!description) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        description: "description is required",
+        description: "Description is required",
       }));
       return;
     }
@@ -71,7 +70,7 @@ const ContestForm: React.FC = () => {
     if (!date) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        date: "date is required",
+        date: "Date is required",
       }));
       return;
     }
@@ -79,7 +78,7 @@ const ContestForm: React.FC = () => {
     if (!time) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        time: "time is required",
+        time: "Time is required",
       }));
       return;
     }
@@ -87,25 +86,24 @@ const ContestForm: React.FC = () => {
     if (!link) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        link: "link is required",
+        link: "Link is required",
       }));
       return;
     }
-    const dateTime = `${date}T${time}:00Z`;
-    try {
-      await createContest({
-        GymId,
-        title,
-        description,
-        date: dateTime,
-        link,
-      }).unwrap();
-      // Contest creation successful, reset form fields
-      router.push("/admin/contests");
-    } catch (error: any) {
-      // Handle contest creation error
-      setBackendError(`An error occurred : ${error.data.title}`);
+    if (error) {
+      setBackendError("An error occurred while creating the contest");
+      return;
     }
+    const dateTime = `${date}T${time}:00Z`;
+    await createContest({
+      GymId,
+      title,
+      description,
+      date: dateTime,
+      link,
+    }).unwrap();
+    // Contest creation successful, reset form fields
+    router.push("/admin/contests");
   };
 
   return (
@@ -235,4 +233,3 @@ const ContestForm: React.FC = () => {
 };
 
 export default ContestForm;
-

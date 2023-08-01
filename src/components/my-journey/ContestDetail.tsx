@@ -8,6 +8,7 @@ import { SelectedContest } from "<@>/store/contest/contest-slice";
 import { useAppDispatch } from "<@>/store/hooks";
 import Error from "../common/Error";
 import { useGetContestQuery } from "<@>/store/contest/contest-api";
+import IsContestDetailLoading from "./IsContestDetailLoading";
 
 interface ContestDetailProps {
   id: string;
@@ -15,12 +16,12 @@ interface ContestDetailProps {
     SelectedContest,
     "selectedContest/setSelectedContest"
   >;
-  modal?: boolean;
+  isModalVisible?: boolean;
 }
 const ContestDetail: React.FC<ContestDetailProps> = ({
   id,
   setSelectedContest,
-  modal,
+  isModalVisible,
 }) => {
   const {
     currentData: response,
@@ -50,7 +51,7 @@ const ContestDetail: React.FC<ContestDetailProps> = ({
           ""
         )}
 
-        {!modal && (
+        {!isModalVisible && (
           <AiOutlineClose
             onClick={() => dispatch(setSelectedContest({ id: null }))}
             className="rounded-full shrink-0 mt-1 hover:bg-secondary  p-1 w-7 h-7 border"
@@ -59,19 +60,10 @@ const ContestDetail: React.FC<ContestDetailProps> = ({
       </div>
 
       {isFetching && !response ? (
-        <div className="animate-pulse flex flex-col gap-6">
-          <div className="w-36 my-4 mx-auto rounded-md  h-16 bg-slate-200"></div>
-
-          <div className="flex flex-col gap-2">
-            <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
-            <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
-            <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
-            <div className="w-72 rounded-sm h-4 bg-slate-200"></div>
-          </div>
-        </div>
+        <IsContestDetailLoading />
       ) : isSuccess ? (
         response?.error ? (
-          <Error message={"An error occured while fetching Contests"} />
+          <Error message={"An error occurred while fetching contests"} />
         ) : (
           <>
             <div className="w-full flex flex-col gap-6">
@@ -106,7 +98,7 @@ const ContestDetail: React.FC<ContestDetailProps> = ({
         )
       ) : isError ? (
         <div>
-          <Error message={"An error occured while fetching Contests"} />
+          <Error message={"An error occurred while fetching contests"} />
         </div>
       ) : (
         ""

@@ -46,10 +46,10 @@ const Stepper: React.FC<StepperProps> = ({ steps, setActiveStep }) => {
           >
             <div className="w-full flex items-center">
               <Connector
-                fill={
+                isFill={
                   areAllSubStepsTrue(step) ||
-                  (!areAllSubStepsTrue(step) &&
-                    (index === 0 || areAllSubStepsTrue(steps[index - 1])))
+                  index === 0 ||
+                  areAllSubStepsTrue(steps[index - 1])
                     ? true
                     : false
                 }
@@ -58,9 +58,9 @@ const Stepper: React.FC<StepperProps> = ({ steps, setActiveStep }) => {
             <div className="flex flex-col md:flex-row items-start gap-2 hyphens-auto">
               <div className="mt-1">
                 <CheckBox
-                  stepper
+                  isStepper
                   isCompleted={areAllSubStepsTrue(step)}
-                  active={
+                  isActive={
                     !areAllSubStepsTrue(step) &&
                     (index === 0 || areAllSubStepsTrue(steps[index - 1]))
                   }
