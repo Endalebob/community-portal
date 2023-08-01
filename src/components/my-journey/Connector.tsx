@@ -1,12 +1,12 @@
 import React from "react";
 interface ConnectorProps {
-  fill?: boolean;
+  isFill?: boolean;
 }
-const Connector: React.FC<ConnectorProps> = ({ fill }) => {
+const Connector: React.FC<ConnectorProps> = ({ isFill }) => {
   return (
     <div
       className={`flex-grow rounded-md h-1 -z-10 ${
-        fill ? "bg-primary" : "bg-secondary"
+        isFill ? "bg-primary" : "bg-secondary"
       }`}
     ></div>
   );

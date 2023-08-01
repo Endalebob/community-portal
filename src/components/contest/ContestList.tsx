@@ -9,15 +9,15 @@ import Error from "<@>/components/common/Error";
 import OverViewContests from "<@>/components/contest/OverViewContests";
 import Link from "next/link";
 import Modal from "../common/Modal";
+import IsContestLoading from "./IsContestLoading";
 
 const ContestList: React.FC = () => {
-  const { data: contests = [], error, isLoading } = useGetContestsQuery({});
+  const { data: contests, error, isLoading } = useGetContestsQuery();
   const [deleteContest, response] = useDeleteContestMutation();
   const router = useRouter();
   const role = getCookie("role");
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [selectedContestId, setSelectedContestId] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
 
   const handleDelete = async (id: any) => {
     setConfirmDelete(true);
@@ -25,12 +25,7 @@ const ContestList: React.FC = () => {
   };
 
   const handleConfirmDelete = async () => {
-    try {
-      await deleteContest(selectedContestId);
-    } catch (error) {
-      // Handle contest deletion error
-      alert(`An error occurred while deleting the contest: ${error}`);
-    }
+    await deleteContest(selectedContestId);
     setConfirmDelete(false);
     setSelectedContestId(null);
   };
@@ -41,29 +36,7 @@ const ContestList: React.FC = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="rounded-md p-4 w-full mx-auto m-12">
-        <div className="animate-pulse flex flex-row flex-wrap">
-          <div className="h-20 bg-slate-200 mt-8 w-64 rounded-xl ml-4 sm:ml-6"></div>
-          <div className="h-20 bg-slate-200 rounded-xl mt-8 w-64 ml-4 sm:ml-6"></div>
-          <div className="h-20 bg-slate-200 rounded mt-8 w-64 ml-4 sm:ml-6"></div>
-        </div>
-        <div className="animate-pulse flex space-x-4 space-y-8">
-          <div className="flex-1 space-y-6 py-1">
-            <div className="space-y-3">
-              <div className="pl-8 pr-8">
-                <div className="h-8 bg-slate-200 rounded mt-8"></div>
-                <div className="h-8 bg-slate-200 rounded mt-8"></div>
-                <div className="h-8 bg-slate-200 rounded mt-8"></div>
-                <div className="h-8 bg-slate-200 rounded mt-8"></div>
-                <div className="h-8 bg-slate-200 rounded mt-8"></div>
-                <div className="h-8 bg-slate-200 rounded mt-8"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    return <IsContestLoading />;
   }
 
   if (error) {
@@ -73,7 +46,7 @@ const ContestList: React.FC = () => {
       </div>
     );
   }
-  const contestData = contests.value;
+  const contestData = contests?.value;
   return (
     <div className="flex flex-col px-8 items-center flex-grow">
       <div className="max-w-7xl w-full">

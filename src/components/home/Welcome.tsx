@@ -5,7 +5,7 @@ import React from "react";
 const Welcome: React.FC = () => {
   return (
     <div
-      className="grid grid-cols-1 text-primary-text font-poppins lg:grid-cols-2 mx-8 md:mr-16 md:ml-16 lg:ml-28"
+      className="grid grid-cols-1 text-primary-text font-poppins lg:grid-cols-2 mx-8 md:mx-16   lg:ml-28"
       id="more"
     >
       <div className="col-span-1 mt-0 md:mt-16">
@@ -29,7 +29,7 @@ const Welcome: React.FC = () => {
           </p>
         </motion.div>
       </div>
-      <div className="grid grid-cols-1 lg:ml-16 mt-16 sm:grid-cols-2 gap-4  mx-auto lg:w-auto">
+      <div className="grid grid-cols-1 lg:ml-16 mt-16 sm:grid-cols-2 gap-4 mx-auto lg:w-auto">
         <motion.div className="h-96">
           <Image
             src="/images/home/welcome1.jpg"

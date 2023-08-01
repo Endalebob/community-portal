@@ -7,3 +7,4 @@ export default interface Contest {
   date: string;
   link: string;
 }
+

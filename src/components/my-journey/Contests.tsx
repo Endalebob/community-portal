@@ -6,6 +6,8 @@ import {
   useGetRecentContestsQuery,
   useGetUpcomingContestsQuery,
 } from "<@>/store/contest/contest-api";
+import IsRecentContestLoading from "./IsRecentContestLoading";
+import IsUpcomingContestLoading from "./IsUpcomingContestLoading";
 
 const Contests: React.FC = () => {
   const upcomingContestResponse = useGetUpcomingContestsQuery({});
@@ -15,16 +17,12 @@ const Contests: React.FC = () => {
       <div className="flex flex-col w-full gap-2">
         <p className="font-bold text-xl">Upcoming Contests</p>
         {upcomingContestResponse.isLoading ? (
-          <div className="animate-pulse w-full flex flex-col p-4 gap-2">
-            <div className="w-full rounded-md  h-20 bg-slate-200"></div>
-            <div className="w-full rounded-md  h-20 bg-slate-200"></div>
-            <div className="w-full rounded-md  h-20 bg-slate-200"></div>
-          </div>
+          <IsUpcomingContestLoading />
         ) : upcomingContestResponse.isSuccess ? (
           upcomingContestResponse.currentData?.error ? (
             <div>{upcomingContestResponse.currentData?.error}</div>
-          ) : upcomingContestResponse.currentData.value.length == 0 ? (
-            <div className="p-2">No Upcoming Contests</div>
+          ) : upcomingContestResponse.currentData.value.length === 0 ? (
+            <div className="p-2">No upcoming contests</div>
           ) : (
             upcomingContestResponse.currentData.value.map(
               (contest: Contest, index: number) => {
@@ -41,7 +39,7 @@ const Contests: React.FC = () => {
           )
         ) : upcomingContestResponse.isError ? (
           <div className="flex justify-center h-fit w-full p-4">
-            <Error message={"An error occured while fetching Contests"} />
+            <Error message={"An error occurred while fetching contests"} />
           </div>
         ) : (
           ""
@@ -51,16 +49,12 @@ const Contests: React.FC = () => {
       <div className="flex flex-col gap-2">
         <p className="font-bold text-xl">Recent Contests</p>
         {recentContestResponse.isLoading ? (
-          <div className="animate-pulse w-full flex flex-col p-4 gap-2">
-            <div className="w-full rounded-md  h-20 bg-slate-200"></div>
-            <div className="w-full rounded-md  h-20 bg-slate-200"></div>
-            <div className="w-full rounded-md  h-20 bg-slate-200"></div>
-          </div>
+          <IsRecentContestLoading />
         ) : recentContestResponse.isSuccess ? (
           recentContestResponse.currentData?.error ? (
             <div>{recentContestResponse.currentData?.error}</div>
-          ) : recentContestResponse.currentData.value.length == 0 ? (
-            <div className="p-2">No Recent Contests</div>
+          ) : recentContestResponse.currentData.value.length === 0 ? (
+            <div className="p-2">No recent contests</div>
           ) : (
             recentContestResponse.currentData.value.map(
               (contest: Contest, index: number) => {

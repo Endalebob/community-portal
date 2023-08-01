@@ -24,7 +24,7 @@ const Task: React.FC<TaskProps> = ({
   return (
     <div className="flex p-2 shadow-md rounded-md max-w-[44rem]">
       <div className="flex items-start m-4">
-        <CheckBox isCompleted={isCompleted} active={active} />
+        <CheckBox isCompleted={isCompleted} isActive={active} />
       </div>
 
       <div className="w-full flex flex-col gap-2">

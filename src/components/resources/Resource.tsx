@@ -6,15 +6,13 @@ import {
 import IResourceTopic from "<@>/types/resources/resourceListType";
 import IResource from "<@>/types/resources/resourcesType";
 import React, { useEffect, useState } from "react";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import Modal from "../common/Modal";
 import ProgressIndicator from "../common/ProgressIndicator";
-import { createMarkup } from "../common/TextEditor";
 import EditResources from "./EditResource";
-import { FiDelete, FiEdit, FiTrash, FiTrash2 } from "react-icons/fi";
 import { MdDelete, MdEdit } from "react-icons/md";
 import "react-quill/dist/quill.bubble.css";
 import dynamic from "next/dynamic";
+import IsResourceLoading from "./IsResourceLoading";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface ResourceProps {
@@ -72,36 +70,7 @@ const Resource: React.FC<ResourceProps> = ({
   }, [data, isSuccess]);
 
   if (!currentData && isFetching) {
-    return (
-      <div className="w-full p-4  animate-pulse flex flex-col gap-16">
-        <div className="flex flex-col w-full gap-2">
-          <div className="w-[80%] h-4 bg-slate-200 rounded-sm"></div>
-          <div className="w-[30%] h-4 bg-slate-200 rounded-sm"></div>
-        </div>
-
-        <div className=" flex flex-col w-full gap-12">
-          <div className="flex w-full flex-col gap-4 rounded">
-            <div className="h-4 bg-slate-200 w-1/4 "></div>
-            <div className="h-4 bg-slate-200 w-1/2"></div>
-            <div className="h-4 bg-slate-200 w-3/4"></div>
-            <div className="h-4 bg-slate-200 w-1/3"></div>
-            <div className="h-4 bg-slate-200 w-3/4"></div>
-            <div className="h-4 bg-slate-200 w-1/2"></div>
-            <div className="h-4 bg-slate-200 w-1/4"></div>
-          </div>
-          <div className="w-1/3 h-56 rounded-md bg-slate-200"></div>
-          <div className="flex w-full flex-col gap-4 rounded">
-            <div className="h-4 bg-slate-200 w-1/4 "></div>
-            <div className="h-4 bg-slate-200 w-1/2"></div>
-            <div className="h-4 bg-slate-200 w-3/4"></div>
-            <div className="h-4 bg-slate-200 w-3/4"></div>
-            <div className="h-4 bg-slate-200 w-3/4"></div>
-            <div className="h-4 bg-slate-200 w-1/2"></div>
-            <div className="h-4 bg-slate-200 w-1/4"></div>
-          </div>
-        </div>
-      </div>
-    );
+    return <IsResourceLoading />;
   }
 
   if (isError) {

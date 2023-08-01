@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ContestTimer from "./ContestCardTimer";
 import { setSelectedContest } from "<@>/store/contest/contest-slice";
 import { useAppDispatch } from "<@>/store/hooks";

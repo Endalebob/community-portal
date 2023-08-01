@@ -18,3 +18,4 @@ const contestSlice = createSlice({
 
 export const { setSelectedContest } = contestSlice.actions;
 export default contestSlice.reducer;
+

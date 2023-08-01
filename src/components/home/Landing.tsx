@@ -14,7 +14,7 @@ const Landing: React.FC = () => {
   return (
     <div className="bg-zinc-500 bg-[url(/images/home/home2.jpg)] bg-blend-multiply bg-cover bg-no-repeat bg-center min-h-screen w-full text-white flex flex-col items-center justify-center">
       <div className="text-white py-4 flex w-full px-10 md:px-20">
-        <Link className="z-50" href="/">
+        <Link href={"/"}>
           <div className="flex items-center">
             <Image
               src="/a2sv_logo_white.svg"

@@ -19,7 +19,7 @@ export const contestApiSlice = createApi({
     },
   }),
   endpoints: (builder) => ({
-    createContest: builder.mutation<any, Partial<Contest>>({
+    createContest: builder.mutation<Response, Partial<Contest>>({
       query: (contest) => ({
         url: "/Contests",
         method: "POST",
@@ -27,7 +27,7 @@ export const contestApiSlice = createApi({
       }),
       invalidatesTags: ["Contest"],
     }),
-    getContest: builder.query<any, string>({
+    getContest: builder.query<Response, string>({
       query: (id) => `/Contests/${id}`,
       providesTags: ["Contest"],
     }),
@@ -38,7 +38,7 @@ export const contestApiSlice = createApi({
       }),
       invalidatesTags: ["Contest"],
     }),
-    getContests: builder.query({
+    getContests: builder.query<Response, void>({
       query: () => "/Contests",
       providesTags: ["Contest"],
     }),
@@ -49,7 +49,7 @@ export const contestApiSlice = createApi({
       }),
       invalidatesTags: ["Contest"],
     }),
-    updateContest: builder.mutation<any, Partial<Contest>>({
+    updateContest: builder.mutation<Response, Partial<Contest>>({
       query: (contest) => ({
         url: `/Contests`,
         method: "PUT",

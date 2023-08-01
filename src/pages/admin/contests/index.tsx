@@ -21,3 +21,4 @@ const Contests = () => {
 };
 
 export default Contests;
+

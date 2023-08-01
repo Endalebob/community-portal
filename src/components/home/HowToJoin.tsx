@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
-import { IconType, icons } from "react-icons";
+import { IconType } from "react-icons";
 import {
   TbCircle1Filled,
   TbCircle2Filled,
@@ -9,8 +9,8 @@ import {
 } from "react-icons/tb";
 
 interface Step {
-  title: String;
-  description: String;
+  title: string;
+  description: string;
   icon: IconType; // Define the icon type as IconType from react-icons
 }
 const HowToJoin = () => {
@@ -72,13 +72,12 @@ const HowToJoin = () => {
           ))}
         </div>
 
-        <div className="col-span-1  items-center justify-center hidden md:flex">
+        <div className="col-span-1 items-center justify-center hidden md:flex">
           <Image
             src={"/images/home/steps.svg"}
             alt="how to join image"
             width={500}
             height={600}
-            className=""
           />
         </div>
       </div>

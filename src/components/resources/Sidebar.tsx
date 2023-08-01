@@ -22,6 +22,7 @@ import {
   FiChevronRight,
   FiPlus,
 } from "react-icons/fi";
+import IsResourcesLoading from "./IsResourcesLoading";
 
 const SideBar: React.FC = () => {
   const [selectedResource, setSelectedResource] = useState<number>(-1);
@@ -152,18 +153,7 @@ const SideBar: React.FC = () => {
         </div>
 
         {isLoading ? (
-          <div className="flex flex-col animate-pulse p-4 gap-16">
-            <div className="flex flex-col gap-4">
-              <div className="w-[60%] h-4 bg-gray-200 rounded-sm"></div>
-              <div className="w-[80%] h-4 bg-gray-200 rounded-sm"></div>
-              <div className="w-[50%] h-4 bg-gray-200 rounded-sm"></div>
-              <div className="w-[100%] h-4 bg-gray-200 rounded-sm"></div>
-              <div className="w-[80%] h-4 bg-gray-200 rounded-sm"></div>
-              <div className="w-[50%] h-4 bg-gray-200 rounded-sm"></div>
-            </div>
-
-            <div className="w-[50%] h-12 bg-gray-200 rounded-sm"></div>
-          </div>
+          <IsResourcesLoading />
         ) : isSuccess ? (
           <>
             <div className="flex flex-col">

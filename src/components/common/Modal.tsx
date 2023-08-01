@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { AiOutlineClose } from "react-icons/ai";
 type ModalProps = {
   onClose: () => void;
   children: JSX.Element;
