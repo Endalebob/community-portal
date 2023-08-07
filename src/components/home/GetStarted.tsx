@@ -12,7 +12,7 @@ const GetStarted: React.FC = () => {
     (state: RootState) => state.auth.isAuthenticated
   );
   return (
-    <div className="my-16 h-full lg:h-52 my-auto mx-auto bg-primary w-full text-white font-poppins tracking-wider leading-10">
+    <div className="my-16 h-full lg:h-52 mx-auto bg-primary w-full text-white font-poppins tracking-wider leading-10">
       <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold ml-8 md:ml-28 mt-8">
         Ready To Grow?
       </h1>

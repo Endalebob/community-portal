@@ -1,16 +1,8 @@
-import { RootState } from "<@>/store";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
-import { useSelector } from "react-redux";
 import Image from "next/image";
 
 const Landing: React.FC = () => {
-  const router = useRouter();
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
-
   return (
     <div className="bg-zinc-500 bg-[url(/images/home/home2.jpg)] bg-blend-multiply bg-cover bg-no-repeat bg-center min-h-screen w-full text-white flex flex-col items-center justify-center">
       <div className="text-white py-4 flex w-full px-10 md:px-20">
@@ -45,9 +37,11 @@ const Landing: React.FC = () => {
               Get Started
             </div>
           </Link>
-          <div className="py-2 px-8 w-40 h-10 rounded-full font-medium cursor-pointer border-2 flex justify-center items-center">
-            Learn More
-          </div>
+          <Link href={"#more"}>
+            <div className="py-2 px-8 w-40 h-10 rounded-full font-medium cursor-pointer border-2 flex justify-center items-center">
+              Learn More
+            </div>
+          </Link>
         </div>
       </div>
     </div>

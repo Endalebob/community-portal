@@ -26,6 +26,7 @@ const ContestList: React.FC = () => {
 
   const handleConfirmDelete = async () => {
     await deleteContest(selectedContestId);
+    console.log(response)
     setConfirmDelete(false);
     setSelectedContestId(null);
   };
