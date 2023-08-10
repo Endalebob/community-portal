@@ -6,8 +6,7 @@ import {
 import { useRouter } from "next/router";
 import Contest from "<@>/types/contest";
 import ProgressIndicator from "../common/ProgressIndicator";
-import IsContestLoading from "./IsContestLoading";
-import IsContestFormLoading from "./isContestFormLoading";
+import IsContestFormLoading from "./IsContestFormLoading";
 
 const initialState = {
   id: "",
@@ -24,7 +23,7 @@ const EditContestForm: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
   const {
-    data: response = [],
+    data: response,
     isError,
     isLoading,
   } = useGetContestQuery(id as string);
@@ -33,8 +32,8 @@ const EditContestForm: React.FC = () => {
   const [errors, setErrors] = useState(initialState);
 
   useEffect(() => {
-    if (response.value) {
-      const curr = response.value;
+    if (response?.value) {
+      const curr = response?.value;
       const currContest = {
         id: id as string,
         GymId: curr.GymId,
@@ -46,7 +45,7 @@ const EditContestForm: React.FC = () => {
       };
       setContest(currContest);
     }
-  }, [response.value, id]);
+  }, [response?.value, id]);
 
   const handleCancel = () => {
     router.push("/admin/contests");

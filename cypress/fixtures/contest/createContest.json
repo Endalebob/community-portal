@@ -1,0 +1,14 @@
+{
+  "isSuccess": true,
+  "error": null,
+  "value": [
+    {
+      "date": "2023-08-15T14:00:00",
+      "description": "This is a sample contest description.",
+      "id": 2,
+      "link": "https://www.example.com/sample-contest",
+      "title": "Sample Contest Title"
+    }
+  ],
+  "message": null
+}
