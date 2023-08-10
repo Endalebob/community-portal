@@ -1,19 +1,19 @@
+import React from "react";
 import { useGetUserapiQuery } from "<@>/store/auth/auth-api";
 import { setUser } from "<@>/store/auth/user-slice";
 import { useAppDispatch } from "<@>/store/hooks";
-import CustomSuccess from "<@>/types/auth/custom-success";
-import React from "react";
-import StudentDetail from "./StudentDetail";
-import { useSelector } from "react-redux";
-import { RootState } from "<@>/store";
-import ProgrammingHandles from "./ProgrammingHandles";
 import { SiCodeforces, SiGithub, SiLeetcode } from "react-icons/si";
 import { FaHackerrank } from "react-icons/fa";
+import CustomSuccess from "<@>/types/auth/custom-success";
+import StudentDetail from "./StudentDetail";
+import { RootState } from "<@>/store";
+import ProgrammingHandles from "./ProgrammingHandles";
 import ProfileCard from "./ProfileCard";
 import ProfileLoadingSkeleton from "./ProfileLoadingSkeleton";
+import { useAppSelector } from "<@>/store/hooks";
 
 const Profile = () => {
-  const applicant = useSelector((state: RootState) => state.user.user);
+  const applicant = useAppSelector((state: RootState) => state.user.user);
 
   const programmingSites = [
     {
@@ -67,9 +67,9 @@ const Profile = () => {
                 Programming site handles
               </h1>
               {programmingSites.map((item, index) => {
-                return item.handle && item.handle != null ? (
+                return item.handle && item.handle != null && (
                   <ProgrammingHandles key={index} {...item} />
-                ) : null;
+                )
               })}
             </div>
           </div>

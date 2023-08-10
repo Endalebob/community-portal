@@ -1,18 +1,17 @@
-import { RootState } from "<@>/store";
-import { useSelector } from "react-redux";
-import { CiLocationOn } from "react-icons/ci";
 import Link from "next/link";
+import { RootState } from "<@>/store";
+import { useAppSelector } from "<@>/store/hooks";
 
 const StudentDetail = () => {
-  const applicant = useSelector((state: RootState) => state.user.user);
+  const applicant = useAppSelector((state: RootState) => state.user.user);
 
   return (
     <div className=" bg-white md:col-span-3 xl:col-span-4 p-2 md:p-7 shadow-md h-full rounded-md">
       <div className="px-4 py-2 justify-between">
         <h2 className="font-medium text-xl capitalize mb-3">
-          {applicant.fullName}
+          {applicant?.fullName}
         </h2>
-        <p className="">{applicant.shortBio || ""}</p>
+        <p className="">{applicant?.shortBio || ""}</p>
       </div>
       <div className="py-4 px-4 gap-6 flex flex-col">
         {/* Basic Info */}
@@ -80,8 +79,8 @@ const StudentDetail = () => {
               </span>
 
               <span className="block text-gray-500">
-                {applicant.cv && (
-                  <Link href={applicant.cv} className="text-primary">
+                {applicant?.cv && (
+                  <Link href={applicant?.cv} className="text-primary">
                     Link
                   </Link>
                 )}

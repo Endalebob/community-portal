@@ -6,11 +6,10 @@ export const notificationApiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://a2sv-community-portal-api.onrender.com/api",
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as any).auth.token;
+      const token = getCookie("token");
       if (token) {
         headers.set("authorization", `bearer ${token}`);
       }
-      headers.set("Access-Control-Allow-Origin", "*"); // Add the CORS header
       return headers;
     },
   }),

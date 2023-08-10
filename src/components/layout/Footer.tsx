@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -16,7 +15,6 @@ function classNames(...classes: string[]) {
 
 const Footer: React.FC = () => {
   const router = useRouter();
-  const { asPath } = useRouter();
 
   const [hideNav, setHideNav] = useState<Boolean>(false);
 
@@ -24,12 +22,12 @@ const Footer: React.FC = () => {
     const urls = ["/auth/signin", "/auth/signup"];
 
     // remove footer from pages certain pages
-    if (urls.includes(asPath) || router.pathname === "/404") {
+    if (urls.includes(router.asPath) || router.pathname === "/404") {
       setHideNav(true);
     } else {
       setHideNav(false);
     }
-  }, [asPath]);
+  }, [router.asPath]);
 
   return (
     <div

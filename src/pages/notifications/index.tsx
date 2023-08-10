@@ -1,19 +1,19 @@
+
+import React, { useEffect, useState } from "react";
+import Head from "next/head";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { Notification } from "<@>/types/notifications/notifications";
+import Modal from "<@>/components/common/Modal";
+import NotificationsCard from "<@>/components/notifications/NotificationsCard";
 import {
   useGetNotificationsQuery,
   useReadAllNotificationsMutation,
 } from "<@>/store/notifications/notifications-api";
-import React, { useEffect, useState } from "react";
-import { FaRegCalendarAlt } from "react-icons/fa";
-import { Notification } from "<@>/types/notifications/notifications";
-import { createMarkup } from "<@>/components/common/TextEditor";
-import { Modak } from "next/font/google";
-import Modal from "<@>/components/common/Modal";
-import NotificationsCard from "<@>/components/notifications/NotificationsCard";
-import Head from "next/head";
+import Error from "<@>/components/common/Error";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [hasUnreadNotification, sethasUnreadNotification] =
+  const [hasUnreadNotification, setHasUnreadNotification] =
     useState<Boolean>(false);
 
   const { data, isLoading, isError, refetch } = useGetNotificationsQuery();
@@ -38,13 +38,13 @@ const Notifications = () => {
     const hasUnreadNotificationValue = notifications.some(
       (notification) => !notification.isRead
     );
-    sethasUnreadNotification(hasUnreadNotificationValue);
+    setHasUnreadNotification(hasUnreadNotificationValue);
   }, [notifications]);
 
   if (isError) {
-    <div className="justify-center items-center">
-      <p>couldn't fetch notifications.</p>
-    </div>;
+    return (
+      <Error message="couldn't fetch notifications."/>
+    );
   }
 
   const getDate = (curr_date: Date) => {

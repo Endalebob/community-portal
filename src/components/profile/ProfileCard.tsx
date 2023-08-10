@@ -1,13 +1,14 @@
-import { RootState } from "<@>/store";
 import React from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import { FaTelegram, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaTelegram, FaLinkedin} from "react-icons/fa";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { IconType } from "react-icons/lib";
 import { BiSolidUserCircle } from "react-icons/bi";
 import { setCookie } from "<@>/utils/cookie";
+import { RootState } from "<@>/store";
+
 
 interface socialIcon {
   icon: IconType;
@@ -21,23 +22,23 @@ const ProfileCard = () => {
   const socialMedia: socialIcon[] = [
     {
       icon: FaTelegram,
-      to: `https://t.me/${applicant.telegramUsername}`,
+      to: `https://t.me/${applicant?.telegramUsername}`,
     },
     {
       icon: FaLinkedin,
-      to: `https://www.linkedin.com/in/${applicant.linkedInHandle}`,
+      to: `https://www.linkedin.com/in/${applicant?.linkedInHandle}`,
     },
   ];
-  // check if the applicant has a profile picture and set profilePicture cookie
-  if (applicant.profilePicture) {
-    setCookie("profilePicture", applicant.profilePicture);
+  // check if the applicant? has a profile picture and set profilePicture cookie
+  if (applicant?.profilePicture) {
+    setCookie("profilePicture", applicant?.profilePicture);
   }
   return (
     <div className="w-96  mx-2 rounded-lg overflow-hidden bg-white shadow-md p-8">
-      {applicant.profilePicture ? (
+      {applicant?.profilePicture ? (
         <Image
           className="w-full rounded-lg aspect-square object-center object-cover"
-          src={applicant.profilePicture}
+          src={applicant?.profilePicture}
           alt="profile-picture"
           width={317}
           height={212}
@@ -48,7 +49,7 @@ const ProfileCard = () => {
         </div>
       )}
       <div className="py-4">
-        <div className="font-bold text-xl mb-2">{applicant.fullName}</div>
+        <div className="font-bold text-xl mb-2">{applicant?.fullName}</div>
       </div>
 
       <div className="flex ml-2 justify-start items-center space-x-5">

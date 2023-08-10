@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "<@>/store/hooks";
 import Link from "next/link";
 import { MdOutlineClose, MdViewHeadline } from "react-icons/md";
 import { useRouter } from "next/router";
@@ -12,11 +12,7 @@ import { IoNotificationsSharp } from "react-icons/io5";
 import { useGetNotificationsQuery } from "<@>/store/notifications/notifications-api";
 import { Notification } from "<@>/types/notifications/notifications";
 import { MdNotificationAdd } from "react-icons/md";
-import { FaSignOutAlt } from "react-icons/fa";
-import { PiSignOut } from "react-icons/pi";
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import classNames from "<@>/utils/classNames";
 
 interface NavDataType {
   student: NavItem[];
@@ -27,61 +23,64 @@ interface NavItem {
   to: string;
   current: boolean;
 }
+
+const navData: NavDataType = {
+  student: [
+    {
+      name: "Progress",
+      to: "/journey",
+      current: false,
+    },
+    {
+      name: "Resources",
+      to: "/resources",
+      current: false,
+    },
+    {
+      name: "Announcements",
+      to: "/announcements",
+      current: false,
+    },
+  ],
+  admin: [
+    {
+      name: "Groups",
+      to: "/admin/groups",
+      current: true,
+    },
+    {
+      name: "Contests",
+      to: "/admin/contests",
+      current: false,
+    },
+    {
+      name: "Announcements",
+      to: "/announcements",
+      current: false,
+    },
+    {
+      name: "Waitlist",
+      to: "/admin/waitlist",
+      current: false,
+    },
+    {
+      name: "Resources",
+      to: "/resources",
+      current: false,
+    },
+  ],
+};
+
 const NavBar: React.FC = () => {
-  const navData: NavDataType = {
-    student: [
-      {
-        name: "Progress",
-        to: "/journey",
-        current: false,
-      },
-      {
-        name: "Resources",
-        to: "/resources",
-        current: false,
-      },
-      {
-        name: "Announcements",
-        to: "/announcements",
-        current: false,
-      },
-    ],
-    admin: [
-      {
-        name: "Groups",
-        to: "/admin/groups",
-        current: true,
-      },
-      {
-        name: "Contests",
-        to: "/admin/contests",
-        current: false,
-      },
-      {
-        name: "Announcements",
-        to: "/announcements",
-        current: false,
-      },
-      {
-        name: "Waitlist",
-        to: "/admin/waitlist",
-        current: false,
-      },
-      {
-        name: "Resources",
-        to: "/resources",
-        current: false,
-      },
-    ],
-  };
+
   const { asPath } = useRouter();
   const [showNav, setShowNav] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const isAuthenticated = useSelector(
+  const isAuthenticated = useAppSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
   const [hideNav, setHideNav] = useState<Boolean>(false);
-  const role = useSelector((state: RootState) => state.auth.role);
+  const role = useAppSelector((state: RootState) => state.auth.role);
   const adminRole = "HeadOfEducation";
 
   const [navigation, setNavigation] = useState(() => {
@@ -98,9 +97,9 @@ const NavBar: React.FC = () => {
       setNavigation(navData.student);
     }
   }, [role]);
-  const { data, isLoading, isError } = useGetNotificationsQuery();
+  const { data} = useGetNotificationsQuery();
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [hasUnreadNotification, sethasUnreadNotification] =
+  const [hasUnreadNotification, setHasUnreadNotification] =
     useState<Boolean>(false);
 
   const showProfileRef = useRef<HTMLDivElement>(null);
@@ -132,7 +131,7 @@ const NavBar: React.FC = () => {
     );
   }, [asPath]);
 
-  const auth = useSelector((state: RootState) => state.auth);
+  const auth = useAppSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -185,7 +184,7 @@ const NavBar: React.FC = () => {
     const hasUnreadNotificationValue = notifications.some(
       (notification) => !notification.isRead
     );
-    sethasUnreadNotification(hasUnreadNotificationValue);
+    setHasUnreadNotification(hasUnreadNotificationValue);
   }, [notifications]);
 
   return (
