@@ -1,14 +1,12 @@
 {
   "isSuccess": true,
   "error": null,
-  "value": [
-    {
-      "date": "2023-08-10T14:30:00Z",
-      "description": "Contest Description",
-      "id": 1,
-      "link": "https://example.com",
-      "title": "Contest Title"
-    }
-  ],
+  "value": {
+    "date": "2023-08-10T14:30:00Z",
+    "description": "Contest Description",
+    "id": 1,
+    "link": "https://example.com",
+    "title": "Contest Title"
+  },
   "message": null
 }

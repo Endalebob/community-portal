@@ -20,14 +20,25 @@ describe("<ContestForm />", () => {
 
   it("displays the form and handles form submission", () => {
     // Fill in form fields
+    cy.get("form").submit();
+    cy.contains("Title is required").should("be.visible");
     cy.get("#title").type("Sample Contest Title");
+    cy.get("form").submit();
+    cy.contains("Gym Id is required").should("be.visible");
     cy.get("#GymId").type("123");
+    cy.get("form").submit();
+    cy.contains("Description is required").should("be.visible");
     cy.get("#description").type("This is a sample contest description.");
+    cy.get("form").submit();
+    cy.contains("Date is required").should("be.visible");
     cy.get("#date").type("2023-08-15");
+    cy.get("form").submit();
+    cy.contains("Time is required").should("be.visible");
     cy.get("#time").type("14:00");
+    cy.get("form").submit();
+    cy.contains("Link is required").should("be.visible");
     cy.get("#link").type("https://www.example.com/sample-contest");
 
-    // Submit the form
     cy.intercept(
       "POST",
       "https://a2sv-community-portal-api.onrender.com/api/Contests",
