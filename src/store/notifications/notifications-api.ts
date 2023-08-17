@@ -1,4 +1,5 @@
 import { Response } from "<@>/types/response";
+import { getCookie } from "<@>/utils/cookie";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
 export const notificationApiSlice = createApi({

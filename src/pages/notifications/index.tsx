@@ -58,6 +58,8 @@ const Notifications = () => {
 
   // notifications card popup
 
+  console.log(data)
+
   return (
     <>
       <Head>
