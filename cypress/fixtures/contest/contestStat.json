@@ -1,0 +1,10 @@
+{
+  "isSuccess": true,
+  "error": null,
+  "value": {
+    "totalContest": 5,
+    "currentContests": 1,
+    "upcomingContests": 1
+  },
+  "message": null
+}

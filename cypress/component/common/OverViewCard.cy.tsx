@@ -1,7 +1,7 @@
 import OverViewCard from "<@>/components/common/OverViewCard";
 import { mount } from "cypress/react18";
 import React from "react";
-import { BsPerson, BsPersonWorkspace } from "react-icons/bs";
+import { BsPerson } from "react-icons/bs";
 
 describe("OverViewCard Component", () => {
   it("renders the card with provided props", () => {
@@ -17,5 +17,4 @@ describe("OverViewCard Component", () => {
     cy.get(".text-secondary-text").should("contain", "Total Users");
   });
 
-  // Add more tests as needed
 });

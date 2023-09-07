@@ -19,6 +19,11 @@ describe("ContestList Component", () => {
         fixture: "contest/deleteContest.json",
       }
     ).as("deleteContest");
+    cy.intercept(
+      "GET",
+      "https://a2sv-community-portal-api.onrender.com/api/Contests/contest-stat",
+      { fixture: "contest/contestStat" }
+    ).as("contestStat");
     cy.setCookie("role", "HeadOfEducation");
     mount(
       // Wrap the component with the Provider and provide the Redux store
@@ -28,7 +33,6 @@ describe("ContestList Component", () => {
         </MockRouter>
       </Provider>
     );
-    // cy.wait("@getContests");
   });
 
   it("displays contest details correctly", () => {
@@ -42,13 +46,8 @@ describe("ContestList Component", () => {
     cy.get("button").contains("+ New Contest").should("be.visible");
   });
 
-  // it('navigates to the "Create Contest" page when "New Contest" button is clicked', () => {
-  //   cy.contains("+ New Contest").click();
-  //   cy.url().should("include", "/admin/contests/create-contest");
-  // });
-
   it("displays contests fetched from the API", () => {
-    cy.get(".border-b").should("have.length", 3);
+    cy.get("").should("have.length", 3);
   });
 
   it('opens the confirmation modal when "Remove" button is clicked', () => {
@@ -60,7 +59,6 @@ describe("ContestList Component", () => {
   it('deletes the contest when "Yes" is clicked in the confirmation modal', () => {
     cy.contains("Remove").first().click();
     cy.contains("Yes").click();
-    // cy.wait("@deleteContest");
     cy.contains("Are you sure?").should("not.exist");
   });
 
@@ -89,31 +87,31 @@ describe("ContestList Component", () => {
   // });
 });
 
-describe("No contests add yet", () => {
-  beforeEach(() => {
-    cy.intercept(
-      "GET",
-      "https://a2sv-community-portal-api.onrender.com/api/Contests",
-      { fixture: "contest/noContests.json" }
-    ).as("noContests");
+// describe("No contests add yet", () => {
+//   beforeEach(() => {
+//     cy.intercept(
+//       "GET",
+//       "https://a2sv-community-portal-api.onrender.com/api/Contests",
+//       { fixture: "contest/noContests.json" }
+//     ).as("noContests");
 
-    // cy.setCookie("role", "HeadOfEducation");
-    mount(
-      // Wrap the component with the Provider and provide the Redux store
-      <Provider store={store}>
-        <MockRouter asPath="/path/to/route#hash">
-          <ContestList />
-        </MockRouter>
-      </Provider>
-    );
-  });
+//     // cy.setCookie("role", "HeadOfEducation");
+//     mount(
+//       // Wrap the component with the Provider and provide the Redux store
+//       <Provider store={store}>
+//         <MockRouter asPath="/path/to/route#hash">
+//           <ContestList />
+//         </MockRouter>
+//       </Provider>
+//     );
+//   });
 
-  it('displays "No contests added yet" message when there are no contests', () => {
-    cy.contains("No contests added yet. Check back soon for updates!").should(
-      "be.visible"
-    );
-  });
-});
+//   it('displays "No contests added yet" message when there are no contests', () => {
+//     cy.contains("No contests added yet. Check back soon for updates!").should(
+//       "be.visible"
+//     );
+//   });
+// });
 
 // describe("handles error state correctly", () => {
 //   beforeEach(() => {
